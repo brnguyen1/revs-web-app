@@ -3,8 +3,12 @@
 ## What to Download
 If you want to work/run the project, you need to install node.js and npm on your device.  Head to https://nodejs.org/en/ to download all the appropriate files for your system.
 
+## Setting up backend and frontend
+navigate into backend folder and run ```npm install``` to install dependencies
+Do the same for the frontend
+
 ## How to Run the App
-In order to run the app, you need to be inside the ```revs-app``` directory.
+In order to run the app, you need to be inside the ```front/revs-app``` directory.
 
 Once inside the project folder, run the command: ```cd revs-app```
 
