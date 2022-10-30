@@ -1,4 +1,4 @@
-# CSCE315_Project3
+# Rev's Web Application
 
 ## What to Download
 If you want to work/run the project, you need to install node.js and npm on your device.  Head to https://nodejs.org/en/ to download all the appropriate files for your system.
