@@ -2,6 +2,7 @@ import './App.css';
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
 import Customer from './routes/Customer';
 
+// Act as router for project
 function App() {
   return (
     <Router>
