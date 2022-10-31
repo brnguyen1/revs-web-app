@@ -4,7 +4,9 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  queries.query();
+  queries.query().then(data =>{
+    res.send(data.rows);
+  });
 });
 
 module.exports = router;

@@ -9,10 +9,8 @@ const pool = new Pool({
     ssl: {rejectUnauthorized: false}
 });
 
-function query(){
-    pool.query('select * from orders;').then(res =>{
-        console.log(res.rows);
-    })
+async function query(){
+    return pool.query('select * from orders;')
 }
 
 module.exports = {query}
