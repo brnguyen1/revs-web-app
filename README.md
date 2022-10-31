@@ -4,20 +4,41 @@
 If you want to work/run the project, you need to install node.js and npm on your device.  Head to https://nodejs.org/en/ to download all the appropriate files for your system.
 
 ## Setting up backend and frontend
-navigate into backend folder and run ```npm install``` to install dependencies
-Do the same for the frontend
-
-## How to Run the App
-In order to run the app, you need to be inside the ```front/revs-app``` directory.
-
-Once inside the project folder, run the command: ```cd revs-app```
-
 Make sure you have downloaded all the necessary files to be able to run and work with the source code.
 
-To do this run the command:```npm install```
+To do this navigate into backend folder and run ```npm install``` to install dependencies
+
+Do the same for the frontend
+
+## How to run backend
+In order to run the app, you need to be inside the ```backend``` directory
+
+Once inside the directory run ```npm install```
+
+The application will render on localhost:4173 or whatever port is defined in you .env file
+
+## How to Run the Frontend
+In order to run the app, you need to be inside the ```frontend/revs-app``` directory.
+
+Once inside the project folder, run the command: ```cd revs-app```
 
 This command will install all the packages that our application's source code is dependent upon.
 
 To run the app, run the command: ```npm start```
 
 The application will render on localhost:3000 or a similar port on your computer's default browser.
+
+## Environment Variables
+This is needed for the backend to connect to the database
+
+Navigate into the backend to create a ```.env``` file
+
+In the .env file add the following:
+
+```
+PSQL_HOST = <database host>
+PSQL_USER = <database user>
+PSQL_DATABASE = <database name>
+PSQL_PASSWORD = <database password>
+PSQL_PORT = 5432
+```
