@@ -21,7 +21,6 @@ In order to run the app, you need to be inside the ```frontend/revs-app``` direc
 
 Once inside the project folder, run the command: ```cd revs-app```
 
-This command will install all the packages that our application's source code is dependent upon.
 
 To run the app, run the command: ```npm start```
 
