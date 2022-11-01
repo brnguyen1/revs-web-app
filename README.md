@@ -8,12 +8,11 @@ Make sure you have downloaded all the necessary files to be able to run and work
 
 To do this navigate into backend folder and run ```npm install``` to install dependencies
 
-Do the same for the frontend
-
+For the frontend navigate into ```frontend/revs-app``` folder and run ```npm install``` to install dependencies
 ## How to run backend
 In order to run the app, you need to be inside the ```backend``` directory
 
-Once inside the directory run ```npm install```
+Once inside the directory run ```npm start```
 
 The application will render on localhost:4173 or whatever port is defined in you .env file
 
