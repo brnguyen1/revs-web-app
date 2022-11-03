@@ -1,8 +1,12 @@
 steps:
-- name: 'gcr.io/cloud-builders/npm'
+- name: node
+  entrypoint: npm
   args: ['install']
-
-- name: 'gcr.io/cloud-builders/npm'
+- name: node
+  entrypoint: npm
+  args: ['test']
+- name: node
+  entrypoint: npm
   args: ['run', 'build']
 
 - name: 'gcr.io/revs-367100/firebase'
