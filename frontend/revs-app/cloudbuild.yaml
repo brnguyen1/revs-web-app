@@ -10,4 +10,4 @@ steps:
   dir: 'frontend/revs-app'
 
 - name: 'gcr.io/revs-367100/firebase'
-  args: ['deploy', '--project=revs-367100', '--only=hosting']
+  args: ['deploy']
