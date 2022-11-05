@@ -33,7 +33,7 @@ const EmployeeLoginPage = () => {
     let navigate = useNavigate(); 
         
     const routeChange = () =>{ 
-        let path = '/testemployeepage'; 
+        let path = '/ordermenu'; 
         navigate(path);
       }
     function handleSubmit(event) {

@@ -4,6 +4,7 @@ import Customer from './routes/Customer';
 import Orders from './routes/Orders';
 import EmployeeLogin from './routes/EmployeeLogin';
 import TestEmployeePage from './routes/TestEmployee';
+import OrderMenu from './routes/OrderMenu';
 import Checkout from './routes/Checkout';
 import Server from './routes/Server';
 
@@ -17,6 +18,7 @@ function App() {
         <Route path="/server" element={<Server/>} />
         <Route path="/employeelogin" element={<EmployeeLogin />} />
         <Route path="/testemployeepage" element={<TestEmployeePage />} />
+        <Route path="/ordermenu" element={<OrderMenu />} />
         <Route path="/checkout" element={<Checkout />} />
       </Routes>
     </Router>
