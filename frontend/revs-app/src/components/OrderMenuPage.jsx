@@ -1,5 +1,5 @@
 import CustomerHeader from "./CustomerHeader";
-import Cart from './Cart';
+import Order from './Order';
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Card from 'react-bootstrap/Card';
@@ -38,7 +38,7 @@ function handlePress(event) {
 
 
 
-const CheckoutPage = () => {
+const OrderMenuPage = () => {
     const [items, setItems] = useState([]);
     const addToCart = (item) => {
         const validitem = items.find((i) => i.id === item.id);
@@ -66,16 +66,10 @@ const CheckoutPage = () => {
     };
     const renderCards = (arr) => {
         return arr.map((i) => {
-          return <Card style={{ width: '18rem' }} className="row">
-          <Card.Img variant="top" src="holder.js/100px180" />
+          return <Card style={{ width: '9rem' }} className="row">
           <Card.Body>
             <Card.Title>{i.name}</Card.Title>
-            <Card.Text>
-            Description of menu item
-            </Card.Text>
-            <Card.Text>
-            {i.price}$
-            </Card.Text>
+           
             <Button onClick = {() => addToCart(i)}>Add to order</Button>
           </Card.Body>
         </Card>
@@ -86,11 +80,11 @@ const CheckoutPage = () => {
             <CustomerHeader />
             
             <div>Checkout Page</div>
-            <Cart
+            <Order
           items={items}
           addToCart={addToCart}
           removeFromCart={removeFromCart}
-        ></Cart>
+        ></Order>
             <div>{renderCards(menu_items)}</div>
            
         </div>
@@ -98,4 +92,4 @@ const CheckoutPage = () => {
     
 }
 
-export default CheckoutPage;
+export default OrderMenuPage;
