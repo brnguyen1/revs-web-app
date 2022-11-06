@@ -4,7 +4,7 @@ import axios from 'axios'
 import "bootstrap/dist/css/bootstrap.min.css";
 
 
-function EntityArray(props) {
+function EntityTable(props) {
     const [TData, setTData] = useState([]);
     const [headers, setHeaders] = useState([]);
 
@@ -37,7 +37,7 @@ function EntityArray(props) {
         </th>
     )
 
-//
+
     const tableItems = Object.values(TData).map((rows, i) => {
         return (
             <tr key={i}>
@@ -74,4 +74,4 @@ function EntityArray(props) {
     );
 }
 
-export default EntityArray;
+export default EntityTable;
