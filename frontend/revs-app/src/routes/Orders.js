@@ -1,14 +1,17 @@
 import EntityTable from "../components/EntityTable"
 
 import "bootstrap/dist/css/bootstrap.min.css";
-import CustomerHeader from "../components/CustomerHeader";
+import EmployeeHeader from "../components/EmployeeHeader";
 
 function Orders() {
     return (
         <div>
-            <CustomerHeader />
+            <EmployeeHeader />
+            <div>View Orders</div>
             <div className="container w-100">
+            
                 <div className="table-responsive text-nowrap w-100">
+
                     <EntityTable entityName="orders" />
                 </div>
             </div>
@@ -16,4 +19,4 @@ function Orders() {
     );
 }
 
-export default Orders
+export default Orders;
