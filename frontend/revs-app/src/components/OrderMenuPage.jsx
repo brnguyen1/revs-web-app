@@ -1,4 +1,5 @@
-import CustomerHeader from "./CustomerHeader";
+
+import EmployeeHeader from "./EmployeeHeader";
 import Order from './Order';
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
@@ -77,9 +78,9 @@ const OrderMenuPage = () => {
       };
     return (
         <div>
-            <CustomerHeader />
+            <EmployeeHeader />
             
-            <div>Checkout Page</div>
+            <div>Order Creation Page</div>
             <Order
           items={items}
           addToCart={addToCart}

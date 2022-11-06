@@ -1,24 +1,22 @@
 import EntityTable from "../components/EntityTable"
 
-
 import "bootstrap/dist/css/bootstrap.min.css";
 import EmployeeHeader from "../components/EmployeeHeader";
 
-
-function Orders() {
+function MenuItems() {
     return (
         <div>
             <EmployeeHeader />
-            <div>View Orders</div>
+            <div>View Menu Items</div>
             <div className="container w-100">
             
                 <div className="table-responsive text-nowrap w-100">
 
-                    <EntityTable entityName="orders" />
+                    <EntityTable entityName="menu" />
                 </div>
             </div>
         </div>
     );
 }
 
-export default Orders;
+export default MenuItems;

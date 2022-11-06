@@ -7,6 +7,7 @@ import TestEmployeePage from './routes/TestEmployee';
 import OrderMenu from './routes/OrderMenu';
 import Checkout from './routes/Checkout';
 import Server from './routes/Server';
+import MenuItems from './routes/MenuItems';
 
 // Act as router for project
 function App() {
@@ -20,6 +21,7 @@ function App() {
         <Route path="/testemployeepage" element={<TestEmployeePage />} />
         <Route path="/ordermenu" element={<OrderMenu />} />
         <Route path="/checkout" element={<Checkout />} />
+        <Route path="/menuitems" element={<MenuItems />} />
       </Routes>
     </Router>
   );
