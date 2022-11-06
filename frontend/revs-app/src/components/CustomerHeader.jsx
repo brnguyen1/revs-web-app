@@ -4,9 +4,9 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 const CustomerHeader = () => {
     return (
-        <nav class="navbar bg-light">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="/">
+        <nav className="navbar bg-light">
+            <div className="container-fluid">
+                <a className="navbar-brand" href="/">
                     Rev's American Grill
                 </a>
                 <div class="d-flex justify-content-between">
