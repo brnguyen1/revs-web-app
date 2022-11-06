@@ -37,7 +37,7 @@ function EntityArray(props) {
         </th>
     )
 
-
+//
     const tableItems = Object.values(TData).map((rows, i) => {
         return (
             <tr key={i}>
