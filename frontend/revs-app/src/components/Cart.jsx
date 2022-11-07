@@ -22,7 +22,7 @@ export default function Cart(props){
               </div>
   
               <div className="col-2 text-right">
-                {item.qty} x ${item.price.toFixed(2)}
+                {item.qty} x ${Number(item.price).toFixed(2)}
               </div>
             </div>
           ))}

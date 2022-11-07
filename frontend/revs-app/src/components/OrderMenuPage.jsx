@@ -37,7 +37,7 @@ function parse_data() {
             // let iter = new MenuItem(array[0], array[1], array[2], array[3], array[4]);
 
             // array.push({id: object_array[0], name: object_array[1], price: object_array[3]});
-            array.push({id: field.id, name: field.description, cost: field.price})
+            array.push({id: field.id, name: field.description, price: field.cost})
         
         }
         //console.log(tmp_rows)
