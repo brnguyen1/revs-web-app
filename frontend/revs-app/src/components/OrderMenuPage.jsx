@@ -118,12 +118,14 @@ const OrderMenuPage = () => {
             <div class="d-flex justify-content-center mt-4">
                 <h4>Order Creation Page</h4>
             </div>
-            <div class="d-flex mt-5 me-5 ms-5">
-                <Order
-                    items={items}
-                    addToCart={addToCart}
-                    removeFromCart={removeFromCart}
-                ></Order>
+            <div class="mt-5 me-5 ms-5">
+                <div class="mb-5">
+                    <Order
+                        items={items}
+                        addToCart={addToCart}
+                        removeFromCart={removeFromCart}
+                    ></Order>
+                </div>
                 <div class="d-flex flex-wrap justify-content-evenly align-contents-around">
                     {renderCards(menu_items)}
                 </div>
