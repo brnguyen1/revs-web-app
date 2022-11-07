@@ -37,21 +37,22 @@ function EntityTable(props) {
         return res
     }
 
-    function parse_data() {
-        fetch_data().then(res => {
-            let tmp_headers = []
-            for (const [idx, field] of Object.entries(res.data.fields)) {
-                tmp_headers.push(field.name)
-            }
-            setHeaders(tmp_headers)
-            setTData(res.data.rows)
-            setLoading(false)
-        })
-    }
-
     useEffect(() => {
+
+        function parse_data() {
+            fetch_data().then(res => {
+                let tmp_headers = []
+                for (const [idx, field] of Object.entries(res.data.fields)) {
+                    tmp_headers.push(field.name)
+                }
+                setHeaders(tmp_headers)
+                setTData(res.data.rows)
+                setLoading(false)
+            })
+        }
+
         parse_data();
-    }, [parse_data]);
+    }, []);
 
     const tableHeaders = headers.map((header) =>
         <th scope={header} key={header} className="col-md-2">
@@ -67,6 +68,14 @@ function EntityTable(props) {
                     let input;
                     if (Array.isArray(col)) {
                         input = <ArrayDropdown items={col} id={idx} />
+                    }
+                    else if(typeof col === 'boolean'){
+                        if(col){
+                            input = "True" 
+                        }
+                        else{
+                            input = "False"
+                        }
                     }
                     else {
                         input = col
