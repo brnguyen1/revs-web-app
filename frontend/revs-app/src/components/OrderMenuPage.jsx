@@ -100,7 +100,7 @@ const OrderMenuPage = () => {
     const renderCards = (arr) => {
         return arr.map((i) => {
             return (
-                <div class="card text-center w-25">
+                <div class="card text-center w-25 me-1 mb-4">
                     <div class="card-body">
                         <h6 class="card-title">
                             {i.name}
@@ -118,13 +118,13 @@ const OrderMenuPage = () => {
             <div class="d-flex justify-content-center mt-4">
                 <h4>Order Creation Page</h4>
             </div>
-            <div class="d-flex mt-5">
+            <div class="d-flex mt-5 me-5 ms-5">
                 <Order
                     items={items}
                     addToCart={addToCart}
                     removeFromCart={removeFromCart}
                 ></Order>
-                <div class="d-flex flex-wrap justify-content-between align-contents-around">
+                <div class="d-flex flex-wrap justify-content-evenly align-contents-around">
                     {renderCards(menu_items)}
                 </div>
             </div>
