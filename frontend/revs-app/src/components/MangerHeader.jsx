@@ -17,7 +17,7 @@ const ManagerHeader = () => {
                     <Link role="button" to="/restockreport" class="btn btn-outline-secondary me-3">Restock Report</Link>
                     <Link role="button" to="/menuitems" class="btn btn-outline-secondary me-3">Menu Items</Link>
                     <Link role="button" to="/additems" class="btn btn-outline-secondary me-3">Add Items</Link>
-                    <Link role="button" to="/updateitems" class="btn btn-outline-secondary me-3">Update Itemsss</Link>
+                    <Link role="button" to="/updateitems" class="btn btn-outline-secondary me-3">Update Items</Link>
                 </div>
             </div>
         </nav>
