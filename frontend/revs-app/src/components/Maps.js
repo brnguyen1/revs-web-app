@@ -34,7 +34,9 @@ function Maps() {
   }, [])
 
   return isLoaded ? (
+    
     <center>
+        <h1>Google Maps API</h1>
       <GoogleMap
         mapContainerStyle={containerStyle}
         center={center}
