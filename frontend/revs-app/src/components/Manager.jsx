@@ -1,4 +1,5 @@
 import ManagerHeader from "./MangerHeader";
+import React from 'react'
 
 const Manager = () => {
     return(

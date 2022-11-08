@@ -1,4 +1,5 @@
 import MangerPage from "../components/Manager";
+import React from 'react'
 
 const Manager = () => {
     return (

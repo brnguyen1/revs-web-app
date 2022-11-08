@@ -1,4 +1,4 @@
-
+import React from 'react'
 
 function Maps() {
     let map_src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyDfNjTUiHor5frrxETqjmmRFPlQFbxAkro&callback=initMap'

@@ -1,4 +1,5 @@
 import SalesReport from "../components/SalesReport";
+import React from 'react'
 
 const SalesReport = () => {
     return (

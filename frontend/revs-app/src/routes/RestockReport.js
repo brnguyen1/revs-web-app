@@ -1,4 +1,5 @@
 import RestockReport from "../components/RestockReport";
+import React from 'react'
 
 const RR = () => {
     return (

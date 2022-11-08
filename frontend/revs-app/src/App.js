@@ -15,6 +15,7 @@ import ER from './components/ExcessReport';
 import RR from './components/RestockReport';
 import ADD from './components/AddItems';
 import Update from './components/UpdateItems';
+import React from 'react'
 
 // Act as router for project
 function App() {

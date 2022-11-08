@@ -1,5 +1,5 @@
 import EntityTable from "../components/EntityTable"
-
+import React from 'react'
 import "bootstrap/dist/css/bootstrap.min.css";
 import EmployeeHeader from "../components/EmployeeHeader";
 
