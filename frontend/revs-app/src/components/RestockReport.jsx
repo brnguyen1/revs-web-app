@@ -1,8 +1,9 @@
 import React from 'react'
+import ManagerHeader from "./MangerHeader";
 const RR = () =>{
     return (
         <div>
-            <div>Restock Report</div>
+            <ManagerHeader/>
         </div>
     )
 }
