@@ -1,9 +1,10 @@
 import React from 'react'
+import ManagerHeader from "./MangerHeader";
 const WST = () => {
     
     return(
         <div>
-            <div>what sales together</div>
+            <ManagerHeader/>
         </div>
     )
 }
