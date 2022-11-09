@@ -1,6 +1,4 @@
 import React from 'react'
-import { Map, GoogleApiWrapper } from 'google-maps-react';
-
 import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
 
 const containerStyle = {
@@ -22,7 +20,6 @@ function Maps() {
   const [map, setMap] = React.useState(null)
 
   const onLoad = React.useCallback(function callback(map) {
-    // This is just an example of getting and using the map instance!!! don't just blindly copy!
     const bounds = new window.google.maps.LatLngBounds(center);
     map.fitBounds(bounds);
 
@@ -40,12 +37,12 @@ function Maps() {
       <GoogleMap
         mapContainerStyle={containerStyle}
         center={center}
-        zoom={10}
+        zoom={5}
         onLoad={onLoad}
         mapTypeId='satellite'
         onUnmount={onUnmount}
       >
-        { /* Child components, such as markers, info windows, etc. */ }
+        { /*CUSTOMIZE MAP HERE WIP */ }
         <></>
       </GoogleMap>
       </center>
