@@ -53,7 +53,7 @@ const EmployeeLoginPage = () => {
                         />
                     </Form.Group>
                     <div class="mt-5 d-flex justify-content-center">
-                        <Button block size="lg" type="submit" disabled={!validateForm()}>
+                        <Button block size="lg" type="submit">
                             Login
                         </Button>
                     </div>
