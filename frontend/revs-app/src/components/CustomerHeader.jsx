@@ -13,8 +13,8 @@ const CustomerHeader = () => {
                 </a>
                 </b>
                 <div class="d-flex justify-content-between">
-                    <Link role="button" to="/" class="btn bg-light btn-outline-secondary me-3">Home</Link>
-                    <Link role="button" to="/employeelogin" class="btn bg-light btn-outline-secondary me-3">Employee Login</Link>
+                    <Link role="button" to="/" class="btn bg-dark btn-outline-light me-3">Home</Link>
+                    <Link role="button" to="/employeelogin" class="btn bg-dark btn-outline-light me-3">Employee Login</Link>
                     <Link role="button" to="/checkout" class="btn btn-danger">Checkout</Link>
                 </div>
             </div>
