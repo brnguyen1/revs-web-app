@@ -5,14 +5,16 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 const ManagerHeader = () => {
     return(
-        <nav class="navbar bg-light">
+        <nav class="navbar bg-grey bg-secondary">
             <div class="container-fluid">
+                <b>
                 <a class="navbar-brand" href="/">
                     Rev's American Grill - Manager Options
                 </a>
+                </b>
                 <div class="d-flex justify-content-between">
-                    <Link role="button" to="/ordermenu" class="btn btn-outline-secondary me-3">Server Portal</Link>
-                    <Link role="button" to="/employeelogin" class="btn btn-outline-secondary me-3">Logout</Link>
+                    <Link role="button" to="/ordermenu" class="btn bg-light btn-outline-secondary me-3">Server Portal</Link>
+                    <Link role="button" to="/employeelogin" class="btn bg-light btn-outline-secondary me-3">Logout</Link>
                 </div>
             </div>
         </nav>

@@ -1,4 +1,4 @@
-import ManagerHeader from "./MangerHeader";
+import ManagerHeader from "./ManagerHeader";
 import React from 'react'
 import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
