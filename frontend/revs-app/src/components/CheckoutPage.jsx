@@ -1,8 +1,8 @@
 import CustomerHeader from "./CustomerHeader";
 import Cart from './Cart';
-import Form from "react-bootstrap/Form";
+// import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import Card from 'react-bootstrap/Card';
+// import Card from 'react-bootstrap/Card';
 import React from 'react'
 import { useState } from 'react';
 // import {Card} from '@mui/material';
@@ -47,23 +47,23 @@ function parse_data() {
         // setHeaders(tmp_headers)
         // setTData(res.data.rows)
         //console.log(res.data.rows)
-       
-        
+
+
         // data.push(parse_data());
         // let tmp_rows = []
-        for(const [idx, field] of Object.entries(res.data.rows)){
+        for (const [idx, field] of Object.entries(res.data.rows)) {
             //var row =  res.data.rows[idx];
             // let object_array = Object.values(row);
             // let iter = new MenuItem(array[0], array[1], array[2], array[3], array[4]);
 
             // array.push({id: object_array[0], name: object_array[1], price: object_array[3]});
-            array.push({id: field.id, name: field.description, price: field.cost})
-        
+            array.push({ id: field.id, name: field.description, price: field.cost })
+
         }
         //console.log(tmp_rows)
         // return tmp_rows;
         // for(var i = 0; i < tmp_rows.length(); i++){
-            
+
         // }
 
     })
@@ -80,7 +80,7 @@ let menu_items = array;
 
 
 function handlePress(event) {
-        
+
     console.log('Hey there clicker!');
     event.preventDefault();
 
@@ -93,11 +93,11 @@ const CheckoutPage = () => {
     const addToCart = (item) => {
         const validitem = items.find((i) => i.id === item.id);
         if (validitem) {
-        setItems(
-            items.map((i) =>
-                i.id === item.id ? { ...validitem, qty: validitem.qty + 1 } : i
-            )
-        );
+            setItems(
+                items.map((i) =>
+                    i.id === item.id ? { ...validitem, qty: validitem.qty + 1 } : i
+                )
+            );
         } else {
             setItems([...items, { ...item, qty: 1 }]);
         }
@@ -105,47 +105,57 @@ const CheckoutPage = () => {
     const removeFromCart = (item) => {
         const validitem = items.find((i) => i.id === item.id);
         if (validitem.qty === 1) {
-        setItems(items.filter((i) => i.id !== item.id));
+            setItems(items.filter((i) => i.id !== item.id));
         } else {
-        setItems(
-            items.map((i) =>
-            i.id === item.id ? { ...validitem, qty: validitem.qty - 1 } : i
-            )
-        );
+            setItems(
+                items.map((i) =>
+                    i.id === item.id ? { ...validitem, qty: validitem.qty - 1 } : i
+                )
+            );
         }
     };
     const renderCards = (arr) => {
         return arr.map((i) => {
-          return <Card style={{ width: '18rem' }} className="row">
-          <Card.Img variant="top" src="holder.js/100px180" />
-          <Card.Body>
-            <Card.Title>{i.name}</Card.Title>
-            <Card.Text>
-            Description of menu item
-            </Card.Text>
-            <Card.Text>
-            {i.price}$
-            </Card.Text>
-            <Button onClick = {() => addToCart(i)}>Add to order</Button>
-          </Card.Body>
-        </Card>
+            return (
+                <div class="card text-center w-25 me-1 mb-4">
+                    <img src="holder.js/100px180" alt="image" />
+                    <div class="card-body">
+                        <h6 class="card-title">
+                            {i.name}
+                        </h6>
+                        <p class="card-text">
+                            Description of Menu Item
+                        </p>
+                        <p class="card-text">
+                            ${i.price}
+                        </p>
+                        <Button onClick={() => addToCart(i)}>Add to order</Button>
+                    </div>
+                </div>
+            )
         });
-      };
+    };
     return (
         <div>
             <CustomerHeader />
-            
-            <div>Checkout Page</div>
-            <Cart
-          items={items}
-          addToCart={addToCart}
-          removeFromCart={removeFromCart}
-        ></Cart>
-            <div>{renderCards(menu_items)}</div>
-           
+            <div class="d-flex justify-content-center mt-4">
+                <h4>Checkout Page</h4>
+            </div>
+            <div class="mt-5 me-5 ms-5">
+                <div class="mb-5">
+                    <Cart
+                        items={items}
+                        addToCart={addToCart}
+                        removeFromCart={removeFromCart}
+                    ></Cart>
+                </div>
+                <div class="d-flex flex-wrap justify-content-evenly align-contents-around">
+                    {renderCards(menu_items)}
+                </div>
+            </div>
         </div>
     )
-    
+
 }
 
 export default CheckoutPage;
