@@ -1,4 +1,5 @@
 import React from 'react'
+import PlaceAnOrder from '../components/PlaceAnOrder';
 import CustomerHeader from '../components/CustomerHeader'
 import Maps from '../components/Maps';
 
@@ -7,6 +8,7 @@ function Customer() {
     return (
         <div>
             <CustomerHeader />
+            <PlaceAnOrder />
             <Maps />
         </div>
     )

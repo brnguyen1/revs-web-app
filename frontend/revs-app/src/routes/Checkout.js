@@ -1,10 +1,11 @@
-import CheckoutPage from "../components/CheckoutPage";
 import React from 'react'
+import CustomerHeader from '../components/CustomerHeader';
 
 const Checkout = () => {
     return (
         <div>
-            <CheckoutPage />
+            <CustomerHeader />
+            I am the checkout page.
         </div>
     )
 }
