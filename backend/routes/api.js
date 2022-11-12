@@ -1,41 +1,21 @@
 var express = require('express');
+const app = require('../app');
 var queries = require('../services/queries')
 var router = express.Router();
 
+//endpoints
+const inventoryRouter = require('./inventory.js')
+const ordersRouter = require('./orders.js')
+const menuRouter = require('./menu.js')
+const queueRouter = require('./queue.js')
+const serverRouter = require('./server.js')
+
 /* GET orders */
-router.get('/orders', function(req, res) {
-  var entity = "orders"
-  queries.select_all_query(entity).then(data =>{
-    res.json(data);
-  });
-});
+app.use('/orders', ordersRouter);
+app.use('/inventory', inventoryRouter);
+app.use('/menu', menuRouter);
+app.use('/queue', queueRouter);
+app.use('/server', serverRouter);
 
-router.get('/queue', function(req, res) {
-  var entity = "queue"
-  queries.select_all_query(entity).then(data =>{
-    res.json(data);
-  });
-});
-
-router.get('/server', function(req, res) {
-  var entity = "server"
-  queries.select_all_query(entity).then(data =>{
-    res.json(data);
-  });
-});
-
-router.get('/menu', function(req, res) {
-  var entity = "menu"
-  queries.select_all_query(entity).then(data =>{
-    res.json(data);
-  });
-});
-
-router.get('/inventory', function(req, res) {
-  var entity = "inventory"
-  queries.select_all_query(entity).then(data =>{
-    res.json(data);
-  });
-});
 
 module.exports = router;
