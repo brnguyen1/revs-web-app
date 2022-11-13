@@ -11,11 +11,11 @@ const queueRouter = require('./queue.js')
 const serverRouter = require('./server.js')
 
 /* GET orders */
-app.use('/orders', ordersRouter);
-app.use('/inventory', inventoryRouter);
-app.use('/menu', menuRouter);
-app.use('/queue', queueRouter);
-app.use('/server', serverRouter);
+router.use('/orders', ordersRouter);
+router.use('/inventory', inventoryRouter);
+router.use('/menu', menuRouter);
+router.use('/queue', queueRouter);
+router.use('/server', serverRouter);
 
 
 module.exports = router;
