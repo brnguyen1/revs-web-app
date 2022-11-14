@@ -94,8 +94,8 @@ const ArrayDropdown = (props) => {
     }
 
     return (
-        <div className="dropdown" onMouseEnter={toggleDrop} onMouseLeave={toggleDrop}>
-            <button type="button" className="btn btn-secondary" id={props.id} data-togle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <div className="dropdown" >
+            <button type="button" onMouseEnter={toggleDrop} onMouseLeave={toggleDrop} className="btn btn-secondary" id={props.id} data-togle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Items
             </button>
             <div className={menuClass} aria-labelledby={props.id}>
