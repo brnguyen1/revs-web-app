@@ -67,18 +67,24 @@ function EntityModal(props) {
             </Button>
         </Modal.Footer>
 
+    const updateTitle = <Modal.Title>Update/Delete</Modal.Title>
+
+    const addTitle = <Modal.Title>Add</Modal.Title>
+
     return (
         <>
             <Modal show={props.show} onHide={props.handleClose}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Modal heading</Modal.Title>
+                    {props.task === "update" ? updateTitle : null}
+                    {props.task === "add" ? addTitle : null}
                 </Modal.Header>
                 <Modal.Body>
                     <Form>
-                        {<ModalBody/>}
+                        {<ModalBody />}
                     </Form>
                 </Modal.Body>
-                {props.task === "update" ? updateFooter : addFooter}
+                {props.task === "update" ? updateFooter : null}
+                {props.task === "add" ? addFooter : null}
             </Modal>
         </>
     );
@@ -194,7 +200,7 @@ function EntityTable(props) {
     const dataTable =
         <div>
             <EntityModal task="update" item={selectedObject} show={showUpdateModal} handleClose={closeUpdateModal} />
-            <EntityModal task="add" headers={headers} show={showAddModal} handleClose={closeAddModal}/>
+            <EntityModal task="add" headers={headers} show={showAddModal} handleClose={closeAddModal} />
             <Button variant="primary" onClick={openAddModal}> Add New Item </Button>
 
             <table className="table table-hover table-sm table-bordered">
