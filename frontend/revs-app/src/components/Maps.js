@@ -1,51 +1,15 @@
 import React from 'react'
 import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
 
-const containerStyle = {
-  width: '100%',
-  height: '50%'
-};
-
-const center = {
-  lat: 30.612552,
-  lng: -96.341326
-};
 
 function Maps() {
-  const { isLoaded } = useJsApiLoader({
-    id: 'google-map-script',
-    googleMapsApiKey: "AIzaSyDfNjTUiHor5frrxETqjmmRFPlQFbxAkro"
-  })
-
-  const [map, setMap] = React.useState(null)
-
-  const onLoad = React.useCallback(function callback(map) {
-    const bounds = new window.google.maps.LatLngBounds(center);
-    map.fitBounds(bounds);
-
-    setMap(map)
-  }, [])
-
-  const onUnmount = React.useCallback(function callback(map) {
-    setMap(null)
-  }, [])
-
-  return isLoaded ? (
+  return (
     <div className="h-100 mt-4">
+      <center>
       <h4>Google Maps API</h4>
-      <GoogleMap
-        mapContainerStyle={containerStyle}
-        center={center}
-        zoom={5}
-        onLoad={onLoad}
-        mapTypeId='satellite'
-        onUnmount={onUnmount}
-      >
-        { /*CUSTOMIZE MAP HERE WIP */}
-        <></>
-      </GoogleMap>
+        <iframe width = "550" height = "350" src= "https://www.google.com/maps/embed/v1/place?q=place_id:ChIJlb7tVZiDRoYRJ6E4_nDMyKY&key=AIzaSyDfNjTUiHor5frrxETqjmmRFPlQFbxAkro"></iframe>
+      </center>
     </div>
-  ) : <></>
+  );
 }
-
 export default React.memo(Maps)
