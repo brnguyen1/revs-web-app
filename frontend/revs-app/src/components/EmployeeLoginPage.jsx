@@ -30,10 +30,10 @@ const EmployeeLoginPage = () => {
     return (
         <div>
             <CustomerHeader />
-            <h4 class="text-center mt-4">Employee Login Page</h4>
-            <div class="d-flex justify-content-center mt-5">
+            <h4 className="text-center mt-4">Employee Login Page</h4>
+            <div className="d-flex justify-content-center mt-5">
                 <Form onSubmit={handleSubmit}>
-                    <div class="mb-3">
+                    <div className="mb-3">
                         <Form.Group size="lg" controlId="username">
                             <Form.Label>Username</Form.Label>
                             <Form.Control
@@ -52,7 +52,7 @@ const EmployeeLoginPage = () => {
                             onChange={(e) => setPassword(e.target.value)}
                         />
                     </Form.Group>
-                    <div class="mt-5 d-flex justify-content-center">
+                    <div className="mt-5 d-flex justify-content-center">
                         <Button block size="lg" type="submit">
                             Login
                         </Button>
