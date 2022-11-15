@@ -9,10 +9,12 @@ function Customer() {
         <div>
             <CustomerHeader />
             <div className="row">
-                <div className="col-8">
+                <div className="col-12">
                     <OrderMenuPage />
                 </div>
-                <div className="col-4">
+                <break></break>
+                <div className="col-12">
+                  
                     <Maps />
                 </div>
             </div>
