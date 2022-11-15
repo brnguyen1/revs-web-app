@@ -43,7 +43,6 @@ function EntityModal(props) {
         }
     }
 
-    // Modal footers
     const updateFooter =
         <Modal.Footer>
             <Button variant="secondary" onClick={props.handleClose}>
@@ -57,18 +56,19 @@ function EntityModal(props) {
             </Button>
         </Modal.Footer>
 
+
     const addFooter =
         <Modal.Footer>
             <Button variant="secondary" onClick={props.handleClose}>
                 Close
             </Button>
             <Button variant="primary">
-                Add
+                Delete
             </Button>
         </Modal.Footer>
 
-    // Modal headers
     const updateTitle = <Modal.Title>Update/Delete</Modal.Title>
+
     const addTitle = <Modal.Title>Add</Modal.Title>
 
     return (
@@ -152,11 +152,14 @@ function EntityTable(props) {
         setSelectedObject(item)
         setShowUpdateModal(true)
     }
+
     const closeUpdateModal = () => setShowUpdateModal(false)
 
     // Add modal function
     const openAddModal = () => setShowAddModal(true)
     const closeAddModal = () => setShowAddModal(false)
+
+
 
     const tableHeaders = headers.map((header) =>
         <th scope={header} key={header} className="col-md-2">
