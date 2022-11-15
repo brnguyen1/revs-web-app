@@ -1,5 +1,5 @@
-import CustomerHeader from "./CustomerHeader";
 import React from 'react';
+
 export default function Cart(props){
     const {items, addToCart, removeFromCart} = props;
     const itemsCost = items.reduce((x, y) => x + y.qty * y.price, 0);

@@ -20,13 +20,18 @@ function App() {
   return (
     <Router>
       <Routes>
+        {/* Customer Routes */}
         <Route exact path="/" element={<Customer />} />
         <Route path="/orders" element={<Orders />} />
+        <Route path="/checkout" element={<Checkout />} />
+
+        {/* Employee Routes */}
         <Route path="/server" element={<Server />} />
         <Route path="/employeelogin" element={<EmployeeLogin />} />
         <Route path="/testemployeepage" element={<TestEmployeePage />} />
+
+        {/* Manager Routes */}
         <Route path="/ordermenu" element={<OrderMenu />} />
-        <Route path="/checkout" element={<Checkout />} />
         <Route path="/menuitems" element={<MenuItems />} />
         <Route path="/manager" element={<Manager />} />
         <Route path="/WST" element={<WST />} />

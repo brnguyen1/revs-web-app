@@ -2,8 +2,8 @@ import React from 'react'
 import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
 
 const containerStyle = {
-  width: '500px',
-  height: '500px'
+  width: '100%',
+  height: '50%'
 };
 
 const center = {
@@ -31,9 +31,8 @@ function Maps() {
   }, [])
 
   return isLoaded ? (
-    
-    <center>
-        <h4>Google Maps API</h4>
+    <div className="h-100 mt-4">
+      <h4>Google Maps API</h4>
       <GoogleMap
         mapContainerStyle={containerStyle}
         center={center}
@@ -42,10 +41,10 @@ function Maps() {
         mapTypeId='satellite'
         onUnmount={onUnmount}
       >
-        { /*CUSTOMIZE MAP HERE WIP */ }
+        { /*CUSTOMIZE MAP HERE WIP */}
         <></>
       </GoogleMap>
-      </center>
+    </div>
   ) : <></>
 }
 

@@ -15,4 +15,9 @@ async function select_all_query(entity) {
     return pool.query(query)
 }
 
+async function select_one(entity, id){
+    const query = format("SELECT * FROM %I WHERE id = %I", entity, id)
+    return pool.query(query)
+}
+
 module.exports = { select_all_query }

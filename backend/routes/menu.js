@@ -9,4 +9,10 @@ router.get('/', function (req, res) {
     });
 });
 
+router.get('/:id', function (req, res) {
+    var entity = "menu"
+    queries.select_all_query(entity).then(data => {
+        res.json(data);
+    });
+});
 module.exports = router;

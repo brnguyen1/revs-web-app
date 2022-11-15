@@ -1,4 +1,3 @@
-import CustomerHeader from "./CustomerHeader";
 import React from 'react';
 export default function Order(props) {
   const { items, addToCart, removeFromCart } = props;
