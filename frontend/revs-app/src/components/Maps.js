@@ -2,13 +2,13 @@ import React from 'react'
 import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
 
 const containerStyle = {
-  width: '100%',
-  height: '50%'
+  width: '150%',
+  height: '300%'
 };
 
 const center = {
-  lat: 30.612552,
-  lng: -96.341326
+  lat: 30.61253,
+  lng: -96.34074
 };
 
 function Maps() {
@@ -21,7 +21,7 @@ function Maps() {
 
   const onLoad = React.useCallback(function callback(map) {
     const bounds = new window.google.maps.LatLngBounds(center);
-    map.fitBounds(bounds);
+    //map.fitBounds(bounds);
 
     setMap(map)
   }, [])
@@ -30,15 +30,20 @@ function Maps() {
     setMap(null)
   }, [])
 
+  const revMarker = new window.google.maps.Marker({
+    position:center,
+    map:map,
+    label:"Rev's American Grill"
+  })
+
   return isLoaded ? (
     <div className="h-100 mt-4">
       <h4>Google Maps API</h4>
       <GoogleMap
         mapContainerStyle={containerStyle}
         center={center}
-        zoom={5}
+        zoom={17}
         onLoad={onLoad}
-        mapTypeId='satellite'
         onUnmount={onUnmount}
       >
         { /*CUSTOMIZE MAP HERE WIP */}
