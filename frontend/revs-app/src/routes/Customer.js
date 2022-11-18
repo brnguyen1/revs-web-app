@@ -10,7 +10,7 @@ function Customer() {
             <CustomerHeader />
             <div className="row">
                 <div className="col-12">
-                    <OrderMenuPage />
+                    <OrderMenuPage type ="customer"/>
                 </div>
                 <break></break>
                 <div className="col-12">
