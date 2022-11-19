@@ -2,17 +2,14 @@ var express = require('express');
 var router = express.Router();
 var queries = require('../services/queries')
 
+let entity = "menu"
+
 router.get('/', function (req, res) {
-    var entity = "menu"
-    queries.select_all_query(entity).then(data => {
-        res.json(data);
-    });
+    queries.select_all_query(entity, res)
 });
 
 router.get('/:id', function (req, res) {
-    var entity = "menu"
-    queries.select_all_query(entity).then(data => {
-        res.json(data);
-    });
-});
+     queries.select_one_query(entity, req.params.id, res)
+})
+
 module.exports = router;
