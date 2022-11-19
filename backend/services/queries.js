@@ -60,4 +60,4 @@ async function delete_one_query(entity, id, req, res){
 }
 
 
-module.exports = { select_all_query, select_one_query, add_one_query }
+module.exports = { select_all_query, select_one_query, add_one_query, update_one_query, delete_one_query }
