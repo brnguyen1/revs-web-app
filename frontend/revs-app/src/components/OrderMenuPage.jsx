@@ -6,37 +6,63 @@ import { useState, useEffect } from 'react';
 import Card from 'react-bootstrap/Card';
 import './Styles.css';
 import axios from 'axios'
+import Form from 'react-bootstrap/Form';
+import Modal from 'react-bootstrap/Modal';
+
+const renderButtons = (arr) => {
+    
+        
+    return arr.map((i) => {
+        return (
+            
+            <Button >{i.description}</Button>
+             
+        )
+    });                
+}
 
 // Get menu items from backend then create cards from menu items
+const OrderModal = ({open, onClose, item, ingredients}) => {
+    if(!open) return null
+    return(
+        <>
 
-const ArrayDropdown = (props) => {
-    const [isOpen, setOpen] = useState(false)
-    const menuClass = `dropdown-menu${isOpen ? " show" : ""}`;
-
-    const toggleDrop = () => {
-        setOpen(!isOpen)
-    }
-
-    return (
-        <div className="dropdown" >
-            <button type="button" onMouseEnter={toggleDrop} onMouseLeave={toggleDrop} className="btn btn-secondary" id={props.id} data-togle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Items
-            </button>
-            <div className={menuClass} aria-labelledby={props.id}>
-                {props.items.map(val =>
-                    <button className="dropdown-item">{val}</button>
-                )}
-            </div>
-        </div>
+        <Modal
+            show={open}
+            onHide={onClose}
+            // backdrop="static"
+            keyboard={false}
+        >
+            <Modal.Header closeButton>
+            <Modal.Title>{item.name}</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+            Will add options for each menu item
+            {renderButtons(ingredients.arr)}
+            
+            </Modal.Body>
+            <Modal.Footer>
+            <Button variant="secondary" onClick={onClose}>
+                Close
+            </Button>
+            <Button variant="primary">Understood</Button>
+            </Modal.Footer>
+        </Modal>
+        </>
     )
 }
 
+    
+
 
 const OrderMenuPage = (props) => {
+    const [selectedItem, setSelectedItem] = useState([]);
+    const [selectedIngredients, setSelectedIngredients] = useState([]);
     const [items, setItems] = useState([]);
     const [menuOptions, setMenuOptions] = useState([]);
     const [Ingredients, setIngredients] = useState([]);
     const [Inventory, setInventory] = useState([]);
+    const [openOrderModal, setOpenOrderModal] = useState(false);
     useEffect(() => {
         async function fetch_data() {
             var endpoint = 'http://localhost:4173/menu'
@@ -62,7 +88,6 @@ const OrderMenuPage = (props) => {
                 setMenuOptions(menu_data)
                 setIngredients(ingredients)
 
-
             })
             fetch_inventory().then(res => {
                 let inventory = [];
@@ -78,6 +103,8 @@ const OrderMenuPage = (props) => {
 
         parse_data();
     }, [])
+
+
 
     const addToCart = (item) => {
         const validitem = items.find((i) => i.id === item.id);
@@ -105,12 +132,10 @@ const OrderMenuPage = (props) => {
         }
     };
 
-    const itemOptionsPopUp = (id) => {
-
-    }
 
     const renderCards = (arr, type) => {
         if(type === "customer"){
+            
             return arr.map((i) => {
                 return (
                     // <div className="card text-center w-25 me-1 mb-4" key={i.id} onClick={() => addToCart(i)}>
@@ -122,7 +147,10 @@ const OrderMenuPage = (props) => {
                     //         {/* <Button onClick={() => addToCart(i)}>Add to order Customer</Button> */}
                     //     </div>
                     // </div>
-                    <Card style={{ width: '18rem' }} className="card text-center w-25 me-1 mb-4" key={i.id} onClick={() => addToCart(i)}>
+    
+                    
+                    
+                    <Card style={{ width: '18rem' }} className="card text-center w-25 me-1 mb-4" key={i.id} onClick = {() => {setOpenOrderModal(true); setSelectedItem(i); setSelectedIngredients(Ingredients.find(element => element.id === i.id));}}>
                     <Card.Img variant="top" src="holder.js/100px180" />
                     <Card.Body>
                       <Card.Title>{i.name}</Card.Title>
@@ -132,7 +160,11 @@ const OrderMenuPage = (props) => {
                       <Card.Text>
                         Replace with item description from database also add image for product
                       </Card.Text>
-                      <Button onClick={() => addToCart(i)}>Add to order</Button>
+                      <div onClick={(e)=>{
+                        e.stopPropagation()
+                      }}>
+                         <Button onClick={() => addToCart(i)}>Add to order</Button>
+                      </div>
                     </Card.Body>
                   </Card>
                 )
@@ -171,6 +203,7 @@ const OrderMenuPage = (props) => {
                 </div>
                 <div className="d-flex flex-wrap justify-content-evenly align-contents-around">
                     {renderCards(menuOptions, props.type)}
+                    <OrderModal open = {openOrderModal} onClose = {()=>setOpenOrderModal(false)} item = {selectedItem} ingredients = {selectedIngredients}/>
                 </div>
             </div>
         </div>
