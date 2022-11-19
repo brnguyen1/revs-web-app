@@ -15,7 +15,9 @@ const renderButtons = (arr) => {
     return arr.map((i) => {
         return (
             
-            <Button >{i.description}</Button>
+           <div> <Button >{i}</Button>
+           
+           </div>
              
         )
     });                
@@ -32,12 +34,16 @@ const OrderModal = ({open, onClose, item, ingredients}) => {
             onHide={onClose}
             // backdrop="static"
             keyboard={false}
+            size="modal-dialog modal-xl"
+            // dialogClassName="overlay"
+            class="modal"
+            
         >
             <Modal.Header closeButton>
             <Modal.Title>{item.name}</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-            Will add options for each menu item
+            
             {renderButtons(ingredients.arr)}
             
             </Modal.Body>
@@ -47,7 +53,11 @@ const OrderModal = ({open, onClose, item, ingredients}) => {
             </Button>
             <Button variant="primary">Understood</Button>
             </Modal.Footer>
+
+
         </Modal>
+
+    
         </>
     )
 }
