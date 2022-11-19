@@ -20,4 +20,14 @@ async function select_one(entity, id){
     return pool.query(query)
 }
 
+async function update(entity, field, updated_data, id){
+    const query = format("UPDATE %I SET I% = %L WHERE ID = %I", entity, field, updated_data, id)
+    return pool.query(query)
+}
+
+async function delete_item(entity, id){
+    const query = format("DELETE FROM %I WHERE ID = %I", entity, id)
+    return pool.query(query)
+}
+
 module.exports = { select_all_query }
