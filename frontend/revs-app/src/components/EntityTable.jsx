@@ -6,6 +6,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import "bootstrap/dist/css/bootstrap.min.css";
+import "../static/css/EntityTable.css"
 
 // Add, update, delete popup
 function EntityModal(props) {
@@ -13,7 +14,8 @@ function EntityModal(props) {
 
     //------------------------- Component Initialization -------------------------//
     useEffect(() => {
-        setItemData(props.item)
+        let item = {...props.item}
+        setItemData(item)
     }, [props.item])
 
 
@@ -23,30 +25,79 @@ function EntityModal(props) {
     }
 
     //------------------------- Form Functions -------------------------//
-    const updateData = (event) => {
+    const updateDataText = (event) => {
         itemData[event.target.name] = event.target.value
-        console.log(itemData[event.target.name])
+        console.log(props.item)
     }
 
+    const updateDataArray = (event) => {
+        itemData[event.target.name][event.target.index] = event.target.value
+    }
+
+    function removeDataArrayItem(key, index) {
+        let item = { ...itemData }
+        item[key].splice(index, 1)
+        setItemData(item)
+    }
+
+    function addDataArrayItem(key) {
+        let item = { ...itemData }
+        item[key].push("")
+        setItemData(item)
+    }
 
     //------------------------- Modal Content -------------------------//
     const ModalBody = () => {
-        if (itemData) {
+        if (props.task === "update") {
             return (
+                // Consider if object is array
                 Object.entries(itemData).map((data, index) => {
+                    var formField = <></>
+                    if (Array.isArray(data[1])) {
+                        formField = data[1].map((item, index) => {
+                            return (
+                                <div className="row" key={index} >
+                                    <div className="col-10">
+                                        <Form.Control type="text" name={data[0]} index={index} defaultValue={item} onChange={updateDataArray} />
+                                    </div>
+                                    <div className='col-2'>
+                                        <Button variant='secondary' onClick={() => removeDataArrayItem(data[0], index)}>X</Button>
+                                    </div>
+                                    <br />
+                                </div>
+                            )
+                        })
+
+                        formField =
+                            <div key={index}>
+                                {formField}
+                                <Button onClick={() => addDataArrayItem(data[0])}>+</Button>
+                            </div>
+
+                    }
+                    else {
+                        formField =
+                            <Form.Control type="text" name={data[0]} defaultValue={data[1]} onChange={updateDataText} />
+                    }
+
                     return (
-                        <Form.Group key={index}>
-                            <Form.Label>
-                                {data[0]}
-                            </Form.Label>
-                            <br />
-                            <Form.Control type="text" name={data[0]} defaultValue={data[1]} onChange={updateData} />
-                        </Form.Group>
+                        <div className='row' key={index}>
+                            <Form.Group >
+                                <Form.Label>
+                                    {data[0]}
+                                </Form.Label>
+                                <br />
+
+                                {formField}
+                            </Form.Group>
+                        </div>
                     )
                 })
             )
         }
-        else if (props.headers) {
+
+        // 
+        else if (props.task === "add") {
             return (
                 props.headers.map((header, index) => {
                     return (
@@ -65,25 +116,20 @@ function EntityModal(props) {
 
     const updateFooter =
         <Modal.Footer>
-            <Button variant="secondary" onClick={props.handleClose}>
-                Close
-            </Button>
-            <Button variant="danger">
+            <Button variant="danger me-3">
                 Delete
             </Button>
-            <Button variant="success">
+            <Button variant="success me-3">
                 Update
             </Button>
+
         </Modal.Footer>
 
 
     const addFooter =
         <Modal.Footer>
-            <Button variant="secondary" onClick={props.handleClose}>
-                Close
-            </Button>
             <Button variant="primary">
-                Delete
+                Add
             </Button>
         </Modal.Footer>
 
@@ -99,9 +145,11 @@ function EntityModal(props) {
                     {props.task === "add" ? addTitle : null}
                 </Modal.Header>
                 <Modal.Body>
-                    <Form>
-                        {<ModalBody />}
-                    </Form>
+                    <div className='container-fluid clearfix'>
+                        <Form>
+                            {<ModalBody />}
+                        </Form>
+                    </div>
                 </Modal.Body>
                 {props.task === "update" ? updateFooter : null}
                 {props.task === "add" ? addFooter : null}
@@ -125,8 +173,8 @@ const ArrayDropdown = (props) => {
                 Items
             </button>
             <div className={menuClass} aria-labelledby={props.id}>
-                {props.items.map(val =>
-                    <button className="dropdown-item">{val}</button>
+                {props.items.map((val, index) =>
+                    <button key={index} className="dropdown-item">{val}</button>
                 )}
             </div>
         </div>
@@ -135,12 +183,12 @@ const ArrayDropdown = (props) => {
 
 function EntityTable(props) {
     // Table data 
-    const [TData, setTData] = useState([]);
+    const [TData, setTData] = useState({});
     const [headers, setHeaders] = useState([]);
     const [isLoading, setLoading] = useState(true);
     // update modal vaues
     const [showUpdateModal, setShowUpdateModal] = useState(false);
-    const [selectedObject, setSelectedObject] = useState([]);
+    const [selectedObject, setSelectedObject] = useState({});
 
     //add modal values
     const [showAddModal, setShowAddModal] = useState(false);
@@ -155,9 +203,9 @@ function EntityTable(props) {
         function parse_data() {
             fetch_data().then(res => {
                 let tmp_headers = []
-                Object.keys(res.data[0]).map(field =>
+                Object.keys(res.data[0]).map(field => {
                     tmp_headers.push(field)
-                )
+                })
                 setHeaders(tmp_headers)
                 setTData(res.data)
                 setLoading(false)
