@@ -6,7 +6,6 @@ import React, { Component } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { signIn, signOut } from "../actions";
 import GoogleAuth from "./GoogleAuth";
 
 const EmployeeLoginPage = () => {

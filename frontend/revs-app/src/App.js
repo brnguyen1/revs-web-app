@@ -14,6 +14,7 @@ import SalesReport from './components/SalesReport';
 import ER from './components/ExcessReport';
 import RR from './components/RestockReport';
 import React from 'react'
+import Auth from './components/GoogleAuth'
 
 // Act as router for project
 function App() {

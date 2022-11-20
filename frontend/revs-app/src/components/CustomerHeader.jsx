@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import React from 'react'
 import "bootstrap/dist/css/bootstrap.min.css";
+import GoogleAuth, {isSignedIn} from "./GoogleAuth.js"
 
 const CustomerHeader = () => {
     return (
@@ -17,6 +18,8 @@ const CustomerHeader = () => {
                     <Link role="button" to="/employeelogin" className="btn bg-dark btn-outline-light me-3">Employee Login</Link>
                     <Link role="button" to="/checkout" className="btn btn-danger">Checkout</Link>
                 </div>
+
+
             </div>
         </nav>
     )

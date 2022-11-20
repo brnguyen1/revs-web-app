@@ -19,7 +19,7 @@ const EmployeeHeader = () => {
                     <Link role="button" to="/menuitems" className="btn bg-dark btn-outline-light me-3">View Menu Items</Link>
                     <Link role="button" to="/employeelogin" className="btn bg-dark btn-outline-light me-3">Logout</Link>
                     <Link role="button" to="/manager" className="btn  bg-dark btn-outline-light me-3">Manager Portal</Link>
-                
+                    
                 </div>
             </div>
         </nav>
