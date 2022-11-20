@@ -30,16 +30,19 @@ async function select_one_query(entity, id, res) {
 
 async function add_one_query(entity, req, res) {
     let values = Object.values(req.body).map(val => {
-        console.log(val)
+        if(Array.isArray(val)){
+            let arrayString = val.join('\",\"')
+            arrayString = '{\"' + arrayString + '\"}'
+            return arrayString
+        }
+        return val
     })
 
-    const query = format("INSERT INTO %I (%L) WHERE VALUES (%L)", entity, Object.keys(req.body), Object.values(req.body))
+    const query = format("INSERT INTO %I(%I) VALUES(%L)", entity, Object.keys(req.body), values)
     console.log(query)
     res.send("Nice post")
     return pool.query(query, function (err, data) {
-        if (err) return console.log("Query Error");
-
-        res.json(data.rows)
+        if (err) return console.log("Query Error %s", err);
     })
 }
 
