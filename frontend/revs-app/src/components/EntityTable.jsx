@@ -48,8 +48,8 @@ function EntityModal(props) {
         itemData[event.target.name] = event.target.value
     }
 
-    const updateDataArray = (event) => {
-        itemData[event.target.name][event.target.index] = event.target.value
+    const updateDataArray = (key, index, value) => {
+        itemData[key][index] = value
     }
 
     function removeDataArrayItem(key, index) {
@@ -60,7 +60,6 @@ function EntityModal(props) {
 
     function addDataArrayItem(key) {
         let item = { ...itemData }
-        console.log(item)
         item[key].push("")
         setItemData(item)
     }
@@ -71,7 +70,7 @@ function EntityModal(props) {
             return (
                 <div className="row" key={index} >
                     <div className="col-10">
-                        <Form.Control type="text" name={props.data[0]} index={index} defaultValue={item} onChange={updateDataArray} />
+                        <Form.Control type="text" indexValue={index} name={props.data[0]} defaultValue={item} onChange={(e) => updateDataArray(props.data[0], index, e.target.value)} />
                     </div>
                     <div className='col-2'>
                         <Button variant='secondary' onClick={() => removeDataArrayItem(props.data[0], index)}>X</Button>
@@ -133,7 +132,7 @@ function EntityModal(props) {
                                 {header[0]}
                             </Form.Label>
                             <br />
-                            {header[1] === "array" ? <ModalArray data={[header[0], itemData[header[0]]]} key={index} /> : <Form.Control type="text" onChange={updateDataText} />}
+                            {header[1] === "array" ? <ModalArray data={[header[0], itemData[header[0]]]} /> : <Form.Control name={header[0]} type="text" defaultValue={itemData[header[0]]} onChange={updateDataText} />}
                         </Form.Group>
                     )
                 })

@@ -29,7 +29,10 @@ async function select_one_query(entity, id, res) {
 }
 
 async function add_one_query(entity, req, res) {
-    console.log(req.body)
+    let values = Object.values(req.body).map(val => {
+        console.log(val)
+    })
+
     const query = format("INSERT INTO %I (%L) WHERE VALUES (%L)", entity, Object.keys(req.body), Object.values(req.body))
     console.log(query)
     res.send("Nice post")
