@@ -16,7 +16,6 @@ function EntityModal(props) {
     useEffect(() => {
         if (props.item) {
             let item = { ...props.item }
-            delete item["id"]
             setItemData(item)
         }
         else {
@@ -29,7 +28,6 @@ function EntityModal(props) {
                     item[header[0]] = "";
                 }
             })
-            delete item["id"]
             setItemData(item)
         }
     }, [props.item, props.headers])
@@ -94,10 +92,12 @@ function EntityModal(props) {
             return (
                 // Consider if object is array
                 Object.entries(itemData).map((data, index) => {
-                    if (data[0] === "id") return null;
-
                     var formField = <></>
-                    if (Array.isArray(data[1])) {
+                    if(data[0] === "id"){
+                        formField =
+                            <Form.Control type="text" name={data[0]} defaultValue={data[1]} disabled />
+                    }
+                    else if (Array.isArray(data[1])) {
                         formField = <ModalArray data={data} key={index} />
                     }
                     else {
@@ -125,7 +125,7 @@ function EntityModal(props) {
         else if (props.task === "add") {
             return (
                 Object.entries(props.headers).map((header, index) => {
-                    if (header[0] === "id") return null;
+                    if(header[0] === "id") return null;
                     return (
                         <Form.Group key={index}>
                             <Form.Label>
