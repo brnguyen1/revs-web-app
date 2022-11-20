@@ -57,13 +57,13 @@ async function update_one_query(entity, updated_data, id, req, res) {
 }
 
 async function delete_one_query(entity, req, res) {
-    console.log(req.body)
-    const query = format("DELETE FROM %I WHERE ID = %L", entity, req.body.id)
+    console.log(req.params)
+    const query = format("DELETE FROM %I WHERE ID = %L", entity, req.params.id)
     
-    return pool.query(query, function (err, data) {
-        if (err) return console.log("Query Error %s", err);
-    })
-    res.send("Nice post - deleted one item with id: " + req.body.id)
+    // return pool.query(query, function (err, data) {
+    //     if (err) return console.log("Query Error %s", err);
+    // })
+    res.send("Nice post - deleted one item with id: " + req.params.id)
 }
 
 

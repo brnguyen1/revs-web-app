@@ -44,14 +44,14 @@ function EntityModal(props) {
 
     const deleteItem = () => {
         console.log(itemData)
-        axios.delete('http://localhost:4173/' + props.entityName + '/delete', itemData).then(res =>
+        axios.delete('http://localhost:4173/' + props.entityName + '/' + itemData["id"]).then(res =>
             console.log(res)
         )
     }
 
     const updateItem = () => {
         console.log(itemData)
-        axios.update('http://localhost:4173/' + props.entityName, itemData).then(res =>
+        axios.put('http://localhost:4173/' + props.entityName, itemData).then(res =>
             console.log(res)
         )
     }
