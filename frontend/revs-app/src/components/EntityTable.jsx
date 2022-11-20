@@ -9,18 +9,38 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 // Add, update, delete popup
 function EntityModal(props) {
+    const [itemData, setItemData] = useState({});
 
+    //------------------------- Component Initialization -------------------------//
+    useEffect(() => {
+        setItemData(props.item)
+    }, [props.item])
+
+
+    //------------------------- API Requests -------------------------//
+    const addItem = () => {
+
+    }
+
+    //------------------------- Form Functions -------------------------//
+    const updateData = (event) => {
+        itemData[event.target.name] = event.target.value
+        console.log(itemData[event.target.name])
+    }
+
+
+    //------------------------- Modal Content -------------------------//
     const ModalBody = () => {
-        if (props.item) {
+        if (itemData) {
             return (
-                Object.entries(props.item).map((data, index) => {
+                Object.entries(itemData).map((data, index) => {
                     return (
                         <Form.Group key={index}>
                             <Form.Label>
                                 {data[0]}
                             </Form.Label>
                             <br />
-                            <Form.Control type="text" defaultValue={data[1]} />
+                            <Form.Control type="text" name={data[0]} defaultValue={data[1]} onChange={updateData} />
                         </Form.Group>
                     )
                 })
@@ -135,11 +155,11 @@ function EntityTable(props) {
         function parse_data() {
             fetch_data().then(res => {
                 let tmp_headers = []
-                Object.values(res.data.fields).map(field =>
-                    tmp_headers.push(field.name)
+                Object.keys(res.data[0]).map(field =>
+                    tmp_headers.push(field)
                 )
                 setHeaders(tmp_headers)
-                setTData(res.data.rows)
+                setTData(res.data)
                 setLoading(false)
             })
         }

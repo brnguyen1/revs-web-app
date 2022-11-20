@@ -90,7 +90,7 @@ const OrderMenuPage = (props) => {
                 let menu_data = [];
                 let ingredients = [];
                 
-                Object.values(res.data.rows).forEach(field => {
+                Object.values(res.data).forEach(field => {
                     menu_data.push({ id: field.id, name: field.description, price: field.cost })
                     ingredients.push({id: field.id, arr: field.ingredients})
                     
@@ -101,7 +101,7 @@ const OrderMenuPage = (props) => {
             })
             fetch_inventory().then(res => {
                 let inventory = [];
-                Object.values(res.data.rows).forEach(field => {
+                Object.values(res.data).forEach(field => {
                     inventory.push({name: field.description, price: field.price})
                     
                 })
