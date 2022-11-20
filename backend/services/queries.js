@@ -33,6 +33,11 @@ async function add_one_query(entity, req, res) {
     const query = format("INSERT INTO %I (%L) WHERE VALUES (%L)", entity, Object.keys(req.body), Object.values(req.body))
     console.log(query)
     res.send("Nice post")
+    return pool.query(query, function (err, data) {
+        if (err) return console.log("Query Error");
+
+        res.json(data.rows)
+    })
 }
 
 async function update_one_query(entity, updated_data, id, req, res) {
