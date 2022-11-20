@@ -1,3 +1,4 @@
+const { request } = require('express');
 const { Pool } = require('pg');
 const format = require('pg-format');
 
@@ -50,14 +51,19 @@ async function update_one_query(entity, updated_data, id, req, res) {
     console.log(req.body)
     const query = format("UPDATE %I SET I% = %L WHERE ID = %I", entity, field, updated_data, id)
     res.send("Nice post - updated one query")
-    return pool.query(query)
+    return pool.query(query, function (err, data) {
+        if (err) return console.log("Query Error %s", err);
+    })
 }
 
-async function delete_one_query(entity, id, req, res) {
+async function delete_one_query(entity, req, res) {
     console.log(req.body)
-    const query = format("DELETE FROM %I WHERE ID = %I", entity, id)
-    res.send("Nice post - deleted one query")
-    return pool.query(query)
+    const query = format("DELETE FROM %I WHERE ID = %L", entity, req.body.id)
+    
+    return pool.query(query, function (err, data) {
+        if (err) return console.log("Query Error %s", err);
+    })
+    res.send("Nice post - deleted one item with id: " + req.body.id)
 }
 
 
