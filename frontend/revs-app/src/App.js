@@ -13,6 +13,7 @@ import SalesReport from './components/SalesReport';
 import ER from './components/ExcessReport';
 import RR from './components/RestockReport';
 import React from 'react'
+import Inventory from './routes/Inventory';
 
 // Act as router for project
 function App() {
@@ -21,21 +22,25 @@ function App() {
       <Routes>
         {/* Customer Routes */}
         <Route exact path="/" element={<Customer />} />
-        <Route path="/orders" element={<Orders />} />
         <Route path="/checkout" element={<Checkout />} />
 
         {/* Employee Routes */}
-        <Route path="/server" element={<Server />} />
+        <Route path="/ordermenu" element={<OrderMenu />} />
         <Route path="/employeelogin" element={<EmployeeLogin />} />
 
         {/* Manager Routes */}
-        <Route path="/ordermenu" element={<OrderMenu />} />
-        <Route path="/menuitems" element={<MenuItems />} />
         <Route path="/manager" element={<Manager />} />
         <Route path="/WST" element={<WST />} />
         <Route path="/salesreport" element={<SalesReport />} />
         <Route path="/excessreport" element={<ER />} />
         <Route path="/restockreport" element={<RR />} />
+        
+        {/* Data Tables */}
+        <Route path="/orders" element={<Orders />} />
+        <Route path="/menuitems" element={<MenuItems />} />
+        <Route path="/inventory" element={<Inventory/>} />
+        <Route path="/employees" element={<Server />} />
+
       </Routes>
     </Router>
   );
