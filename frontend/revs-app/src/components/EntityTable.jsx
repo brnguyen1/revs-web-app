@@ -98,7 +98,7 @@ function EntityModal(props) {
                             <Form.Control type="text" name={data[0]} defaultValue={data[1]} disabled />
                     }
                     else if (Array.isArray(data[1])) {
-                        formField = <ModalArray data={data} key={index} />
+                        formField = <ModalArray data={data} />
                     }
                     else {
                         formField =
