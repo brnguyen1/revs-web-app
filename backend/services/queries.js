@@ -28,31 +28,21 @@ async function select_one_query(entity, id, res) {
     })
 }
 
-// async function update(entity, field, updated_data, id){
-//     const query = format("UPDATE %I SET I% = %L WHERE ID = %I", entity, field, updated_data, id)
-//     return pool.query(query)
-// }
-
-// async function delete_item(entity, id){
-//     const query = format("DELETE FROM %I WHERE ID = %I", entity, id)
-//     return pool.query(query)
-// }
-
-module.exports = { select_all_query }
-async function add_one_query(entity, req, res){
+async function add_one_query(entity, req, res) {
     console.log(req.body)
-    // const query = format("INSERT INTO %I (%L) WHERE VALUES (%L)", entity)
+    const query = format("INSERT INTO %I (%L) WHERE VALUES (%L)", entity, Object.keys(req.body), Object.values(req.body))
+    console.log(query)
     res.send("Nice post")
 }
 
-async function update_one_query(entity, updated_data, id, req, res){
+async function update_one_query(entity, updated_data, id, req, res) {
     console.log(req.body)
     const query = format("UPDATE %I SET I% = %L WHERE ID = %I", entity, field, updated_data, id)
     res.send("Nice post - updated one query")
     return pool.query(query)
 }
 
-async function delete_one_query(entity, id, req, res){
+async function delete_one_query(entity, id, req, res) {
     console.log(req.body)
     const query = format("DELETE FROM %I WHERE ID = %I", entity, id)
     res.send("Nice post - deleted one query")
