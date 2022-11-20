@@ -68,7 +68,7 @@ function EntityModal(props) {
             return (
                 <div className="row" key={index} >
                     <div className="col-10">
-                        <Form.Control type="text" indexValue={index} name={props.data[0]} defaultValue={item} onChange={(e) => updateDataArray(props.data[0], index, e.target.value)} />
+                        <Form.Control type="text" name={props.data[0]} defaultValue={item} onChange={(e) => updateDataArray(props.data[0], index, e.target.value)} />
                     </div>
                     <div className='col-2'>
                         <Button variant='secondary' onClick={() => removeDataArrayItem(props.data[0], index)}>X</Button>
