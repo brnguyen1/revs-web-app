@@ -28,6 +28,7 @@ function EntityModal(props) {
                     item[header[0]] = "";
                 }
             })
+            delete item["id"]
             setItemData(item)
         }
     }, [props.item, props.headers])
