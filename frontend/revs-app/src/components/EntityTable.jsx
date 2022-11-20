@@ -42,6 +42,20 @@ function EntityModal(props) {
         )
     }
 
+    const deleteItem = () => {
+        console.log(itemData)
+        axios.delete('http://localhost:4173/' + props.entityName + '/delete', itemData).then(res =>
+            console.log(res)
+        )
+    }
+
+    const updateItem = () => {
+        console.log(itemData)
+        axios.update('http://localhost:4173/' + props.entityName, itemData).then(res =>
+            console.log(res)
+        )
+    }
+
     //------------------------- Form Functions -------------------------//
     const updateDataText = (event) => {
         itemData[event.target.name] = event.target.value
@@ -147,12 +161,12 @@ function EntityModal(props) {
             <div className='container-fluid'>
                 <div className="row">
                     <div className='col-6 justify-content-start d-flex'>
-                        <Button variant="danger me-3">
+                        <Button variant="danger me-3" onClick={deleteItem}>
                             Delete
                         </Button>
                     </div>
                     <div className='col-6 justify-content-end d-flex'>
-                        <Button variant="success me-3" onClick={addItem}>
+                        <Button variant="success me-3" onClick={updateItem}>
                             Update
                         </Button>
                     </div>
