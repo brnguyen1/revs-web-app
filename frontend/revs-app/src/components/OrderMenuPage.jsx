@@ -230,7 +230,7 @@ const OrderMenuPage = (props) => {
             }
          
             return(
-                <div>
+                <div class="d-flex flex-wrap justify-content-evenly align-contents-around">
                     {i}
                     {renderCards(category_items, type)}
                 </div>
