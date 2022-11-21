@@ -9,22 +9,25 @@ import axios from 'axios'
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 
-const renderButtons = (arr) => {
+
+
+//Order Card Modal
+const OrderModal = ({open, onClose, item, ingredients}) => {
+    const renderButtons = (arr) => {
     
         
-    return arr.map((i) => {
-        return (
-            
-           <div> <Button >{i}</Button>
-           
-           </div>
-             
-        )
-    });                
-}
+        return arr.map((i) => {
+            return (
+                
+               <div> <Button >{i}</Button>
+               
+               </div>
+                 
+            )
+        });                
+    }
 
-// Get menu items from backend then create cards from menu items
-const OrderModal = ({open, onClose, item, ingredients}) => {
+
     if(!open) return null
     return(
         <>
@@ -64,7 +67,7 @@ const OrderModal = ({open, onClose, item, ingredients}) => {
 
     
 
-
+// Get menu items from backend then create cards from menu items
 const OrderMenuPage = (props) => {
     const [selectedItem, setSelectedItem] = useState([]);
     const [selectedIngredients, setSelectedIngredients] = useState([]);
@@ -73,6 +76,8 @@ const OrderMenuPage = (props) => {
     const [Ingredients, setIngredients] = useState([]);
     const [Inventory, setInventory] = useState([]);
     const [openOrderModal, setOpenOrderModal] = useState(false);
+
+    const groups = ["Burgers", "Sandwiches", "Fried Chicken", "Salads", "Sides"];
     useEffect(() => {
         async function fetch_data() {
             var endpoint = 'http://localhost:4173/menu'
@@ -91,7 +96,7 @@ const OrderMenuPage = (props) => {
                 let ingredients = [];
                 
                 Object.values(res.data).forEach(field => {
-                    menu_data.push({ id: field.id, name: field.description, price: field.cost })
+                    menu_data.push({ id: field.id, name: field.description, price: field.cost, group: field.group })
                     ingredients.push({id: field.id, arr: field.ingredients})
                     
                 })
@@ -198,6 +203,44 @@ const OrderMenuPage = (props) => {
         
     };
 
+    const renderCategories = (groups_, arr, type) => {
+        // for(let i = 0; i < groups.length; i++){
+            
+        //     let category_items = []
+        //     for(let j = 0; j < arr.length; j++){
+        //         if(arr[j].group === groups[i]){
+        //             category_items.push(arr[j])
+        //         }
+        //     }
+         
+
+        //         <div>
+        //             {groups.length}
+        //             {groups[i]}
+        //             {renderCards(category_items, type)}
+        //         </div>
+    
+        // }
+        return groups_.map((i) => {
+            let category_items = []
+            for(let j = 0; j < arr.length; j++){
+                if(arr[j].group == i){
+                    category_items.push(arr[j])
+                }
+            }
+         
+            return(
+                <div>
+                    {i}
+                    {renderCards(category_items, type)}
+                </div>
+            )
+        });  
+    };
+
+    
+
+
     return (
         <div>
             <div className="d-flex justify-content-center mt-4">
@@ -211,8 +254,9 @@ const OrderMenuPage = (props) => {
                         removeFromCart={removeFromCart}
                     ></Order>
                 </div>
-                <div className="d-flex flex-wrap justify-content-evenly align-contents-around">
-                    {renderCards(menuOptions, props.type)}
+                <div>
+                    {/* {renderCards(menuOptions, props.type)} */}
+                    {renderCategories(groups, menuOptions, props.type)}
                     <OrderModal open = {openOrderModal} onClose = {()=>setOpenOrderModal(false)} item = {selectedItem} ingredients = {selectedIngredients}/>
                 </div>
             </div>
