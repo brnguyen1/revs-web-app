@@ -16,7 +16,7 @@ const EmployeeHeader = () => {
                     {/* <Link role="button" to="/" className="btn btn-outline-secondary me-3">Home</Link> */}
                     <Link role="button" to="/ordermenu" className="btn bg-dark btn-outline-light me-3">Create Order</Link>
                     <Link role="button" to="/orders" className="btn bg-dark btn-outline-light me-3">View Orders</Link>
-                    <Link role="button" to="/employeelogin" className="btn bg-dark btn-outline-light me-3">Logout</Link>
+                    <Link role="button" to="/" className="btn bg-dark btn-outline-light me-3">Logout</Link>
                     <Link role="button" to="/manager" className="btn  bg-dark btn-outline-light me-3">Manager Portal</Link>
                 
                 </div>
