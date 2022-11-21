@@ -247,9 +247,14 @@ const OrderMenuPage = (props) => {
             }
          
             return(
-                <div>
-                    {i}
-                    {renderCards(category_items, type)}
+                <div >
+                    <div class="font">
+                        {i}
+                    </div>
+                    <div class="d-flex flex-wrap justify-content-evenly align-contents-around">
+                        {renderCards(category_items, type)}
+                    </div>
+                    
                 </div>
             )
         });  
@@ -261,7 +266,7 @@ const OrderMenuPage = (props) => {
     return (
         <div>
             <div className="d-flex justify-content-center mt-4">
-                <h4>Order Creation Page</h4>
+                {/*<h4>Order Creation Page</h4>*/}
             </div>
             <div className="mt-5 me-5 ms-5">
                 <div className="mb-5">
