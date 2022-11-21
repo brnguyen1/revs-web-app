@@ -16,11 +16,11 @@ router.get('/:id', function (req, res) {
      queries.select_one_query(entity, req.params.id, res)
 })
 
-router.put('/:id', function (req, res) {  //changed to post 
-    queries.update_one_query(entity, res.params.updated_data, res.params.id, req, res)
+router.put('/:id', function (req, res) {  //changed to put 
+    queries.update_one_query(entity, req, res)
 })
 
-router.delete('/:id', function (req, res) { //changed to post 
+router.delete('/:id', function (req, res) { //changed to delete
     queries.delete_one_query(entity, req, res)
 })
 

@@ -51,7 +51,7 @@ function EntityModal(props) {
 
     const updateItem = () => {
         console.log(itemData)
-        axios.put('http://localhost:4173/' + props.entityName, itemData).then(res =>
+        axios.put('http://localhost:4173/' + props.entityName + '/' + itemData["id"], itemData).then(res =>
             console.log(res)
         )
     }
