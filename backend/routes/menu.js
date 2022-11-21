@@ -13,7 +13,7 @@ router.post('/', function (req, res) {
 });
 
 router.get('/:id', function (req, res) {
-     queries.select_one_query(entity, req.params.id, res)
+    queries.select_one_query(entity, req.params.id, res)
 })
 
 router.put('/:id', function (req, res) {  //changed to put 

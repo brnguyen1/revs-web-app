@@ -36,24 +36,24 @@ function EntityModal(props) {
 
     //------------------------- API Requests -------------------------//
     const addItem = () => {
-        console.log(itemData)
-        axios.post('http://localhost:4173/' + props.entityName, itemData).then(res =>
-            console.log(res)
-        )
+        let req = axios.post('http://localhost:4173/' + props.entityName, itemData)
+        Promise.resolve(req)
+        props.handleComplete()
+        props.handleClose()
     }
 
     const deleteItem = () => {
-        console.log(itemData)
-        axios.delete('http://localhost:4173/' + props.entityName + '/' + itemData["id"]).then(res =>
-            console.log(res)
-        )
+        let req = axios.delete('http://localhost:4173/' + props.entityName + '/' + itemData["id"])
+        Promise.resolve(req)
+        props.handleComplete()
+        props.handleClose()
     }
 
     const updateItem = () => {
-        console.log(itemData)
-        axios.put('http://localhost:4173/' + props.entityName + '/' + itemData["id"], itemData).then(res =>
-            console.log(res)
-        )
+        let req = axios.put('http://localhost:4173/' + props.entityName + '/' + itemData["id"], itemData)
+        Promise.resolve(req)
+        props.handleComplete()
+        props.handleClose()
     }
 
     //------------------------- Form Functions -------------------------//
@@ -108,7 +108,7 @@ function EntityModal(props) {
                 // Consider if object is array
                 Object.entries(itemData).map((data, index) => {
                     var formField = <></>
-                    if(data[0] === "id"){
+                    if (data[0] === "id") {
                         formField =
                             <Form.Control type="text" name={data[0]} defaultValue={data[1]} disabled />
                     }
@@ -140,7 +140,7 @@ function EntityModal(props) {
         else if (props.task === "add") {
             return (
                 Object.entries(props.headers).map((header, index) => {
-                    if(header[0] === "id") return null;
+                    if (header[0] === "id") return null;
                     return (
                         <Form.Group key={index}>
                             <Form.Label>
@@ -243,30 +243,34 @@ function EntityTable(props) {
     //add modal values
     const [showAddModal, setShowAddModal] = useState(false);
 
-    useEffect(() => {
-        async function fetch_data() {
-            var endpoint = 'http://localhost:4173/' + props.entityName
-            const res = await axios.get(endpoint)
-            return res
-        }
+    //------------------------- Initialization Function -------------------------//
+    async function fetch_data() {
+        var endpoint = 'http://localhost:4173/' + props.entityName
+        const res = await axios.get(endpoint)
+        return res
+    }
 
-        function parse_data() {
-            fetch_data().then(res => {
-                let tmp_headers = {}
-                Object.entries(res.data[0]).forEach(field => {
-                    if (Array.isArray(field[1])) {
-                        tmp_headers[field[0]] = "array";
-                    }
-                    else { tmp_headers[field[0]] = "text"; }
-                })
-                setHeaders(tmp_headers)
-                setTData(res.data)
-                setLoading(false)
+    const parse_data = () => {
+        fetch_data().then(res => {
+            let tmp_headers = {}
+            Object.entries(res.data[0]).forEach(field => {
+                if (Array.isArray(field[1])) {
+                    tmp_headers[field[0]] = "array";
+                }
+                else { tmp_headers[field[0]] = "text"; }
             })
-        }
+            setHeaders(tmp_headers)
+            setTData(res.data)
+            console.log(TData)
+            setLoading(false)
+        })
+    }
 
+    useEffect(() => {
         parse_data();
-    }, [props.entityName]);
+    }, []);
+
+    //------------------------- Component Functions -------------------------//
 
     // Update Modal function
     function openUpdateModal(item) {
@@ -279,6 +283,14 @@ function EntityTable(props) {
     // Add modal function
     const openAddModal = () => setShowAddModal(true)
     const closeAddModal = () => setShowAddModal(false)
+
+    // Rerender on add, update, or delete
+    const completeRequest = () => {
+        setLoading(true);
+        parse_data()
+    }
+
+    //------------------------- Component Content -------------------------//
 
     const tableHeaders = Object.keys(headers).map((header) => {
         return (
@@ -320,8 +332,8 @@ function EntityTable(props) {
 
     const dataTable =
         <div>
-            <EntityModal task="update" item={selectedObject} show={showUpdateModal} handleClose={closeUpdateModal} entityName={props.entityName} />
-            <EntityModal task="add" headers={headers} show={showAddModal} handleClose={closeAddModal} entityName={props.entityName} />
+            <EntityModal task="update" item={selectedObject} show={showUpdateModal} handleComplete={completeRequest} handleClose={closeUpdateModal} entityName={props.entityName} />
+            <EntityModal task="add" headers={headers} show={showAddModal} handleComplete={completeRequest} handleClose={closeAddModal} entityName={props.entityName} />
             <Button variant="primary" onClick={openAddModal}> Add New Item </Button>
 
             <table className="table table-hover table-sm table-bordered">

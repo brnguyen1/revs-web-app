@@ -13,7 +13,8 @@ const pool = new Pool({
 
 async function select_all_query(entity, res) {
     const query = format("SELECT * FROM %I", entity)
-    return pool.query(query, function (err, data) {
+
+    pool.query(query, function (err, data) {
         if (err) return console.log("Query Error");
 
         res.json(data.rows)
@@ -22,7 +23,8 @@ async function select_all_query(entity, res) {
 
 async function select_one_query(entity, id, res) {
     const query = format("SELECT * FROM %I WHERE id = %L", entity, id)
-    return pool.query(query, function (err, data) {
+
+    pool.query(query, function (err, data) {
         if (err) return console.log("Query Error");
 
         res.json(data.rows)
@@ -31,7 +33,7 @@ async function select_one_query(entity, id, res) {
 
 async function add_one_query(entity, req, res) {
     let values = Object.values(req.body).map(val => {
-        if(Array.isArray(val)){
+        if (Array.isArray(val)) {
             let arrayString = val.join('\",\"')
             arrayString = '{\"' + arrayString + '\"}'
             return arrayString
@@ -41,15 +43,18 @@ async function add_one_query(entity, req, res) {
 
     const query = format("INSERT INTO %I(%I) VALUES(%L)", entity, Object.keys(req.body), values)
     console.log(query)
-    res.send("Nice post")
-    return pool.query(query, function (err, data) {
+
+    pool.query(query, function (err, data) {
         if (err) return console.log("Query Error %s", err);
     })
+
+    res.send("Nice post")
+
 }
 
 async function update_one_query(entity, req, res) {
     let values = Object.values(req.body).map(val => {
-        if(Array.isArray(val)){
+        if (Array.isArray(val)) {
             let arrayString = val.join('\",\"')
             arrayString = '{\"' + arrayString + '\"}'
             return arrayString
@@ -57,9 +62,7 @@ async function update_one_query(entity, req, res) {
         return val
     })
 
-
-
-    for(let i = 0; i < values.length; i++){
+    for (let i = 0; i < values.length; i++) {
         const query = format("UPDATE %I SET %I = %L WHERE ID = %L", entity, Object.keys(req.body)[i], values[i], req.params.id)
         pool.query(query, function (err, data) {
             if (err) return console.log("Query Error %s", err);
@@ -76,8 +79,6 @@ async function delete_one_query(entity, req, res) {
         if (err) return console.log("Query Error %s", err);
     })
     res.send("Nice post - deleted one item with id: " + req.params.id)
-    
-    
 }
 
 
