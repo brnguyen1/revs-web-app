@@ -21,12 +21,12 @@ function App() {
     <Router>
       <Routes>
         {/* Customer Routes */}
-        <Route exact path="/" element={<Customer />} />
+        <Route exact path="/customerorder" element={<Customer />} />
         <Route path="/checkout" element={<Checkout />} />
 
         {/* Employee Routes */}
         <Route path="/ordermenu" element={<OrderMenu />} />
-        <Route path="/employeelogin" element={<EmployeeLogin />} />
+        <Route path="/" element={<EmployeeLogin />} />
 
         {/* Manager Routes */}
         <Route path="/manager" element={<Manager />} />
