@@ -14,7 +14,7 @@ import Modal from 'react-bootstrap/Modal';
 //Order Card Modal
 const OrderModal = ({open, onClose, item, ingredients}) => {
     const renderButtons = (arr) => {
-    
+        
         
         return arr.map((i) => {
             return (
@@ -27,7 +27,19 @@ const OrderModal = ({open, onClose, item, ingredients}) => {
         });                
     }
 
-
+    let type_of_food = "Chicken Tenders"
+    if(item.group === "Burgers"){
+        type_of_food = "Burger"
+    }
+    if(item.group === "Sandwiches"){
+        type_of_food = "Sandwich"
+    }
+    if(item.group === "Salads"){
+        type_of_food = "Salad"
+    }
+    if(item.group === "Sides"){
+        type_of_food = "Sides"
+    }
     if(!open) return null
     return(
         <>
@@ -46,9 +58,14 @@ const OrderModal = ({open, onClose, item, ingredients}) => {
             <Modal.Title>{item.name}</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-            
+            <div>Ingredients</div>
             {renderButtons(ingredients.arr)}
-            
+            <div>Add to your {type_of_food}</div>
+            {renderButtons(ingredients.addons)}
+            <div>Sides</div>
+            {renderButtons(ingredients.sides)}
+            <div>Dipping Sauce/Dressing</div>
+            {renderButtons(ingredients.sauces)}
             </Modal.Body>
             <Modal.Footer>
             <Button variant="secondary" onClick={onClose}>
@@ -97,7 +114,7 @@ const OrderMenuPage = (props) => {
                 
                 Object.values(res.data).forEach(field => {
                     menu_data.push({ id: field.id, name: field.description, price: field.cost, group: field.group })
-                    ingredients.push({id: field.id, arr: field.ingredients})
+                    ingredients.push({id: field.id, arr: field.ingredients, addons: field.addon_ingredients, sides: field.side_options, sauces: field.sauces})
                     
                 })
                 setMenuOptions(menu_data)
