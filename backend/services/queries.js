@@ -47,13 +47,26 @@ async function add_one_query(entity, req, res) {
     })
 }
 
-async function update_one_query(entity, updated_data, id, req, res) {
-    console.log(req.body)
-    const query = format("UPDATE %I SET I% = %L WHERE ID = %I", entity, field, updated_data, id)
-    res.send("Nice post - updated one query")
-    return pool.query(query, function (err, data) {
-        if (err) return console.log("Query Error %s", err);
+async function update_one_query(entity, req, res) {
+    let values = Object.values(req.body).map(val => {
+        if(Array.isArray(val)){
+            let arrayString = val.join('\",\"')
+            arrayString = '{\"' + arrayString + '\"}'
+            return arrayString
+        }
+        return val
     })
+
+
+
+    for(let i = 0; i < values.length; i++){
+        const query = format("UPDATE %I SET %I = %L WHERE ID = %L", entity, Object.keys(req.body)[i], values[i], req.params.id)
+        pool.query(query, function (err, data) {
+            if (err) return console.log("Query Error %s", err);
+        })
+    }
+    console.log(req.body)
+    res.send("Nice post - updated one query")
 }
 
 async function delete_one_query(entity, req, res) {
