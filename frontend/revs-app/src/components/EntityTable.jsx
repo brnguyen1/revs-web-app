@@ -56,6 +56,20 @@ function EntityModal(props) {
         props.handleClose()
     }
 
+    const deleteItem = () => {
+        console.log(itemData)
+        axios.delete('http://localhost:4173/' + props.entityName + '/' + itemData["id"]).then(res =>
+            console.log(res)
+        )
+    }
+
+    const updateItem = () => {
+        console.log(itemData)
+        axios.put('http://localhost:4173/' + props.entityName + '/' + itemData["id"], itemData).then(res =>
+            console.log(res)
+        )
+    }
+
     //------------------------- Form Functions -------------------------//
     const updateDataText = (event) => {
         itemData[event.target.name] = event.target.value

@@ -13,7 +13,15 @@ router.post('/', function (req, res) {
 });
 
 router.get('/:id', function (req, res) {
-    queries.select_one_query(entity, req.params.id, res)
+     queries.select_one_query(entity, req.params.id, res)
+})
+
+router.put('/:id', function (req, res) {  //changed to put 
+    queries.update_one_query(entity, req, res)
+})
+
+router.delete('/:id', function (req, res) { //changed to delete
+    queries.delete_one_query(entity, req, res)
 })
 
 module.exports = router;
