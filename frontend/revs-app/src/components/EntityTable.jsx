@@ -1,10 +1,14 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios'
 import React from 'react'
+
 import ClipLoader from "react-spinners/ClipLoader";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
+
+import moment from 'moment'
+
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../static/css/EntityTable.css"
 
@@ -54,20 +58,6 @@ function EntityModal(props) {
         Promise.resolve(req)
         props.handleComplete()
         props.handleClose()
-    }
-
-    const deleteItem = () => {
-        console.log(itemData)
-        axios.delete('http://localhost:4173/' + props.entityName + '/' + itemData["id"]).then(res =>
-            console.log(res)
-        )
-    }
-
-    const updateItem = () => {
-        console.log(itemData)
-        axios.put('http://localhost:4173/' + props.entityName + '/' + itemData["id"], itemData).then(res =>
-            console.log(res)
-        )
     }
 
     //------------------------- Form Functions -------------------------//
@@ -273,9 +263,18 @@ function EntityTable(props) {
                 }
                 else { tmp_headers[field[0]] = "text"; }
             })
+
+            Object.values(res.data).forEach(item => {
+
+                let time_fields = Object.keys(item).filter(set => set.includes("time"))
+                time_fields.forEach(field => {
+                    let newTime = moment(item[field]).format("YYYY-MM-DD")
+                    item[field] = newTime
+                })
+            })
+
             setHeaders(tmp_headers)
             setTData(res.data)
-            console.log(TData)
             setLoading(false)
         })
     }
