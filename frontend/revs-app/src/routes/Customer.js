@@ -1,8 +1,9 @@
 import React from 'react'
-import  {useState} from "react";
+import { useState } from "react";
 import CustomerHeader from '../components/CustomerHeader'
 import Maps from '../components/Maps';
 import OrderMenuPage from '../components/OrderMenuPage';
+import FocusLock from 'react-focus-lock';
 
 // Customer page where orders will happen as well
 function Customer() {
@@ -10,22 +11,22 @@ function Customer() {
     return (
         <div>
             <CustomerHeader />
-            <button onClick={ () => setFontSize(fontSize + 2)}>
+            <button onClick={() => setFontSize(fontSize + 2)}>
                 Increase Font Size
             </button>
-            <button onClick={ () => setFontSize(fontSize - 2)}>
+            <button onClick={() => setFontSize(fontSize - 2)}>
                 Decrease Font Size
             </button>
-            
+
             <div className="row" >
                 <div className="col-12" style={{
                     fontSize: `${fontSize}px`
                 }}>
-                    <OrderMenuPage type ="customer" />
+                    <OrderMenuPage type="customer" />
                 </div>
                 <break></break>
                 <div className="col-12">
-                  
+
                     <Maps />
                 </div>
             </div>

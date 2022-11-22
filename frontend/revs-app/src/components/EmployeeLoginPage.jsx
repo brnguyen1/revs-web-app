@@ -6,7 +6,11 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { useNavigate } from "react-router-dom";
 
+import { useDispatch } from 'react-redux';
+import { employeeLogin } from "../redux-slices/employee-slice";
+
 const EmployeeLoginPage = () => {
+    const dispatch = useDispatch();
 
     const [username, setUsername] = useState("");
 
@@ -53,7 +57,7 @@ const EmployeeLoginPage = () => {
                         />
                     </Form.Group>
                     <div class="mt-5 d-flex justify-content-center">
-                        <Button block size="lg" type="submit">
+                        <Button block size="lg" type="submit" onClick={() => { dispatch(employeeLogin({ username: username, password: password })) }}>
                             Login
                         </Button>
                     </div>
