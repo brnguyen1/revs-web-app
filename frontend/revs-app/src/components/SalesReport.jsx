@@ -1,5 +1,6 @@
 import React from 'react'
 import ManagerHeader from "./ManagerHeader";
+
 const SalesReport = () => {
     return(
         <div>

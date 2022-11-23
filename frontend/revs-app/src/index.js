@@ -7,11 +7,23 @@ import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/js/bootstrap.js';
 
+import { configureStore } from '@reduxjs/toolkit';
+import { Provider } from 'react-redux';
+import employeeReducer from './redux-slices/employee-slice';
+
+const store = configureStore({
+  reducer: {
+    employee: employeeReducer,
+  }
+});
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App/>
+    <Provider store={store}>
+      <App />
+    </Provider>
   </React.StrictMode>
 );
 
