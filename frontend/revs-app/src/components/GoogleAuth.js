@@ -77,6 +77,8 @@ const GoogleAuth = () => {
                         <img src = {user.picture}></img>
                         <p>{user.email}</p>
                         <button onClick = {(e) => handleSignOut(e)}> Sign Out </button>
+                        <Link role="button" to="/employees" class="btn btn-outline-secondary me-3">Employees</Link>
+                        <Link role="button" to="/manager" className="btn  bg-dark btn-outline-light me-3">Manager Portal</Link>
                     </center>
                 </div>
             }    
