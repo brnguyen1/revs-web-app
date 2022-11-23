@@ -1,5 +1,6 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import Order from './Order';
+import OrderModalSummary from './OrderModalSummary';
 import React from 'react'
 import Button from "react-bootstrap/Button";
 import { useState, useEffect } from 'react';
@@ -12,19 +13,115 @@ import Modal from 'react-bootstrap/Modal';
 
 
 //Order Card Modal
-const OrderModal = ({open, onClose, item, ingredients}) => {
-    const renderButtons = (arr) => {
+const OrderModal = ({open, onClose, item, ingredients, inventory, Addons, Removes, setAddons, setRemoves, addToCart}) => {
+
+    
+    const addIngredientAddons = (ingredient) => {
         
         
-        return arr.map((i) => {
-            return (
-                
-               <div> <Button >{i}</Button>
+        setAddons(current => [...current, ingredient])
+        
+      };
+      const removeIngredientAddons = (ingredient) => {
+       
+        
+        setAddons(Addons.filter((i) => i !== ingredient))
+        
+        
+      };
+      const addIngredientRemoves = (ingredient) => {
+       
+        
+        setRemoves(current => [...current, ingredient])
+        
+      };
+      const removeIngredientRemoves = (ingredient) => {
+        
+        
+        setRemoves(Removes.filter((i) => i !== ingredient))
+        
+
+          
+        
+      };
+      
+
+      const clearAddons = (ingredient) => {
+       
+        
+        setAddons([])
+        
+        
+      };
+      const clearRemoves = (ingredient) => {
+        
+        
+        setRemoves([])
+        
+
+          
+        
+      };
+    function addZeroes(num) {
+        // Convert input string to a number and store as a variable.
+            var value = Number(num);      
+        // Split the input string into two arrays containing integers/decimals
+            var res = num.split(".");     
+        // If there is no decimal point or only one decimal place found.
+            if(res.length == 1 || res[1].length < 3) { 
+        // Set the number to two decimal places
+                value = value.toFixed(2);
+            }
+        // Return updated or original number.
+        return value;
+    }
+    
+    const renderButtons = (arr, type, inventory_) => {
+        
+        
+        if(type === "primary"){
+            return arr.map((i) => {
+                return (
+                    
+                <div> 
+                       {/* {i + "  "} //temporary removal for testing 
+                        <input type="checkbox" class="btn-check" id={i} autocomplete="off"></input>
+                        <label class="btn btn-primary" for={i}>X</label> */}
+
+                      <Button >{i}</Button> 
+                      <Button onClick={() => removeIngredientRemoves(i)}>Undo</Button> 
+                      <Button onClick={() => addIngredientRemoves(i)}>Remove Ingedient</Button> 
+                   </div>
+                     
+                )
+            });  
+        }else{
+            return arr.map((i) => {
                
-               </div>
-                 
-            )
-        });                
+                let price = ""
+                for(let j = 0; j < inventory_.length; j++){
+                    if(inventory_[j].name === i){
+                        let num_price = inventory_[j].price
+                        num_price = addZeroes(num_price)
+                        price = num_price.toString();
+                        price = "$" + price
+                        if(price === "$0.00"){
+                            price = ""
+                        }
+                        
+                    }
+                }
+                return (
+                    
+                <div> 
+                      <Button>{i + " "}{price}</Button> 
+                      <Button onClick={() => removeIngredientAddons(i)}>X</Button> 
+                      <Button onClick={() => addIngredientAddons(i)}>+</Button> 
+                </div>
+                     
+                )
+            });  
+        }             
     }
 
     let type_of_food = "Chicken Tenders"
@@ -40,6 +137,10 @@ const OrderModal = ({open, onClose, item, ingredients}) => {
     if(item.group === "Sides"){
         type_of_food = "Sides"
     }
+    item.Addons = Addons;
+    item.Removes = Removes;
+    
+
     if(!open) return null
     return(
         <>
@@ -54,21 +155,25 @@ const OrderModal = ({open, onClose, item, ingredients}) => {
             class="modal"
             
         >
-            <Modal.Header closeButton>
+            <Modal.Header closeButton onClick={() => { clearAddons(); clearRemoves()}}>
             <Modal.Title>{item.name}</Modal.Title>
+
             </Modal.Header>
             <Modal.Body>
+            <OrderModalSummary item = {item} addons = {Addons} removes = {Removes} inventory_ = {inventory} addToCart = {addToCart}/>
+
+        
             <div>Ingredients</div>
-            {renderButtons(ingredients.arr)}
+            {renderButtons(ingredients.arr, "primary", inventory)}
             <div>Add to your {type_of_food}</div>
-            {renderButtons(ingredients.addons)}
+            {renderButtons(ingredients.addons, "s", inventory)}
             <div>Sides</div>
-            {renderButtons(ingredients.sides)}
+            {renderButtons(ingredients.sides, "s", inventory)}
             <div>Dipping Sauce/Dressing</div>
-            {renderButtons(ingredients.sauces)}
+            {renderButtons(ingredients.sauces, "s", inventory)}
             </Modal.Body>
             <Modal.Footer>
-            <Button variant="secondary" onClick={onClose}>
+            <Button variant="secondary" onClick={() => {onClose(); clearAddons(); clearRemoves()}}>
                 Close
             </Button>
             <Button variant="primary">Understood</Button>
@@ -93,7 +198,9 @@ const OrderMenuPage = (props) => {
     const [Ingredients, setIngredients] = useState([]);
     const [Inventory, setInventory] = useState([]);
     const [openOrderModal, setOpenOrderModal] = useState(false);
-
+    const [Addons, setAddons] = useState([]);
+    const [Removes, setRemoves] = useState([]);
+    
     const groups = ["Burgers", "Sandwiches", "Fried Chicken", "Salads", "Sides"];
     useEffect(() => {
         async function fetch_data() {
@@ -113,7 +220,7 @@ const OrderMenuPage = (props) => {
                 let ingredients = [];
                 
                 Object.values(res.data).forEach(field => {
-                    menu_data.push({ id: field.id, name: field.description, price: field.cost, group: field.group })
+                    menu_data.push({ id: field.id, name: field.description, price: field.cost, group: field.group, added: [], removed: []})
                     ingredients.push({id: field.id, arr: field.ingredients, addons: field.addon_ingredients, sides: field.side_options, sauces: field.sauces})
                     
                 })
@@ -124,11 +231,12 @@ const OrderMenuPage = (props) => {
             fetch_inventory().then(res => {
                 let inventory = [];
                 Object.values(res.data).forEach(field => {
-                    inventory.push({name: field.description, price: field.price})
+                    inventory.push({name: field.description, price: field.cost})
                     
                 })
                 setInventory(inventory)
             })
+
 
 
         }
@@ -139,7 +247,7 @@ const OrderMenuPage = (props) => {
 
 
     const addToCart = (item) => {
-        const validitem = items.find((i) => i.id === item.id);
+        const validitem = items.find((i) => i.name === item.name);
         if (validitem) {
             setItems(
                 items.map((i) =>
@@ -152,7 +260,7 @@ const OrderMenuPage = (props) => {
     };
 
     const removeFromCart = (item) => {
-        const validitem = items.find((i) => i.id === item.id);
+        const validitem = items.find((i) => i.name === item.name);
         if (validitem.qty === 1) {
             setItems(items.filter((i) => i.id !== item.id));
         } else {
@@ -279,7 +387,7 @@ const OrderMenuPage = (props) => {
                 <div>
                     {/* {renderCards(menuOptions, props.type)} */}
                     {renderCategories(groups, menuOptions, props.type)}
-                    <OrderModal open = {openOrderModal} onClose = {()=>setOpenOrderModal(false)} item = {selectedItem} ingredients = {selectedIngredients}/>
+                    <OrderModal open = {openOrderModal} onClose = {()=>setOpenOrderModal(false)} item = {selectedItem} ingredients = {selectedIngredients} inventory = {Inventory} Addons = {Addons} Removes = {Removes} setAddons = {setAddons} setRemoves = {setRemoves} addToCart={addToCart}/>
                 </div>
             </div>
         </div>
