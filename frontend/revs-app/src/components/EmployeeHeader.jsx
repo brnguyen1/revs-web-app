@@ -23,6 +23,7 @@ const EmployeeHeader = () => {
                     <Link onClick={() => { dispatch(employeeLogout()) }} role="button" to="/" className="btn bg-dark btn-outline-light me-3">Logout</Link>
                     <Link role="button" to="/manager" className="btn  bg-dark btn-outline-light me-3">Manager Portal</Link>
 
+                    
                 </div>
             </div>
         </nav>
