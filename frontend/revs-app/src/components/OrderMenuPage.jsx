@@ -313,15 +313,20 @@ const OrderMenuPage = (props) => {
         else{
             return arr.map((i) => {
                 return (
-                    <div className="card text-center w-25 me-1 mb-4" key={i.id} >
-                        <div className="card-body">
-                            <h6 className="card-title">
-                                {i.name}
-                            </h6>
-                            <p className="card-text"></p>
-                            <Button onClick={() => addToCart(i)}>Add to order</Button>
-                        </div>
-                    </div>
+                    <Card style={{ width: '18rem' }} className="card text-center w-25 me-1 mb-4" key={i.id} onClick = {() => { setSelectedItem(i); setSelectedIngredients(Ingredients.find(element => element.id === i.id));}}>
+                    
+                    <Card.Body>
+                      <Card.Title>{i.name}</Card.Title>
+                      
+                      
+                      <div onClick={(e)=>{
+                        e.stopPropagation()
+                      }}>
+                        <Button onClick={() => setOpenOrderModal(true)}>Customize menu item</Button>
+                         <Button onClick={() => addToCart(i)}>Quick Add to order</Button>
+                      </div>
+                    </Card.Body>
+                  </Card>
                 )
             });   
         }

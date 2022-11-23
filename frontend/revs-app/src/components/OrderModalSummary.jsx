@@ -43,7 +43,8 @@ const renderText = (arr, symbol, inventory_, quantity) => {
             <div class = "col-sm">
             </div>
             <div class = "col-sm" >
-            {quantity} x {price}
+            {/* {quantity} x {price} */}
+            {"   " +price}
             </div>
             </div>
       </>
@@ -151,15 +152,16 @@ export default function OrderModalSummary(props){
               <div className="col-sm">{item.name}</div>
               
                 <div className="col-sm">
-                  <button  onClick={decrementQuantity}>
+                  {/* <button  onClick={decrementQuantity}>
                     -
                   </button>{' '}
                   <button onClick={incrementQuantity}>
                     +
-                  </button>
+                  </button> */}
                 </div>
               <div class = "col-sm">
-              {quantity} x ${Number(item.price).toFixed(2)}
+              {/* {quantity} x ${Number(item.price).toFixed(2)} */}
+               ${Number(item.price).toFixed(2)}
               
               </div>
             {renderText(addons, "+", inventory_, quantity) }
@@ -187,4 +189,3 @@ export default function OrderModalSummary(props){
         </div>
     );
 }
-
