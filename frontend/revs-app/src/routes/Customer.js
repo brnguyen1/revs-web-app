@@ -12,13 +12,6 @@ function Customer() {
         <div>
             <CustomerHeader />
             
-            <button onClick={() => setFontSize(fontSize + 2)}>
-                Increase Font Size
-            </button>
-            <button onClick={() => setFontSize(fontSize - 2)}>
-                Decrease Font Size
-            </button>
-    
             <div className="row" style={{
                     fontSize: `${fontSize}px`
                 }}>
