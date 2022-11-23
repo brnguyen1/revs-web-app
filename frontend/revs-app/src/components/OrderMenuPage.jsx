@@ -275,12 +275,11 @@ const OrderMenuPage = (props) => {
         }
     };
 
-
     const renderCards = (arr, type) => {
         if(type === "customer"){
-            
             return arr.map((i) => {
                 return (
+                   
                     // <div className="card text-center w-25 me-1 mb-4" key={i.id} onClick={() => addToCart(i)}>
                     //     <div className="card-body">
                     //         <h6 className="card-title">
@@ -290,26 +289,27 @@ const OrderMenuPage = (props) => {
                     //         {/* <Button onClick={() => addToCart(i)}>Add to order Customer</Button> */}
                     //     </div>
                     // </div>
-    
                     
                     
                     <Card style={{ width: '18rem' }} className="card text-center w-25 me-1 mb-4" key={i.id} onClick = {() => {setOpenOrderModal(true); setSelectedItem(i); setSelectedIngredients(Ingredients.find(element => element.id === i.id));}}>
-                    <Card.Img variant="top" src="holder.js/100px180" />
-                    <Card.Body>
-                      <Card.Title>{i.name}</Card.Title>
-                      <Card.Text>
-                        ${i.price}
-                      </Card.Text>
-                      <Card.Text>
-                        Replace with item description from database also add image for product
-                      </Card.Text>
-                      <div onClick={(e)=>{
-                        e.stopPropagation()
-                      }}>
-                         <Button onClick={() => addToCart(i)}>Add to order</Button>
-                      </div>
-                    </Card.Body>
-                  </Card>
+                        <Card.Img variant="top" src="holder.js/100px180" />
+                        <Card.Body>
+                            <Card.Title >{i.name}
+                                </Card.Title>
+                            <Card.Text>
+                                ${i.price}
+                            </Card.Text>
+                            <Card.Text>
+                                Replace with item description from database also add image for product
+                            </Card.Text>
+                            <div onClick={(e)=>{
+                                e.stopPropagation()
+                            }}>
+                                <Button  onClick={() => addToCart(i)}>Add to order</Button>
+                            </div>
+                        </Card.Body>
+                    </Card>
+                    
                 )
             });                
         }
@@ -335,7 +335,7 @@ const OrderMenuPage = (props) => {
         }
         
     };
-
+    
     const renderCategories = (groups_, arr, type) => {
         // for(let i = 0; i < groups.length; i++){
             
@@ -354,6 +354,7 @@ const OrderMenuPage = (props) => {
         //         </div>
     
         // }
+        
         return groups_.map((i) => {
             let category_items = []
             for(let j = 0; j < arr.length; j++){
@@ -363,11 +364,14 @@ const OrderMenuPage = (props) => {
             }
          
             return(
+               
+                
                 <div >
+               
                     <div class="font">
                         {i}
                     </div>
-                    <div class="d-flex flex-wrap justify-content-evenly align-contents-around">
+                    <div class="d-flex flex-wrap justify-content-evenly align-contents-around" >
                         {renderCards(category_items, type)}
                     </div>
                     
