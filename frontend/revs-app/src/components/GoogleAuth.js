@@ -5,66 +5,66 @@ import jwt_decode from 'jwt-decode';
 import React, { Component } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-
+import { employeeLogin, employeeLogout, signInStatus } from "../redux-slices/employee-slice";
+import { useDispatch } from 'react-redux';
 
 
 const GoogleAuth = () => {
     
     const [user,setUser] = useState({});
+    const dispatch = useDispatch();
 
     function handleCallbackResponse(response){
-        console.log("Encoded JWT ID token: " + response.credential);
-        var auth = jwt_decode(response.credential);
-        setUser(auth);
-        localStorage.setItem("user",JSON.stringify(auth));
+        if(!isSignedIn())
+        {
+            console.log("Encoded JWT ID token: " + response.credential);
+            var auth = jwt_decode(response.credential);
+            setUser(auth);
+            localStorage.setItem("user",JSON.stringify(auth));
+        }
         localStorage.setItem("status","1");
-        document.getElementById("signInDiv").hidden = true;           
+        document.getElementById("signInDiv").hidden = true;   
+       // dispatch(employeeLogin({ username: auth.email, password: auth.name }));               
     };
 
     function handleSignOut(event){
         setUser({});
+        localStorage.removeItem("user"); 
         localStorage.setItem("status","0");
-        localStorage.removeItem("user");
-        document.getElementById("signInDiv").hidden = false;
-        document.getElementById("signInDiv").hidden = false;     
+        document.getElementById("signInDiv").hidden = false;    
+       // dispatch(employeeLogout());
     };
 
     function isSignedIn(){
         if(localStorage.getItem("status") == "1")
         {
-            console.log("isSignedIn: True");
             return true;
         }
         else
         {
-            console.log("isSignedIn: False");
+ 
             return false;
         }
     }
     
 
     useEffect(() => {
-        if(isSignedIn())
-        {
-            console.log("Use E : " + JSON.parse(localStorage.getItem("user")));
-            console.log("Use E 2 : " + user);
-            setUser(JSON.parse(localStorage.getItem("user")));
-        }
-        else
-        {
-        // eslint-disable-next-line no-undef
-        google.accounts.id.initialize({
-            client_id: "471568519931-j5j28lf530at8p85mm854mbal1s10f8e.apps.googleusercontent.com",
-            callback: handleCallbackResponse
-        });
-        // eslint-disable-next-line no-undef
-        google.accounts.id.renderButton(
-            document.getElementById("signInDiv"),
-            {theme: "outline", size: "large"}
-        );
-        // eslint-disable-next-line no-undef
-        //google.accounts.id.prompt();    
-        }     
+            if(isSignedIn())
+            {
+                setUser(JSON.parse(localStorage.getItem("user")));
+                document.getElementById("signInDiv").hidden = true;   
+            }
+            // eslint-disable-next-line no-undef
+            google.accounts.id.initialize({
+                client_id: "471568519931-j5j28lf530at8p85mm854mbal1s10f8e.apps.googleusercontent.com",
+                callback: handleCallbackResponse
+            });
+            // eslint-disable-next-line no-undef
+            google.accounts.id.renderButton(
+                document.getElementById("signInDiv"),
+                {theme: "outline", size: "large"}
+            );  
+          
     },[]);
     
     return (
@@ -76,9 +76,11 @@ const GoogleAuth = () => {
                         <h2>{"Logged In"}</h2>
                         <img src = {user.picture}></img>
                         <p>{user.email}</p>
-                        <button onClick = {(e) => handleSignOut(e)}> Sign Out </button>
                         <Link role="button" to="/employees" class="btn btn-outline-secondary me-3">Employees</Link>
-                        <Link role="button" to="/manager" className="btn  bg-dark btn-outline-light me-3">Manager Portal</Link>
+                        <Link role="button" to="/manager" className="btn  btn-outline-secondary me-3">Manager Portal</Link>
+                        
+                        <button class = "btn btn-outline-secondary me-3" onClick = {(e) => handleSignOut(e)}> Sign Out </button>
+                        
                     </center>
                 </div>
             }    
