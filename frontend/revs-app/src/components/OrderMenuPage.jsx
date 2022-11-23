@@ -96,6 +96,9 @@ const OrderModal = ({open, onClose, item, ingredients, inventory, Addons, Remove
                 )
             });  
         }else{
+            if(arr === null ){
+                return (<div></div>)
+            }
             return arr.map((i) => {
                
                 let price = ""
@@ -322,7 +325,7 @@ const OrderMenuPage = (props) => {
                       <div onClick={(e)=>{
                         e.stopPropagation()
                       }}>
-                        <Button onClick={() => setOpenOrderModal(true)}>Customize menu item</Button>
+                        <Button onClick={() => {setOpenOrderModal(true);  setSelectedItem(i); setSelectedIngredients(Ingredients.find(element => element.id === i.id));}}>Customize menu item</Button>
                          <Button onClick={() => addToCart(i)}>Quick Add to order</Button>
                       </div>
                     </Card.Body>
