@@ -13,7 +13,7 @@ import { useDispatch } from 'react-redux';
 import { employeeLogin } from "../redux-slices/employee-slice";
 import ManagerHeader from "./ManagerHeader";
 import EmployeeHeader  from "./EmployeeHeader";
-
+import GoogleTranslate from "./GoogleTranslate";
 
 
 const EmployeeLoginPage = () => {
@@ -57,8 +57,10 @@ const EmployeeLoginPage = () => {
                     </div>
                 </Form> */}
             <h4 className="text-center mt-4">Employee Login Page</h4>
+            <center><GoogleTranslate></GoogleTranslate></center>
             <div className="d-flex justify-content-center mt-5">
             <GoogleAuth />
+
             </div>
         </div>
 
