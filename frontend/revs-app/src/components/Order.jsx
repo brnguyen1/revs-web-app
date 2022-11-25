@@ -25,9 +25,6 @@ export default function Order(props) {
 
   return (
     <div >
-      {!credentials.isLoggedIn() &&
-        <Navigate to = "/"></Navigate>
-      }
       <div>
         {items.length !== 0 && <h2>Order Items</h2>}
         {items.map((item) => (

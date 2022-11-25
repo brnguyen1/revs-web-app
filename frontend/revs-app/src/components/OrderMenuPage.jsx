@@ -400,14 +400,14 @@ const OrderMenuPage = (props) => {
 
     return (
         <div>
-            {!credentials.isLoggedIn() &&
+            {/* {!credentials.isLoggedIn() &&
                 
                 <Navigate to = "/"></Navigate>
              }
             {!credentials.isManager() &&
                 <Navigate to = "/"></Navigate>
-            }
-
+            } */}
+            
             <div className="d-flex justify-content-center mt-4">
                 {/*<h4>Order Creation Page</h4>*/}
             </div>

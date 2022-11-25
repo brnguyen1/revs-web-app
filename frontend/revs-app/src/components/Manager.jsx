@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import * as credentials from './credentials.js'
 import { BrowserRouter as Router, Routes, Route, Navigate} from 'react-router-dom'
-import GoogleAuth from "./GoogleAuth";
 
 const Manager = () => {
     return (

@@ -35,4 +35,5 @@ export function logOut()
         localStorage.setItem("status","0");
         document.location.reload();
     }
+    document.location.reload();
 }
