@@ -68,6 +68,8 @@ const calculateTotalPrice = (arr, initial,  inventory_, quantity) => {
   }
   let price_num = Number(initial)
   arr.map((i) => {
+    <li key={i}>
+  </li>
     let price = ""
     for(let j = 0; j < inventory_.length; j++){
         if(inventory_[j].name === i){
@@ -120,7 +122,7 @@ export default function OrderModalSummary(props){
     // let price = item.price
     let price = Number(calculateTotalPrice(addons, item.price, inventory_, quantity)).toFixed(2)
     console.log(price)
-    let item_for_cart = {id: item.id, name: (item.name + "-Customized"), price: price, group: item.group, added: addons, removed: removes}
+    let item_for_cart = {id: item.id, name: (item.name + "-Customized"), price: price, group: item.group, added: addons, removed: removes, ingredients: item.ingredients}
     // function sendItem(){
     //   for(let i = 0; i < quantity; i++){
         

@@ -12,9 +12,10 @@ router.post('/', function (req, res) {
     queries.add_one_query(entity, req, res)
 });
 
-router.get('/:id', function (req, res) {
-     queries.select_one_query(entity, req.params.id, res)
+router.get('/id', function (req, res) {
+     queries.max_query(entity, req, res)
 })
+
 
 router.put('/:id', function (req, res) {  //changed to put 
     queries.update_one_query(entity, req, res)

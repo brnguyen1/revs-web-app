@@ -200,6 +200,7 @@ const OrderMenuPage = (props) => {
     const [menuOptions, setMenuOptions] = useState([]);
     const [Ingredients, setIngredients] = useState([]);
     const [Inventory, setInventory] = useState([]);
+    const [Orders, setOrders] = useState([]);
     const [openOrderModal, setOpenOrderModal] = useState(false);
     const [Addons, setAddons] = useState([]);
     const [Removes, setRemoves] = useState([]);
@@ -216,6 +217,11 @@ const OrderMenuPage = (props) => {
             const res = await axios.get(endpoint)
             return res
         }
+        async function fetch_orders() {
+            var endpoint = 'http://localhost:4173/orders'
+            const res = await axios.get(endpoint)
+            return res
+        }
 
         function parse_data() {
             fetch_data().then(res => {
@@ -223,7 +229,7 @@ const OrderMenuPage = (props) => {
                 let ingredients = [];
                 
                 Object.values(res.data).forEach(field => {
-                    menu_data.push({ id: field.id, name: field.description, price: field.cost, group: field.group, added: [], removed: []})
+                    menu_data.push({ id: field.id, name: field.description, price: field.cost, group: field.group, added: [], removed: [], ingredients: Array(field.ingredients)})
                     ingredients.push({id: field.id, arr: field.ingredients, addons: field.addon_ingredients, sides: field.side_options, sauces: field.sauces})
                     
                 })
@@ -239,6 +245,14 @@ const OrderMenuPage = (props) => {
                 })
                 setInventory(inventory)
             })
+            fetch_orders().then(res => {
+                let orders = [];
+                Object.values(res.data).forEach(field => {
+                    orders.push({id: field.id, order_items: field.order_items, cost: field.cost, order_menu_items: field.order_menu_items})
+                    
+                })
+                setOrders(orders)
+            })
 
 
 
@@ -246,6 +260,19 @@ const OrderMenuPage = (props) => {
 
         parse_data();
     }, [])
+
+    const OrderIDNumber = () =>{
+        let max = 0;
+        for(let i = 0; i < Orders.length; i++){
+            if(Orders[i].id > max ){
+                max = Orders[i].id
+            }
+
+        }
+
+        max += 1
+        return max
+    }
 
 
 
@@ -407,6 +434,8 @@ const OrderMenuPage = (props) => {
                         items={items}
                         addToCart={addToCart}
                         removeFromCart={removeFromCart}
+                        order_number = {OrderIDNumber()}
+                        setItems = {setItems}
                     ></Order>
                 </div>
                 <div>
@@ -417,6 +446,7 @@ const OrderMenuPage = (props) => {
                     Decrease Font Size
                 </button>
                     {/* {renderCards(menuOptions, props.type)} */}
+                    
                     {renderCategories(groups, menuOptions, props.type)}
                     <OrderModal open = {openOrderModal} onClose = {()=>setOpenOrderModal(false)} item = {selectedItem} ingredients = {selectedIngredients} inventory = {Inventory} Addons = {Addons} Removes = {Removes} setAddons = {setAddons} setRemoves = {setRemoves} addToCart={addToCart}/>
                 </div>
