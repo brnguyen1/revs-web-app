@@ -3,6 +3,8 @@ import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { max } from 'moment';
 import ClipLoader from "react-spinners/ClipLoader";
+import * as credentials from './credentials.js'
+import { BrowserRouter as Router, Routes, Route, Navigate} from 'react-router-dom'
 const sendOrder = (itemData) => {
   let req = axios.post('http://localhost:4173/orders', itemData)
   Promise.resolve(req)
@@ -56,7 +58,7 @@ const calculateAddedIngredients = (arr) => {
     </li>
     for(let j = 0; j < i.qty; j++){
       // i.added.map((j) => {
-        
+
            
       //   ingredients.push(j)
   

@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import React from 'react'
 import "bootstrap/dist/css/bootstrap.min.css";
-import GoogleAuth, {isSignedIn} from "./GoogleAuth.js"
 
 const CustomerHeader = () => {
     return (

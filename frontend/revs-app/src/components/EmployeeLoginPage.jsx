@@ -7,16 +7,27 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import GoogleAuth from "./GoogleAuth";
-
+import * as credentials from './credentials.js'
+import { BrowserRouter as Router, Routes, Route, Navigate} from 'react-router-dom'
 import { useDispatch } from 'react-redux';
 import { employeeLogin } from "../redux-slices/employee-slice";
+import ManagerHeader from "./ManagerHeader";
+import EmployeeHeader  from "./EmployeeHeader";
+import GoogleTranslate from "./GoogleTranslate";
+
 
 const EmployeeLoginPage = () => {
     const dispatch = useDispatch();
 
     return (
         <div>
+
+            {!credentials.isLoggedIn() &&
             <CustomerHeader />
+            }
+            {credentials.isLoggedIn() &&
+            <EmployeeHeader />
+            }
             {/* <h4 class="text-center mt-4">Employee Login Page</h4>
             <div class="d-flex justify-content-center mt-5">
                 <Form onSubmit={handleSubmit}>
@@ -46,8 +57,10 @@ const EmployeeLoginPage = () => {
                     </div>
                 </Form> */}
             <h4 className="text-center mt-4">Employee Login Page</h4>
+            <center><GoogleTranslate></GoogleTranslate></center>
             <div className="d-flex justify-content-center mt-5">
             <GoogleAuth />
+
             </div>
         </div>
 

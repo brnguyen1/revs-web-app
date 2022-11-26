@@ -8,6 +8,8 @@ import Card from 'react-bootstrap/Card';
 import './Styles.css';
 import axios from 'axios'
 import Form from 'react-bootstrap/Form';
+import * as credentials from './credentials.js'
+import { BrowserRouter as Router, Routes, Route, Navigate} from 'react-router-dom'
 import Modal from 'react-bootstrap/Modal';
 
 
@@ -425,6 +427,14 @@ const OrderMenuPage = (props) => {
 
     return (
         <div>
+            {/* {!credentials.isLoggedIn() &&
+                
+                <Navigate to = "/"></Navigate>
+             }
+            {!credentials.isManager() &&
+                <Navigate to = "/"></Navigate>
+            } */}
+            
             <div className="d-flex justify-content-center mt-4">
                 {/*<h4>Order Creation Page</h4>*/}
             </div>
