@@ -27,9 +27,10 @@ To run the app, run the command: ```npm start```
 The application will render on localhost:3000 or a similar port on your computer's default browser.
 
 ## Environment Variables
+### Backend
 This is needed for the backend to connect to the database
 
-Navigate into the backend to create a ```.env``` file
+Navigate into ```/backend``` to create a ```.env``` file
 
 In the .env file add the following:
 
@@ -39,6 +40,15 @@ PSQL_USER = <database user>
 PSQL_DATABASE = <database name>
 PSQL_PASSWORD = <database password>
 PSQL_PORT = 5432
+```
+
+### Frontend
+Navigate into ```/frontend/revs-app``` to create a ```.env``` file
+
+In the .env file add the following:
+
+```
+REACT_APP_BACKEND_API = <backend link>
 ```
 
 ## Production Link
