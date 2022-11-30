@@ -439,7 +439,9 @@ const OrderMenuPage = (props) => {
                 {/*<h4>Order Creation Page</h4>*/}
             </div>
             <div className="mt-5 me-5 ms-5">
-                <div className="mb-5">
+                <div className="mb-5"  style={{
+                    fontSize: `${fontSize}px`
+                }}>
                     <Order
                         items={items}
                         addToCart={addToCart}
