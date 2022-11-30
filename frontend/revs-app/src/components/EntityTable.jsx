@@ -344,9 +344,9 @@ function EntityTable(props) {
 
     const dataTable =
         <div>
-            {props.addOption ? <EntityModal task="update" item={selectedObject} show={showUpdateModal} handleComplete={completeRequest} handleClose={closeUpdateModal} entityName={props.entityName} /> : null}
-            <EntityModal task="add" headers={headers} show={showAddModal} handleComplete={completeRequest} handleClose={closeAddModal} entityName={props.entityName} />
-            <Button variant="primary" onClick={openAddModal}> Add New Item </Button>
+            <EntityModal task="update" item={selectedObject} show={showUpdateModal} handleComplete={completeRequest} handleClose={closeUpdateModal} entityName={props.entityName} />
+            {props.addOption ? <EntityModal task="add" headers={headers} show={showAddModal} handleComplete={completeRequest} handleClose={closeAddModal} entityName={props.entityName} /> : null}
+            {props.addOption ? <Button variant="primary" onClick={openAddModal}> Add New Item </Button> : null}
 
             <table className="table table-hover table-sm table-bordered">
                 <thead>

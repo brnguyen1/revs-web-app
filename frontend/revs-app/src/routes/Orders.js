@@ -10,7 +10,7 @@ function Orders() {
             <EmployeeHeader />
             <div>View Orders</div>
             <div className="container w-100">
-            
+
                 <div className="table-responsive text-nowrap w-100">
 
                     <EntityTable entityName="orders" />
