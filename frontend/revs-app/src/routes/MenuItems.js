@@ -12,7 +12,7 @@ function MenuItems() {
             
                 <div className="table-responsive text-nowrap w-100">
 
-                    <EntityTable entityName="menu" />
+                    <EntityTable entityName="menu" addOption/>
                 </div>
             </div>
         </div>

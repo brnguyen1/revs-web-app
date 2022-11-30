@@ -9,7 +9,7 @@ function Server() {
             <CustomerHeader />
             <div className="container w-100">
                 <div className="table-responsive text-nowrap w-100">
-                    <EntityTable entityName="server" />
+                    <EntityTable entityName="server" addOption/>
                 </div>
             </div>
         </div>

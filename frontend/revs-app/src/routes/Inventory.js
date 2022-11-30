@@ -12,7 +12,7 @@ function Inventory() {
             
                 <div className="table-responsive text-nowrap w-100">
 
-                    <EntityTable entityName="inventory" />
+                    <EntityTable entityName="inventory" addOption/>
                 </div>
             </div>
         </div>
