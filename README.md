@@ -51,5 +51,7 @@ In the .env file add the following:
 REACT_APP_BACKEND_API = <backend link>
 ```
 
+The backend api link should be ```http:/localhost:4173/``` for development. 
+
 ## Production Link
 https://orca-app-j43t2.ondigitalocean.app/
