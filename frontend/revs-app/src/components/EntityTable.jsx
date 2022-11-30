@@ -40,7 +40,7 @@ function EntityModal(props) {
 
     //------------------------- API Requests -------------------------//
     const addItem = () => {
-        let req = axios.post('http://localhost:4173/' + props.entityName, itemData)
+        let req = axios.post(process.env.REACT_APP_BACKEND_API + props.entityName, itemData)
         Promise.resolve(req)
         props.handleComplete()
         props.handleClose()
