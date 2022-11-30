@@ -1,5 +1,6 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import Order from './Order';
+import OrderModalSummary from './OrderModalSummary';
 import React from 'react'
 import Button from "react-bootstrap/Button";
 import { useState, useEffect } from 'react';
@@ -7,24 +8,125 @@ import Card from 'react-bootstrap/Card';
 import './Styles.css';
 import axios from 'axios'
 import Form from 'react-bootstrap/Form';
+import * as credentials from './credentials.js'
+import { BrowserRouter as Router, Routes, Route, Navigate} from 'react-router-dom'
 import Modal from 'react-bootstrap/Modal';
 
 
 
 //Order Card Modal
-const OrderModal = ({open, onClose, item, ingredients}) => {
-    const renderButtons = (arr) => {
+const OrderModal = ({open, onClose, item, ingredients, inventory, Addons, Removes, setAddons, setRemoves, addToCart}) => {
+
+    
+    const addIngredientAddons = (ingredient) => {
         
         
-        return arr.map((i) => {
-            return (
-                
-               <div> <Button >{i}</Button>
+        setAddons(current => [...current, ingredient])
+        
+      };
+      const removeIngredientAddons = (ingredient) => {
+       
+        
+        setAddons(Addons.filter((i) => i !== ingredient))
+        
+        
+      };
+      const addIngredientRemoves = (ingredient) => {
+       
+        
+        setRemoves(current => [...current, ingredient])
+        
+      };
+      const removeIngredientRemoves = (ingredient) => {
+        
+        
+        setRemoves(Removes.filter((i) => i !== ingredient))
+        
+
+          
+        
+      };
+      
+
+      const clearAddons = (ingredient) => {
+       
+        
+        setAddons([])
+        
+        
+      };
+      const clearRemoves = (ingredient) => {
+        
+        
+        setRemoves([])
+        
+
+          
+        
+      };
+    function addZeroes(num) {
+        // Convert input string to a number and store as a variable.
+            var value = Number(num);      
+        // Split the input string into two arrays containing integers/decimals
+            var res = num.split(".");     
+        // If there is no decimal point or only one decimal place found.
+            if(res.length == 1 || res[1].length < 3) { 
+        // Set the number to two decimal places
+                value = value.toFixed(2);
+            }
+        // Return updated or original number.
+        return value;
+    }
+    
+    const renderButtons = (arr, type, inventory_) => {
+        
+        
+        if(type === "primary"){
+            return arr.map((i) => {
+                return (
+                    
+                <div> 
+                       {/* {i + "  "} //temporary removal for testing 
+                        <input type="checkbox" class="btn-check" id={i} autocomplete="off"></input>
+                        <label class="btn btn-primary" for={i}>X</label> */}
+
+                      <Button >{i}</Button> 
+                      <Button onClick={() => removeIngredientRemoves(i)}>Undo</Button> 
+                      <Button onClick={() => addIngredientRemoves(i)}>Remove Ingedient</Button> 
+                   </div>
+                     
+                )
+            });  
+        }else{
+            if(arr === null ){
+                return (<div></div>)
+            }
+            return arr.map((i) => {
                
-               </div>
-                 
-            )
-        });                
+                let price = ""
+                for(let j = 0; j < inventory_.length; j++){
+                    if(inventory_[j].name === i){
+                        let num_price = inventory_[j].price
+                        num_price = addZeroes(num_price)
+                        price = num_price.toString();
+                        price = "$" + price
+                        if(price === "$0.00"){
+                            price = ""
+                        }
+                        
+                    }
+                }
+                return (
+                    
+                <div> 
+                      <Button>{i + " "}{price}</Button> 
+                      <Button onClick={() => removeIngredientAddons(i)}>X</Button> 
+                      <Button onClick={() => addIngredientAddons(i)}>+</Button> 
+                </div>
+                     
+                )
+            });  
+        }             
     }
 
     let type_of_food = "Chicken Tenders"
@@ -40,6 +142,10 @@ const OrderModal = ({open, onClose, item, ingredients}) => {
     if(item.group === "Sides"){
         type_of_food = "Sides"
     }
+    item.Addons = Addons;
+    item.Removes = Removes;
+    
+
     if(!open) return null
     return(
         <>
@@ -54,21 +160,25 @@ const OrderModal = ({open, onClose, item, ingredients}) => {
             class="modal"
             
         >
-            <Modal.Header closeButton>
+            <Modal.Header closeButton onClick={() => { clearAddons(); clearRemoves()}}>
             <Modal.Title>{item.name}</Modal.Title>
+
             </Modal.Header>
             <Modal.Body>
+            <OrderModalSummary item = {item} addons = {Addons} removes = {Removes} inventory_ = {inventory} addToCart = {addToCart}/>
+
+        
             <div>Ingredients</div>
-            {renderButtons(ingredients.arr)}
+            {renderButtons(ingredients.arr, "primary", inventory)}
             <div>Add to your {type_of_food}</div>
-            {renderButtons(ingredients.addons)}
+            {renderButtons(ingredients.addons, "s", inventory)}
             <div>Sides</div>
-            {renderButtons(ingredients.sides)}
+            {renderButtons(ingredients.sides, "s", inventory)}
             <div>Dipping Sauce/Dressing</div>
-            {renderButtons(ingredients.sauces)}
+            {renderButtons(ingredients.sauces, "s", inventory)}
             </Modal.Body>
             <Modal.Footer>
-            <Button variant="secondary" onClick={onClose}>
+            <Button variant="secondary" onClick={() => {onClose(); clearAddons(); clearRemoves()}}>
                 Close
             </Button>
             <Button variant="primary">Understood</Button>
@@ -92,8 +202,11 @@ const OrderMenuPage = (props) => {
     const [menuOptions, setMenuOptions] = useState([]);
     const [Ingredients, setIngredients] = useState([]);
     const [Inventory, setInventory] = useState([]);
+    const [Orders, setOrders] = useState([]);
     const [openOrderModal, setOpenOrderModal] = useState(false);
-
+    const [Addons, setAddons] = useState([]);
+    const [Removes, setRemoves] = useState([]);
+    
     const groups = ["Burgers", "Sandwiches", "Fried Chicken", "Salads", "Sides"];
     useEffect(() => {
         async function fetch_data() {
@@ -106,6 +219,11 @@ const OrderMenuPage = (props) => {
             const res = await axios.get(endpoint)
             return res
         }
+        async function fetch_orders() {
+            var endpoint = 'http://localhost:4173/orders'
+            const res = await axios.get(endpoint)
+            return res
+        }
 
         function parse_data() {
             fetch_data().then(res => {
@@ -113,7 +231,7 @@ const OrderMenuPage = (props) => {
                 let ingredients = [];
                 
                 Object.values(res.data).forEach(field => {
-                    menu_data.push({ id: field.id, name: field.description, price: field.cost, group: field.group })
+                    menu_data.push({ id: field.id, name: field.description, price: field.cost, group: field.group, added: [], removed: [], ingredients: Array(field.ingredients)})
                     ingredients.push({id: field.id, arr: field.ingredients, addons: field.addon_ingredients, sides: field.side_options, sauces: field.sauces})
                     
                 })
@@ -124,11 +242,20 @@ const OrderMenuPage = (props) => {
             fetch_inventory().then(res => {
                 let inventory = [];
                 Object.values(res.data).forEach(field => {
-                    inventory.push({name: field.description, price: field.price})
+                    inventory.push({name: field.description, price: field.cost})
                     
                 })
                 setInventory(inventory)
             })
+            fetch_orders().then(res => {
+                let orders = [];
+                Object.values(res.data).forEach(field => {
+                    orders.push({id: field.id, order_items: field.order_items, cost: field.cost, order_menu_items: field.order_menu_items})
+                    
+                })
+                setOrders(orders)
+            })
+
 
 
         }
@@ -136,10 +263,23 @@ const OrderMenuPage = (props) => {
         parse_data();
     }, [])
 
+    const OrderIDNumber = () =>{
+        let max = 0;
+        for(let i = 0; i < Orders.length; i++){
+            if(Orders[i].id > max ){
+                max = Orders[i].id
+            }
+
+        }
+
+        max += 1
+        return max
+    }
+
 
 
     const addToCart = (item) => {
-        const validitem = items.find((i) => i.id === item.id);
+        const validitem = items.find((i) => i.name === item.name);
         if (validitem) {
             setItems(
                 items.map((i) =>
@@ -152,7 +292,7 @@ const OrderMenuPage = (props) => {
     };
 
     const removeFromCart = (item) => {
-        const validitem = items.find((i) => i.id === item.id);
+        const validitem = items.find((i) => i.name === item.name);
         if (validitem.qty === 1) {
             setItems(items.filter((i) => i.id !== item.id));
         } else {
@@ -164,12 +304,11 @@ const OrderMenuPage = (props) => {
         }
     };
 
-
     const renderCards = (arr, type) => {
         if(type === "customer"){
-            
             return arr.map((i) => {
                 return (
+                   
                     // <div className="card text-center w-25 me-1 mb-4" key={i.id} onClick={() => addToCart(i)}>
                     //     <div className="card-body">
                     //         <h6 className="card-title">
@@ -179,47 +318,57 @@ const OrderMenuPage = (props) => {
                     //         {/* <Button onClick={() => addToCart(i)}>Add to order Customer</Button> */}
                     //     </div>
                     // </div>
-    
                     
                     
                     <Card style={{ width: '18rem' }} className="card text-center w-25 me-1 mb-4" key={i.id} onClick = {() => {setOpenOrderModal(true); setSelectedItem(i); setSelectedIngredients(Ingredients.find(element => element.id === i.id));}}>
-                    <Card.Img variant="top" src="holder.js/100px180" />
-                    <Card.Body>
-                      <Card.Title>{i.name}</Card.Title>
-                      <Card.Text>
-                        ${i.price}
-                      </Card.Text>
-                      <Card.Text>
-                        Replace with item description from database also add image for product
-                      </Card.Text>
-                      <div onClick={(e)=>{
-                        e.stopPropagation()
-                      }}>
-                         <Button onClick={() => addToCart(i)}>Add to order</Button>
-                      </div>
-                    </Card.Body>
-                  </Card>
+                        <Card.Img variant="top" src="holder.js/100px180" />
+                        <Card.Body>
+                            <Card.Title style={{
+                                    fontSize: `${fontSize}px`
+                                }}>{i.name}
+                                </Card.Title>
+                            <Card.Text>
+                                ${i.price}
+                            </Card.Text>
+                            <Card.Text>
+                                Replace with item description from database also add image for product
+                            </Card.Text>
+                            <div onClick={(e)=>{
+                                e.stopPropagation()
+                            }}>
+                                <Button style={{
+                                    fontSize: `${fontSize}px`
+                                }} onClick={() => addToCart(i)}>Add to order</Button>
+                            </div>
+                        </Card.Body>
+                    </Card>
+                    
                 )
             });                
         }
         else{
             return arr.map((i) => {
                 return (
-                    <div className="card text-center w-25 me-1 mb-4" key={i.id} >
-                        <div className="card-body">
-                            <h6 className="card-title">
-                                {i.name}
-                            </h6>
-                            <p className="card-text"></p>
-                            <Button onClick={() => addToCart(i)}>Add to order</Button>
-                        </div>
-                    </div>
+                    <Card style={{ width: '18rem' }} className="card text-center w-25 me-1 mb-4" key={i.id} onClick = {() => { setSelectedItem(i); setSelectedIngredients(Ingredients.find(element => element.id === i.id));}}>
+                    
+                    <Card.Body>
+                      <Card.Title>{i.name}</Card.Title>
+                      
+                      
+                      <div onClick={(e)=>{
+                        e.stopPropagation()
+                      }}>
+                        <Button onClick={() => {setOpenOrderModal(true);  setSelectedItem(i); setSelectedIngredients(Ingredients.find(element => element.id === i.id));}}>Customize menu item</Button>
+                         <Button onClick={() => addToCart(i)}>Quick Add to order</Button>
+                      </div>
+                    </Card.Body>
+                  </Card>
                 )
             });   
         }
         
     };
-
+    const [fontSize, setFontSize] = useState(16);
     const renderCategories = (groups_, arr, type) => {
         // for(let i = 0; i < groups.length; i++){
             
@@ -238,6 +387,14 @@ const OrderMenuPage = (props) => {
         //         </div>
     
         // }
+        <div>
+            <button onClick={() => setFontSize(fontSize + 2)}>
+                Increase Font Size
+            </button>
+            <button onClick={() => setFontSize(fontSize - 2)}>
+                Decrease Font Size
+            </button>
+        </div>
         return groups_.map((i) => {
             let category_items = []
             for(let j = 0; j < arr.length; j++){
@@ -247,11 +404,16 @@ const OrderMenuPage = (props) => {
             }
          
             return(
+               
+                
                 <div >
+                    
                     <div class="font">
                         {i}
                     </div>
-                    <div class="d-flex flex-wrap justify-content-evenly align-contents-around">
+                    <div class="d-flex flex-wrap justify-content-evenly align-contents-around" style={{
+                    fontSize: `${fontSize}px`
+                }}>
                         {renderCards(category_items, type)}
                     </div>
                     
@@ -265,6 +427,14 @@ const OrderMenuPage = (props) => {
 
     return (
         <div>
+            {/* {!credentials.isLoggedIn() &&
+                
+                <Navigate to = "/"></Navigate>
+             }
+            {!credentials.isManager() &&
+                <Navigate to = "/"></Navigate>
+            } */}
+            
             <div className="d-flex justify-content-center mt-4">
                 {/*<h4>Order Creation Page</h4>*/}
             </div>
@@ -274,12 +444,21 @@ const OrderMenuPage = (props) => {
                         items={items}
                         addToCart={addToCart}
                         removeFromCart={removeFromCart}
+                        order_number = {OrderIDNumber()}
+                        setItems = {setItems}
                     ></Order>
                 </div>
                 <div>
+                <button onClick={() => setFontSize(fontSize + 2)}>
+                    Increase Font Size
+                </button>
+                <button onClick={() => setFontSize(fontSize - 2)}>
+                    Decrease Font Size
+                </button>
                     {/* {renderCards(menuOptions, props.type)} */}
+                    
                     {renderCategories(groups, menuOptions, props.type)}
-                    <OrderModal open = {openOrderModal} onClose = {()=>setOpenOrderModal(false)} item = {selectedItem} ingredients = {selectedIngredients}/>
+                    <OrderModal open = {openOrderModal} onClose = {()=>setOpenOrderModal(false)} item = {selectedItem} ingredients = {selectedIngredients} inventory = {Inventory} Addons = {Addons} Removes = {Removes} setAddons = {setAddons} setRemoves = {setRemoves} addToCart={addToCart}/>
                 </div>
             </div>
         </div>

@@ -20,7 +20,15 @@ async function select_all_query(entity, res) {
         res.json(data.rows)
     })
 }
+async function max_query(entity, res, req) {
+    const query = format("SELECT MAX(ID) FROM %I", entity)
 
+    pool.query(query, function (err, data) {
+        if (err) return console.log("Query Error");
+
+        req.json(data.rows)
+    })
+}
 async function select_one_query(entity, id, res) {
     const query = format("SELECT * FROM %I WHERE id = %L", entity, id)
 
@@ -88,4 +96,6 @@ async function delete_one_query(entity, req, res) {
 }
 
 
-module.exports = { select_all_query, select_one_query, add_one_query, update_one_query, delete_one_query }
+
+
+module.exports = { select_all_query, select_one_query, add_one_query, update_one_query, delete_one_query, max_query }

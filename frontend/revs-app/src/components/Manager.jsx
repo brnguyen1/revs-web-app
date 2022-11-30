@@ -2,10 +2,19 @@ import ManagerHeader from "./ManagerHeader";
 import React from 'react'
 import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
+import * as credentials from './credentials.js'
+import { BrowserRouter as Router, Routes, Route, Navigate} from 'react-router-dom'
 
 const Manager = () => {
     return (
         <div>
+            {!credentials.isLoggedIn() &&
+                
+               <Navigate to = "/"></Navigate>
+            }
+            {!credentials.isManager() &&
+                <Navigate to = "/"></Navigate>
+            }
             <ManagerHeader />
             <div class="d-flex flex-wrap justify-content-evenly align-contents-around">
                 {/* <div class="card text-center w-25 me-1 mb-4">

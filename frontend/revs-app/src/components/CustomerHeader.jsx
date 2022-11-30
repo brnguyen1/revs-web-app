@@ -17,6 +17,8 @@ const CustomerHeader = () => {
                     <Link role="button" to="/" className="btn bg-dark btn-outline-light me-3">Employee Login</Link>
                     <Link role="button" to="/checkout" className="btn btn-danger">Checkout</Link>
                 </div>
+
+
             </div>
         </nav>
     )

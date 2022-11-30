@@ -1,36 +1,34 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import CustomerHeader from "./CustomerHeader";
-import React, { useState } from "react";
-import Form from "react-bootstrap/Form";
-
-import Button from "react-bootstrap/Button";
+import {useEffect,useState} from 'react';
+import jwt_decode from 'jwt-decode';
+import React, { Component } from "react";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import GoogleAuth from "./GoogleAuth";
+import * as credentials from './credentials.js'
+import { BrowserRouter as Router, Routes, Route, Navigate} from 'react-router-dom'
+import { useDispatch } from 'react-redux';
+import { employeeLogin } from "../redux-slices/employee-slice";
+import ManagerHeader from "./ManagerHeader";
+import EmployeeHeader  from "./EmployeeHeader";
+import GoogleTranslate from "./GoogleTranslate";
+
 
 const EmployeeLoginPage = () => {
-
-    const [username, setUsername] = useState("");
-
-    const [password, setPassword] = useState("");
-
-    function validateForm() {
-        //use backend to verify if valid username and password 
-        return username === "529006731" && password === "password";
-    }
-    let navigate = useNavigate();
-
-    const routeChange = () => {
-        let path = '/ordermenu';
-        navigate(path);
-    }
-    function handleSubmit(event) {
-        routeChange();
-        event.preventDefault();
-    }
+    const dispatch = useDispatch();
 
     return (
         <div>
+
+            {!credentials.isLoggedIn() &&
             <CustomerHeader />
-            <h4 class="text-center mt-4">Employee Login Page</h4>
+            }
+            {credentials.isLoggedIn() &&
+            <EmployeeHeader />
+            }
+            {/* <h4 class="text-center mt-4">Employee Login Page</h4>
             <div class="d-flex justify-content-center mt-5">
                 <Form onSubmit={handleSubmit}>
                     <div class="mb-3">
@@ -53,15 +51,21 @@ const EmployeeLoginPage = () => {
                         />
                     </Form.Group>
                     <div class="mt-5 d-flex justify-content-center">
-                        <Button block size="lg" type="submit">
+                        <Button block size="lg" type="submit" onClick={() => { dispatch(employeeLogin({ username: username, password: password })) }}>
                             Login
                         </Button>
                     </div>
-                </Form>
+                </Form> */}
+            <h4 className="text-center mt-4">Employee Login Page</h4>
+            <center><GoogleTranslate></GoogleTranslate></center>
+            <div className="d-flex justify-content-center mt-5">
+            <GoogleAuth />
+
             </div>
         </div>
 
     );
+
 }
 
 export default EmployeeLoginPage;
