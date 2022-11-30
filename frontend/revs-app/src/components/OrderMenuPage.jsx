@@ -97,12 +97,12 @@ const OrderMenuPage = (props) => {
     const groups = ["Burgers", "Sandwiches", "Fried Chicken", "Salads", "Sides"];
     useEffect(() => {
         async function fetch_data() {
-            var endpoint = 'http://localhost:4173/menu'
+            var endpoint = process.env.REACT_APP_BACKEND_API + 'menu'
             const res = await axios.get(endpoint)
             return res
         }
         async function fetch_inventory() {
-            var endpoint = 'http://localhost:4173/inventory'
+            var endpoint = process.env.REACT_APP_BACKEND_API + 'inventory'
             const res = await axios.get(endpoint)
             return res
         }

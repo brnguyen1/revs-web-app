@@ -47,14 +47,14 @@ function EntityModal(props) {
     }
 
     const deleteItem = () => {
-        let req = axios.delete('http://localhost:4173/' + props.entityName + '/' + itemData["id"])
+        let req = axios.delete(process.env.REACT_APP_BACKEND_API + props.entityName + '/' + itemData["id"])
         Promise.resolve(req)
         props.handleComplete()
         props.handleClose()
     }
 
     const updateItem = () => {
-        let req = axios.put('http://localhost:4173/' + props.entityName + '/' + itemData["id"], itemData)
+        let req = axios.put(process.env.REACT_APP_BACKEND_API + props.entityName + '/' + itemData["id"], itemData)
         Promise.resolve(req)
         props.handleComplete()
         props.handleClose()
@@ -248,40 +248,40 @@ function EntityTable(props) {
     const [showAddModal, setShowAddModal] = useState(false);
 
     //------------------------- Initialization Function -------------------------//
-    async function fetch_data() {
-        var endpoint = 'http://localhost:4173/' + props.entityName
-        const res = await axios.get(endpoint)
-        return res
-    }
-
-    const parse_data = () => {
-        fetch_data().then(res => {
-            let tmp_headers = {}
-            Object.entries(res.data[0]).forEach(field => {
-                if (Array.isArray(field[1])) {
-                    tmp_headers[field[0]] = "array";
-                }
-                else { tmp_headers[field[0]] = "text"; }
-            })
-
-            Object.values(res.data).forEach(item => {
-
-                let time_fields = Object.keys(item).filter(set => set.includes("time"))
-                time_fields.forEach(field => {
-                    let newTime = moment(item[field]).format("YYYY-MM-DD")
-                    item[field] = newTime
-                })
-            })
-
-            setHeaders(tmp_headers)
-            setTData(res.data)
-            setLoading(false)
-        })
-    }
-
     useEffect(() => {
+        async function fetch_data() {
+            var endpoint = process.env.REACT_APP_BACKEND_API + props.entityName
+            const res = await axios.get(endpoint)
+            return res
+        }
+
+        const parse_data = () => {
+            fetch_data().then(res => {
+                let tmp_headers = {}
+                Object.entries(res.data[0]).forEach(field => {
+                    if (Array.isArray(field[1])) {
+                        tmp_headers[field[0]] = "array";
+                    }
+                    else { tmp_headers[field[0]] = "text"; }
+                })
+
+                Object.values(res.data).forEach(item => {
+
+                    let time_fields = Object.keys(item).filter(set => set.includes("time"))
+                    time_fields.forEach(field => {
+                        let newTime = moment(item[field]).format("YYYY-MM-DD")
+                        item[field] = newTime
+                    })
+                })
+
+                setHeaders(tmp_headers)
+                setTData(res.data)
+                setLoading(false)
+            })
+        }
+
         parse_data();
-    }, []);
+    }, [selectedObject]);
 
     //------------------------- Component Functions -------------------------//
 
@@ -299,8 +299,7 @@ function EntityTable(props) {
 
     // Rerender on add, update, or delete
     const completeRequest = () => {
-        setLoading(true);
-        parse_data()
+        setSelectedObject({});
     }
 
     //------------------------- Component Content -------------------------//
