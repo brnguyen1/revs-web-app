@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import React from 'react'
 import { useDispatch } from 'react-redux';
+import Logo from "./logo.png";
 import { employeeLogout } from "../redux-slices/employee-slice";
 import * as credentials from './credentials.js'
 import { BrowserRouter as Router, Routes, Route, Navigate} from 'react-router-dom'
@@ -14,7 +15,8 @@ const EmployeeHeader = () => {
             <div className="container-fluid">
                 <b>
                     <a className="navbar-brand" href="/">
-                        Rev's American Grill - Employee Options
+                        <img src={Logo} height = "55px" width = "115px"/>
+                        (Employee)
                     </a>
                 </b>
                 <div className="d-flex justify-content-between">

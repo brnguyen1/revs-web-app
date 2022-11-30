@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import React from 'react'
 import "bootstrap/dist/css/bootstrap.min.css";
+import Logo from "./logo.png";
 
 const CustomerHeader = () => {
     return (
@@ -9,7 +10,7 @@ const CustomerHeader = () => {
             <div className="container-fluid">
                 <b>
                 <a className="navbar-brand" href="/">
-                    Rev's American Grill
+                    <img src={Logo} height = "55px" width = "115px"/>
                 </a>
                 </b>
                 <div className="d-flex justify-content-between">
