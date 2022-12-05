@@ -6,10 +6,21 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./AccessibilityModal.css";
 
 const AccessibilityModal = () => {
+    let currentScreenFocusStatus = localStorage.getItem("screenfocus");
+    let initialToggleButtonStyle = "dark";
+    let initialToggleButtonText = "Off"
+    if (currentScreenFocusStatus == "true") {
+        initialToggleButtonStyle = "light";
+        initialToggleButtonText = "On";
+    }
+
     const [displayModal, setDisplayModal] = useState(false);
     const [currentFontSize, setCurrentFontSize] = useState(16);
+    const [toggleButtonStyle, setToggleButtonStyle] = useState(initialToggleButtonStyle);
+    const [toggleButtonText, setToggleButtonText] = useState(initialToggleButtonText);
 
     // localStorage.setItem("fontsize", 16);
+    // localStorage.setItem("screenfocus", false);
 
     const openModal = () => {
         setDisplayModal(true);
@@ -20,25 +31,26 @@ const AccessibilityModal = () => {
         window.location.reload(true);
     }
     const increaseFontSize = () => {
-        // document.getElementById("increaseFontSize").addEventListener('click', () => {
-        //     const number = document.getElementById("num");
-        //     number.style.fontSize = `${currentFontSize + 2}px`;
-        // });
         setCurrentFontSize(currentFontSize + 2);
         localStorage.setItem("fontsize", currentFontSize + 2);
         document.getElementById("num").innerText = currentFontSize;
     }
     const decreaseFontSize = () => {
-        // document.getElementById("decreaseFontSize").addEventListener('click', () => {
-        //     const number = document.getElementById("num");
-        //     number.style.fontSize = `${currentFontSize - 2}px`;
-        // });
         setCurrentFontSize(currentFontSize - 2);
         localStorage.setItem("fontsize", currentFontSize - 2);
         document.getElementById("num").innerText = currentFontSize;
     }
     const handleScreenFocusToggle = () => {
-        // Insert functionality for toggle button
+        const prevVal = localStorage.getItem("screenfocus");
+        if (prevVal == "true") {
+            localStorage.setItem("screenfocus", false);
+            setToggleButtonStyle("dark");
+            setToggleButtonText("Off");
+        } else if (prevVal == "false") {
+            localStorage.setItem("screenfocus", true);
+            setToggleButtonStyle("light");
+            setToggleButtonText("On");
+        }
     }
 
     return (
@@ -80,11 +92,10 @@ const AccessibilityModal = () => {
                     </div>
                     <hr />
                     <div class="mt-3 mb-3">
-                        Keyboard Movement
+                        Screen Focus
                     </div>
                     <div class="mt-3 mb-3">
-                        {/* Insert toggle button here that send boolean value to local storage. */}
-                        <Button variant="dark" id="screenFocus" onClick={handleScreenFocusToggle}>Off</Button>
+                        <Button variant={toggleButtonStyle} id="screenFocus" onClick={handleScreenFocusToggle}>{toggleButtonText}</Button>
                     </div>
                 </Modal.Body>
                 <Modal.Footer>
