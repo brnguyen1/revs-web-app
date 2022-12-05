@@ -95,7 +95,16 @@ async function delete_one_query(entity, req, res) {
 
 }
 
+async function authenticate_user(entity, req, res) {
+    const query = format("SELECT * FROM %I WHERE email = %L", entity, req.query.email)
+    console.log(query)
+
+    pool.query(query, function (err, data) {
+        if (err) return console.log("Query Error");
+
+        res.json(data.rows[0])
+    })
+}
 
 
-
-module.exports = { select_all_query, select_one_query, add_one_query, update_one_query, delete_one_query, max_query }
+module.exports = { select_all_query, select_one_query, add_one_query, update_one_query, delete_one_query, max_query, authenticate_user}
