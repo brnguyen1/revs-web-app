@@ -24,7 +24,8 @@ const AccessibilityModal = () => {
 
     const openModal = () => {
         setDisplayModal(true);
-        if (!Number.isInteger(localStorage.getItem("fontsize"))) {
+        if (!localStorage.getItem("fontsize")) {
+            console.log("not set")
             localStorage.setItem("fontsize", 16);
         }
         setCurrentFontSize(parseInt(localStorage.getItem("fontsize")));
