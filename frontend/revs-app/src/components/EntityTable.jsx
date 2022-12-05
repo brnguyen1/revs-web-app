@@ -235,6 +235,7 @@ const ArrayDropdown = (props) => {
     )
 }
 
+// Data table component
 function EntityTable(props) {
     // Table data 
     const [TData, setTData] = useState({});
