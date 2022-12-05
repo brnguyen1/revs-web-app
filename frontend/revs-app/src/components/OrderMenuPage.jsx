@@ -7,62 +7,30 @@ import { useState, useEffect } from 'react';
 import Card from 'react-bootstrap/Card';
 import './Styles.css';
 import axios from 'axios'
-import Form from 'react-bootstrap/Form';
-import * as credentials from './credentials.js'
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import Modal from 'react-bootstrap/Modal';
-
-
 
 //Order Card Modal
 const OrderModal = ({ open, onClose, item, ingredients, inventory, Addons, Removes, setAddons, setRemoves, addToCart }) => {
 
-
     const addIngredientAddons = (ingredient) => {
-
-
         setAddons(current => [...current, ingredient])
-
     };
     const removeIngredientAddons = (ingredient) => {
-
-
         setAddons(Addons.filter((i) => i !== ingredient))
-
-
     };
     const addIngredientRemoves = (ingredient) => {
-
-
         setRemoves(current => [...current, ingredient])
-
     };
     const removeIngredientRemoves = (ingredient) => {
-
-
         setRemoves(Removes.filter((i) => i !== ingredient))
-
-
-
-
     };
 
 
     const clearAddons = (ingredient) => {
-
-
         setAddons([])
-
-
     };
     const clearRemoves = (ingredient) => {
-
-
         setRemoves([])
-
-
-
-
     };
     function addZeroes(num) {
         // Convert input string to a number and store as a variable.
@@ -309,17 +277,6 @@ const OrderMenuPage = (props) => {
             return arr.map((i) => {
                 return (
 
-                    // <div className="card text-center w-25 me-1 mb-4" key={i.id} onClick={() => addToCart(i)}>
-                    //     <div className="card-body">
-                    //         <h6 className="card-title">
-                    //             {i.name}
-                    //         </h6>
-                    //         <p className="card-text"></p>
-                    //         {/* <Button onClick={() => addToCart(i)}>Add to order Customer</Button> */}
-                    //     </div>
-                    // </div>
-
-
                     <Card style={{ width: '18rem' }} className="card text-center w-25 me-1 mb-4" key={i.id} onClick={() => { setOpenOrderModal(true); setSelectedItem(i); setSelectedIngredients(Ingredients.find(element => element.id === i.id)); }}>
                         <Card.Img variant="top" src="holder.js/100px180" />
                         <Card.Body>
@@ -366,23 +323,6 @@ const OrderMenuPage = (props) => {
     };
     const [fontSize, setFontSize] = useState(16);
     const renderCategories = (groups_, arr, type) => {
-        // for(let i = 0; i < groups.length; i++){
-
-        //     let category_items = []
-        //     for(let j = 0; j < arr.length; j++){
-        //         if(arr[j].group === groups[i]){
-        //             category_items.push(arr[j])
-        //         }
-        //     }
-
-
-        //         <div>
-        //             {groups.length}
-        //             {groups[i]}
-        //             {renderCards(category_items, type)}
-        //         </div>
-
-        // }
         return groups_.map((i) => {
             let category_items = []
             for (let j = 0; j < arr.length; j++) {
@@ -413,14 +353,6 @@ const OrderMenuPage = (props) => {
 
     return (
         <div>
-            {/* {!credentials.isLoggedIn() &&
-                
-                <Navigate to = "/"></Navigate>
-             }
-            {!credentials.isManager() &&
-                <Navigate to = "/"></Navigate>
-            } */}
-
             <div className="d-flex justify-content-center mt-4">
                 {/*<h4>Order Creation Page</h4>*/}
             </div>
@@ -431,6 +363,7 @@ const OrderMenuPage = (props) => {
                         addToCart={addToCart}
                         removeFromCart={removeFromCart}
                         order_number={OrderIDNumber()}
+                        type={props.type}
                         setItems={setItems}
                     ></Order>
                 </div>

@@ -4,17 +4,11 @@ import Customer from './routes/Customer';
 import Orders from './routes/Orders';
 import EmployeeLogin from './routes/EmployeeLogin';
 import OrderMenu from './routes/OrderMenu';
-import Checkout from './routes/Checkout';
 import Server from './routes/Server';
 import MenuItems from './routes/MenuItems';
 import Manager from './routes/Managerlogin';
-import WST from './routes/WhatSalesTogether';
-import SalesReport from './components/SalesReport';
-import ER from './components/ExcessReport';
-import RR from './components/RestockReport';
 import React from 'react'
 import Inventory from './routes/Inventory';
-import Auth from './components/GoogleAuth'
 
 // Act as router for project
 function App() {
@@ -23,7 +17,6 @@ function App() {
       <Routes>
         {/* Customer Routes */}
         <Route exact path="/customerorder" element={<Customer />} />
-        <Route path="/checkout" element={<Checkout />} />
 
         {/* Employee Routes */}
         <Route path="/ordermenu" element={<OrderMenu />} />
@@ -31,10 +24,6 @@ function App() {
 
         {/* Manager Routes */}
         <Route path="/manager" element={<Manager />} />
-        <Route path="/WST" element={<WST />} />
-        <Route path="/salesreport" element={<SalesReport />} />
-        <Route path="/excessreport" element={<ER />} />
-        <Route path="/restockreport" element={<RR />} />
         
         {/* Data Tables */}
         <Route path="/orders" element={<Orders />} />

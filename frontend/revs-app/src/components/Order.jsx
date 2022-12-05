@@ -1,10 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
-import { max } from 'moment';
-import ClipLoader from "react-spinners/ClipLoader";
-import * as credentials from './credentials.js'
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
+import Modal from 'react-bootstrap/Modal';
 const sendOrder = (itemData) => {
   let req = axios.post(process.env.REACT_APP_BACKEND_API + 'orders', itemData)
   Promise.resolve(req)
@@ -57,12 +54,6 @@ const calculateAddedIngredients = (arr) => {
     <li key={i.name}>
     </li>
     for (let j = 0; j < i.qty; j++) {
-      // i.added.map((j) => {
-
-
-      //   ingredients.push(j)
-
-      // })
       for (let k = 0; k < i.added.length; k++) {
         ingredients.push(i.added[k])
       }
@@ -105,40 +96,22 @@ const getDate = () => {
   return date
 }
 
-
-
+// Order summary component
 export default function Order(props) {
 
+  // Order items calcuations variables
   const { items, addToCart, removeFromCart, order_number, setItems } = props;
   const itemsCost = items.reduce((x, y) => x + y.qty * y.price, 0);
-  const taxCost = itemsCost * 0.14;
+  const taxCost = itemsCost * 0.825;
   const totalCost = itemsCost + taxCost;
   const [maxID, setmaxID] = useState([]);
   const [loading, setLoading] = useState(true);
-  // const [OrderNumber, setOrderNumber] = useState(0);
-
-  //const ingredients = calculateNetIngredients(calculateIngredients(items), calculateAddedIngredients(items), calculateRemovedIngredients(items)) // get ingredients plus addons minus removes 
-  //const menuitems = calculateMenuItems(items) // get from each item name 
   const employee_id = 0 //get from login data 
-  //   async function fetch_orders() {
-  //     var endpoint = 'http://localhost:4173/orders'
-  //     const res = await axios.get(endpoint)
-  //     return res
-  // }
 
-  // const OrderIDNumber = () =>{
-  //   let max = 0;
-  //   for(let i = 0; i < Orders.length; i++){
-  //       if(Orders[i].id > max ){
-  //           max = Orders[i].id
-  //       }
+  // Modal information
+  const [modalState, setModalState] = useState(false);
 
-  //   }
-
-  //   max += 1
-  //   return max
-  // }
-
+  // Order calculations
   function updateData() {
     getID().then(req => {
 
@@ -158,21 +131,10 @@ export default function Order(props) {
     setLoading(true);
     updateData()
   }
-  // updateData();
-
-
-  // }
 
   useEffect(() => {
-
     updateData();
-
-
   }, []);
-
-
-
-
 
   const renderText = (arr, symbol) => {
     return arr.map((i) => {
@@ -191,81 +153,152 @@ export default function Order(props) {
 
   let order_for_db = { id: (maxID[0] + 1), order_items: calculateNetIngredients(calculateIngredients(items), calculateAddedIngredients(items), calculateRemovedIngredients(items)), order_menu_items: calculateMenuItems(items), cost: totalCost, order_time: getDate() }
 
+  // Modal function
+  const showModal = () => {
+    if (items.length) {
+      setModalState(true)
+    }
+  };
+  const closeModal = () => setModalState(false);
+
+  // Customer checkout
+  const checkoutModal =
+    <Modal show={modalState} onHide={closeModal} style={{ fontSize: `${parseInt(localStorage.getItem("fontsize"))}px` }}>
+      <Modal.Header closeButton>
+        <Modal.Title>
+          Complete Order
+        </Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <div className='container-fluid'>
+          <h2>Order Items</h2>
+
+          {items.map((item) => (
+            <div key={item.id} className="row">
+              <div className="col-6">{item.name}</div>
+
+              <div className="col-3">
+                <button onClick={() => {
+                  removeFromCart(item)
+                  if (items.length - 1 === 0) {
+                    closeModal();
+                  }
+                }}>
+                  -
+                </button>{' '}
+                <button onClick={() => addToCart(item)}>
+                  +
+                </button>
+              </div>
+              <div className="col-3 text-right">
+                {item.qty} x ${Number(item.price).toFixed(2)}
+              </div>
+              {renderText(item.added, "+")}
+              {renderText(item.removed, "-")}
 
 
-  // console.log(calculateMenuItems(items))
-  //console.log(calculateIngredients(items))
-  //console.log(calculateAddedIngredients(items))
-  //console.log(calculateRemovedIngredients(items))
-  //console.log(calculateNetIngredients(calculateIngredients(items), calculateAddedIngredients(items), calculateRemovedIngredients(items)))
-
-  //create item using {id: max id from table plus 1, ingredients, total cost, added?, removed?, time from browser}
-  //sendItem(item)
-  const order =
-    <div >
-      <div>
-
-        {items.length !== 0 && <h2>{updateData()}Order Items</h2>}
-
-        {/* {The line above renders Orders ids to prevent concurrency issues} */}
-        {items.map((item) => (
-          <div key={item.id} className="row">
-            <div className="col-2">{item.name}</div>
-
-            <div className="col-2">
-              <button onClick={() => removeFromCart(item)}>
-                -
-              </button>{' '}
-              <button onClick={() => addToCart(item)}>
-                +
-              </button>
             </div>
-            <div className="col-2 text-right">
-              {item.qty} x ${Number(item.price).toFixed(2)}
-            </div>
-            {renderText(item.added, "+")}
-            {renderText(item.removed, "-")}
+          ))}
 
-
+          <hr></hr>
+          <div className="row">
+            <div className="col-9">Items Price</div>
+            <div className="col-3 text-right">${itemsCost.toFixed(2)}</div>
           </div>
-        ))}
+          <div className="row">
+            <div className="col-9">Tax Price</div>
+            <div className="col-3 text-right">${taxCost.toFixed(2)}</div>
+          </div>
 
-        {items.length !== 0 && (
-          <>
-            <hr></hr>
-            <div className="row">
-              <div className="col-4">Items Price</div>
-              <div className="col-4 text-right">${itemsCost.toFixed(2)}</div>
+          <div className="row justify-content-end">
+            <div className="col-9">
+              <strong>Total Price</strong>
             </div>
-            <div className="row">
-              <div className="col-4">Tax Price</div>
-              <div className="col-1 text-right">${taxCost.toFixed(2)}</div>
+            <div className="col-3 text-right">
+              <strong>${totalCost.toFixed(2)}</strong>
             </div>
+          </div>
+          <hr />
+        </div>
+      </Modal.Body>
 
-            <div className="row">
-              <div className="col-4">
-                <strong>Total Price</strong>
-              </div>
-              <div className="col-1 text-right">
-                <strong>${totalCost.toFixed(2)}</strong>
-              </div>
+      <Modal.Footer>
+        <button onClick={() => { sendOrder(order_for_db); setItems([]); completeRequest() }}>
+          Confirm Order
+        </button>
+      </Modal.Footer>
+
+    </Modal >
+
+  const footer =
+    <>
+      {checkoutModal}
+      <div className='d-flex fixed-bottom bg-success p-1 mx-auto justify-content-end'>
+        <button type="button" class="btn mr-4 border" onClick={showModal}>
+          <div className='d-flex'>
+            <div className='p-1'>
+              <svg xmlns="http://www.w3.org/2000/svg" width="2rem" height="2rem" fill="currentColor" class="bi bi-bag" viewBox="0 0 16 16">
+                <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5z"></path>
+              </svg>
             </div>
-            <hr />
-            <div className="row">
-              <button onClick={() => { sendOrder(order_for_db); setItems([]); completeRequest() }}>
-                {/* {need to add logic that interacts with backend for placing order} */}
-                Confirm Order
-              </button>
-            </div>
-          </>
-        )}
+            <div className='p-2'>Checkout</div>
+          </div>
+        </button>
       </div>
+    </>
+
+  // Employee checkout
+  const summary =
+    <div>
+      <h2>Order Items</h2>
+
+      {items.map((item) => (
+        <div key={item.id} className="row">
+          <div className="col-2">{item.name}</div>
+
+          <div className="col-2">
+            <button onClick={() => removeFromCart(item)}>
+              -
+            </button>{' '}
+            <button onClick={() => addToCart(item)}>
+              +
+            </button>
+          </div>
+          <div className="col-2 text-right">
+            {item.qty} x ${Number(item.price).toFixed(2)}
+          </div>
+          {renderText(item.added, "+")}
+          {renderText(item.removed, "-")}
+        </div>
+      ))}
+      <hr></hr>
+      <div className="row">
+        <div className="col-4">Items Price</div>
+        <div className="col-4 text-right">${itemsCost.toFixed(2)}</div>
+      </div>
+      <div className="row">
+        <div className="col-4">Tax Price</div>
+        <div className="col-1 text-right">${taxCost.toFixed(2)}</div>
+      </div>
+
+      <div className="row">
+        <div className="col-4">
+          <strong>Total Price</strong>
+        </div>
+        <div className="col-1 text-right">
+          <strong>${totalCost.toFixed(2)}</strong>
+        </div>
+      </div>
+      <hr />
+      <button onClick={() => { sendOrder(order_for_db); setItems([]); completeRequest() }}>
+        Confirm Order
+      </button>
     </div>
 
 
   return (
     <>
-      {loading ? <ClipLoader /> : order}
+      {props.type === "customer" ? footer : summary}
     </>
 
 

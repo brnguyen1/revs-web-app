@@ -192,23 +192,21 @@ function EntityModal(props) {
     const addTitle = <Modal.Title style={{ fontSize: `${parseInt(localStorage.getItem("fontsize"))}px` }}>Add</Modal.Title>
 
     return (
-        <>
-            <Modal show={props.show} onHide={props.handleClose}>
-                <Modal.Header closeButton>
-                    {props.task === "update" ? updateTitle : null}
-                    {props.task === "add" ? addTitle : null}
-                </Modal.Header>
-                <Modal.Body>
-                    <div className='container-fluid clearfix' style={{ fontSize: `${parseInt(localStorage.getItem("fontsize"))}px` }}>
-                        <Form>
-                            {<ModalBody />}
-                        </Form>
-                    </div>
-                </Modal.Body>
-                {props.task === "update" ? updateFooter : null}
-                {props.task === "add" ? addFooter : null}
-            </Modal>
-        </>
+        <Modal show={props.show} onHide={props.handleClose}>
+            <Modal.Header closeButton>
+                {props.task === "update" ? updateTitle : null}
+                {props.task === "add" ? addTitle : null}
+            </Modal.Header>
+            <Modal.Body>
+                <div className='container-fluid clearfix' style={{ fontSize: `${parseInt(localStorage.getItem("fontsize"))}px` }}>
+                    <Form>
+                        {<ModalBody />}
+                    </Form>
+                </div>
+            </Modal.Body>
+            {props.task === "update" ? updateFooter : null}
+            {props.task === "add" ? addFooter : null}
+        </Modal>
     );
 }
 
