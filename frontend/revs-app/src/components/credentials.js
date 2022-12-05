@@ -1,5 +1,3 @@
-import * as gAuth from "./GoogleAuth";
-
 const status = localStorage.getItem("status");
 
 export function isLoggedIn(){

@@ -1,13 +1,10 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import CustomerHeader from "./CustomerHeader";
 import { useEffect, useState } from 'react';
 import jwt_decode from 'jwt-decode';
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { employeeLogin, employeeLogout, signInStatus } from "../redux-slices/employee-slice";
-import { useDispatch } from 'react-redux';
 import * as credentials from './credentials.js'
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
+import { BrowserRouter as Navigate } from 'react-router-dom'
 import axios from "axios";
 
 const google = window.google;
@@ -15,7 +12,6 @@ const google = window.google;
 const GoogleAuth = () => {
 
     const [user, setUser] = useState({});
-    const dispatch = useDispatch();
 
     function handleCallbackResponse(response) {
         if (!credentials.isLoggedIn()) {
@@ -43,7 +39,6 @@ const GoogleAuth = () => {
         document.getElementById("signInDiv").hidden = false;
         document.location.reload();
         <Navigate to="/"></Navigate>
-        // dispatch(employeeLogout());
     };
 
     useEffect(() => {

@@ -1,30 +1,17 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import CustomerHeader from "./CustomerHeader";
-import {useEffect,useState} from 'react';
-import jwt_decode from 'jwt-decode';
-import React, { Component } from "react";
-import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
-import { connect } from "react-redux";
+import React from "react";
 import GoogleAuth from "./GoogleAuth";
 import * as credentials from './credentials.js'
-import { BrowserRouter as Router, Routes, Route, Navigate} from 'react-router-dom'
-import { useDispatch } from 'react-redux';
-import { employeeLogin } from "../redux-slices/employee-slice";
-import ManagerHeader from "./ManagerHeader";
 import EmployeeHeader  from "./EmployeeHeader";
 import GoogleTranslate from "./GoogleTranslate";
 
 
 const EmployeeLoginPage = () => {
-    const dispatch = useDispatch();
 
     return (
         <div>
 
-            {!credentials.isLoggedIn() &&
-            <CustomerHeader />
-            }
             {credentials.isLoggedIn() &&
             <EmployeeHeader />
             }
