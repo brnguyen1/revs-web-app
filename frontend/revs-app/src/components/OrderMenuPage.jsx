@@ -188,7 +188,7 @@ const OrderMenuPage = (props) => {
             return res
         }
         async function fetch_orders() {
-            var endpoint = 'http://localhost:4173/orders'
+            var endpoint = process.env.REACT_APP_BACKEND_API + 'orders'
             const res = await axios.get(endpoint)
             return res
         }
