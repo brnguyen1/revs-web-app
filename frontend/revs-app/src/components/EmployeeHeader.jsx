@@ -2,9 +2,7 @@ import { Link } from "react-router-dom";
 import React from 'react'
 import { useDispatch } from 'react-redux';
 import Logo from "./logo.png";
-import { employeeLogout } from "../redux-slices/employee-slice";
 import * as credentials from './credentials.js'
-import { BrowserRouter as Router, Routes, Route, Navigate} from 'react-router-dom'
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const EmployeeHeader = () => {
@@ -22,7 +20,6 @@ const EmployeeHeader = () => {
                 <div className="d-flex justify-content-between">
                     {/* <Link role="button" to="/" className="btn btn-outline-secondary me-3">Home</Link> */}
                     <Link role="button" to="/ordermenu" className="btn bg-dark btn-outline-light me-3">Create Order</Link>
-                    <Link role="button" to="/orders" className="btn bg-dark btn-outline-light me-3">View Orders</Link>
                     {credentials.isManager() &&
                         <Link role="button" to="/manager" className="btn  bg-dark btn-outline-light me-3">Manager Portal</Link>
                     }

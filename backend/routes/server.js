@@ -12,6 +12,10 @@ router.post('/', function (req, res) {
     queries.add_one_query(entity, req, res)
 });
 
+router.get('/auth', function (req, res) {
+    queries.authenticate_user(entity, req, res)
+})
+
 router.get('/:id', function (req, res) {
      queries.select_one_query(entity, req.params.id, res)
 })

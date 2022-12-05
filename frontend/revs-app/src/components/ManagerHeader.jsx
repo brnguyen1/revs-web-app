@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { employeeLogout } from "../redux-slices/employee-slice";
 import "bootstrap/dist/css/bootstrap.min.css";
 import * as credentials from './credentials.js'
-import { BrowserRouter as Router, Routes, Route, Navigate} from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 
 const ManagerHeader = () => {
     const dispatch = useDispatch();
@@ -18,8 +18,9 @@ const ManagerHeader = () => {
                     </a>
                 </b>
                 <div class="d-flex justify-content-between">
+                    <Link role="button" to="/customerorder" class="btn bg-dark btn-outline-light me-3">Kiosk</Link>
                     <Link role="button" to="/ordermenu" class="btn bg-dark btn-outline-light me-3">Server Portal</Link>
-                    <Link onClick={() => {credentials.logOut()}} role="button" to="/" className="btn bg-dark btn-outline-light me-3">Logout</Link>
+                    <Link onClick={() => { credentials.logOut() }} role="button" to="/" className="btn bg-dark btn-outline-light me-3">Logout</Link>
                 </div>
             </div>
         </nav>
