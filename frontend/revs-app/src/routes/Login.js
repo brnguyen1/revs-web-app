@@ -4,6 +4,7 @@ import AccessibilityModal from "../components/AccessibilityModal";
 import { BrowserView, MobileView } from 'react-device-detect';
 import FocusLock from 'react-focus-lock';
 import Maps from "../components/Maps";
+import CustomerHeader from "../components/CustomerHeader";
 
 
 const Login = () => {
@@ -22,7 +23,9 @@ const Login = () => {
                 </div>
             </BrowserView>
             <MobileView>
-                <div>
+                <CustomerHeader/>
+                <div className="container-fluid justify-content-center text-center mx-auto p-5">
+                    <h1> Come visit us!</h1>
                     <Maps/>
                 </div>
             </MobileView>
