@@ -9,190 +9,190 @@ import './Styles.css';
 import axios from 'axios'
 import Form from 'react-bootstrap/Form';
 import * as credentials from './credentials.js'
-import { BrowserRouter as Router, Routes, Route, Navigate} from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import Modal from 'react-bootstrap/Modal';
 
 
 
 //Order Card Modal
-const OrderModal = ({open, onClose, item, ingredients, inventory, Addons, Removes, setAddons, setRemoves, addToCart}) => {
+const OrderModal = ({ open, onClose, item, ingredients, inventory, Addons, Removes, setAddons, setRemoves, addToCart }) => {
 
-    
+
     const addIngredientAddons = (ingredient) => {
-        
-        
+
+
         setAddons(current => [...current, ingredient])
-        
-      };
-      const removeIngredientAddons = (ingredient) => {
-       
-        
+
+    };
+    const removeIngredientAddons = (ingredient) => {
+
+
         setAddons(Addons.filter((i) => i !== ingredient))
-        
-        
-      };
-      const addIngredientRemoves = (ingredient) => {
-       
-        
+
+
+    };
+    const addIngredientRemoves = (ingredient) => {
+
+
         setRemoves(current => [...current, ingredient])
-        
-      };
-      const removeIngredientRemoves = (ingredient) => {
-        
-        
+
+    };
+    const removeIngredientRemoves = (ingredient) => {
+
+
         setRemoves(Removes.filter((i) => i !== ingredient))
-        
 
-          
-        
-      };
-      
 
-      const clearAddons = (ingredient) => {
-       
-        
+
+
+    };
+
+
+    const clearAddons = (ingredient) => {
+
+
         setAddons([])
-        
-        
-      };
-      const clearRemoves = (ingredient) => {
-        
-        
-        setRemoves([])
-        
 
-          
-        
-      };
+
+    };
+    const clearRemoves = (ingredient) => {
+
+
+        setRemoves([])
+
+
+
+
+    };
     function addZeroes(num) {
         // Convert input string to a number and store as a variable.
-            var value = Number(num);      
+        var value = Number(num);
         // Split the input string into two arrays containing integers/decimals
-            var res = num.split(".");     
+        var res = num.split(".");
         // If there is no decimal point or only one decimal place found.
-            if(res.length == 1 || res[1].length < 3) { 
-        // Set the number to two decimal places
-                value = value.toFixed(2);
-            }
+        if (res.length == 1 || res[1].length < 3) {
+            // Set the number to two decimal places
+            value = value.toFixed(2);
+        }
         // Return updated or original number.
         return value;
     }
-    
+
     const renderButtons = (arr, type, inventory_) => {
-        
-        
-        if(type === "primary"){
+
+
+        if (type === "primary") {
             return arr.map((i) => {
                 return (
-                    
-                <div> 
-                       {/* {i + "  "} //temporary removal for testing 
+
+                    <div>
+                        {/* {i + "  "} //temporary removal for testing 
                         <input type="checkbox" class="btn-check" id={i} autocomplete="off"></input>
                         <label class="btn btn-primary" for={i}>X</label> */}
 
-                      <Button >{i}</Button> 
-                      <Button onClick={() => removeIngredientRemoves(i)}>Undo</Button> 
-                      <Button onClick={() => addIngredientRemoves(i)}>Remove Ingedient</Button> 
-                   </div>
-                     
+                        <Button >{i}</Button>
+                        <Button onClick={() => removeIngredientRemoves(i)}>Undo</Button>
+                        <Button onClick={() => addIngredientRemoves(i)}>Remove Ingedient</Button>
+                    </div>
+
                 )
-            });  
-        }else{
-            if(arr === null ){
+            });
+        } else {
+            if (arr === null) {
                 return (<div></div>)
             }
             return arr.map((i) => {
-               
+
                 let price = ""
-                for(let j = 0; j < inventory_.length; j++){
-                    if(inventory_[j].name === i){
+                for (let j = 0; j < inventory_.length; j++) {
+                    if (inventory_[j].name === i) {
                         let num_price = inventory_[j].price
                         num_price = addZeroes(num_price)
                         price = num_price.toString();
                         price = "$" + price
-                        if(price === "$0.00"){
+                        if (price === "$0.00") {
                             price = ""
                         }
-                        
+
                     }
                 }
                 return (
-                    
-                <div> 
-                      <Button>{i + " "}{price}</Button> 
-                      <Button onClick={() => removeIngredientAddons(i)}>X</Button> 
-                      <Button onClick={() => addIngredientAddons(i)}>+</Button> 
-                </div>
-                     
+
+                    <div>
+                        <Button>{i + " "}{price}</Button>
+                        <Button onClick={() => removeIngredientAddons(i)}>X</Button>
+                        <Button onClick={() => addIngredientAddons(i)}>+</Button>
+                    </div>
+
                 )
-            });  
-        }             
+            });
+        }
     }
 
     let type_of_food = "Chicken Tenders"
-    if(item.group === "Burgers"){
+    if (item.group === "Burgers") {
         type_of_food = "Burger"
     }
-    if(item.group === "Sandwiches"){
+    if (item.group === "Sandwiches") {
         type_of_food = "Sandwich"
     }
-    if(item.group === "Salads"){
+    if (item.group === "Salads") {
         type_of_food = "Salad"
     }
-    if(item.group === "Sides"){
+    if (item.group === "Sides") {
         type_of_food = "Sides"
     }
     item.Addons = Addons;
     item.Removes = Removes;
-    
 
-    if(!open) return null
-    return(
+
+    if (!open) return null
+    return (
         <>
 
-        <Modal
-            show={open}
-            onHide={onClose}
-            // backdrop="static"
-            keyboard={false}
-            size="modal-dialog modal-xl"
-            // dialogClassName="overlay"
-            class="modal"
-            
-        >
-            <Modal.Header closeButton onClick={() => { clearAddons(); clearRemoves()}}>
-            <Modal.Title>{item.name}</Modal.Title>
+            <Modal
+                show={open}
+                onHide={onClose}
+                // backdrop="static"
+                keyboard={false}
+                size="modal-dialog modal-xl"
+                // dialogClassName="overlay"
+                class="modal"
 
-            </Modal.Header>
-            <Modal.Body>
-            <OrderModalSummary item = {item} addons = {Addons} removes = {Removes} inventory_ = {inventory} addToCart = {addToCart}/>
+            >
+                <Modal.Header closeButton onClick={() => { clearAddons(); clearRemoves() }}>
+                    <Modal.Title>{item.name}</Modal.Title>
 
-        
-            <div>Ingredients</div>
-            {renderButtons(ingredients.arr, "primary", inventory)}
-            <div>Add to your {type_of_food}</div>
-            {renderButtons(ingredients.addons, "s", inventory)}
-            <div>Sides</div>
-            {renderButtons(ingredients.sides, "s", inventory)}
-            <div>Dipping Sauce/Dressing</div>
-            {renderButtons(ingredients.sauces, "s", inventory)}
-            </Modal.Body>
-            <Modal.Footer>
-            <Button variant="secondary" onClick={() => {onClose(); clearAddons(); clearRemoves()}}>
-                Close
-            </Button>
-            <Button variant="primary">Understood</Button>
-            </Modal.Footer>
+                </Modal.Header>
+                <Modal.Body>
+                    <OrderModalSummary item={item} addons={Addons} removes={Removes} inventory_={inventory} addToCart={addToCart} />
 
 
-        </Modal>
+                    <div>Ingredients</div>
+                    {renderButtons(ingredients.arr, "primary", inventory)}
+                    <div>Add to your {type_of_food}</div>
+                    {renderButtons(ingredients.addons, "s", inventory)}
+                    <div>Sides</div>
+                    {renderButtons(ingredients.sides, "s", inventory)}
+                    <div>Dipping Sauce/Dressing</div>
+                    {renderButtons(ingredients.sauces, "s", inventory)}
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={() => { onClose(); clearAddons(); clearRemoves() }}>
+                        Close
+                    </Button>
+                    <Button variant="primary">Understood</Button>
+                </Modal.Footer>
 
-    
+
+            </Modal>
+
+
         </>
     )
 }
 
-    
+
 
 // Get menu items from backend then create cards from menu items
 const OrderMenuPage = (props) => {
@@ -206,7 +206,7 @@ const OrderMenuPage = (props) => {
     const [openOrderModal, setOpenOrderModal] = useState(false);
     const [Addons, setAddons] = useState([]);
     const [Removes, setRemoves] = useState([]);
-    
+
     const groups = ["Burgers", "Sandwiches", "Fried Chicken", "Salads", "Sides"];
     useEffect(() => {
         async function fetch_data() {
@@ -229,11 +229,11 @@ const OrderMenuPage = (props) => {
             fetch_data().then(res => {
                 let menu_data = [];
                 let ingredients = [];
-                
+
                 Object.values(res.data).forEach(field => {
-                    menu_data.push({ id: field.id, name: field.description, price: field.cost, group: field.group, added: [], removed: [], ingredients: Array(field.ingredients)})
-                    ingredients.push({id: field.id, arr: field.ingredients, addons: field.addon_ingredients, sides: field.side_options, sauces: field.sauces})
-                    
+                    menu_data.push({ id: field.id, name: field.description, price: field.cost, group: field.group, added: [], removed: [], ingredients: Array(field.ingredients) })
+                    ingredients.push({ id: field.id, arr: field.ingredients, addons: field.addon_ingredients, sides: field.side_options, sauces: field.sauces })
+
                 })
                 setMenuOptions(menu_data)
                 setIngredients(ingredients)
@@ -242,16 +242,16 @@ const OrderMenuPage = (props) => {
             fetch_inventory().then(res => {
                 let inventory = [];
                 Object.values(res.data).forEach(field => {
-                    inventory.push({name: field.description, price: field.cost})
-                    
+                    inventory.push({ name: field.description, price: field.cost })
+
                 })
                 setInventory(inventory)
             })
             fetch_orders().then(res => {
                 let orders = [];
                 Object.values(res.data).forEach(field => {
-                    orders.push({id: field.id, order_items: field.order_items, cost: field.cost, order_menu_items: field.order_menu_items})
-                    
+                    orders.push({ id: field.id, order_items: field.order_items, cost: field.cost, order_menu_items: field.order_menu_items })
+
                 })
                 setOrders(orders)
             })
@@ -263,10 +263,10 @@ const OrderMenuPage = (props) => {
         parse_data();
     }, [])
 
-    const OrderIDNumber = () =>{
+    const OrderIDNumber = () => {
         let max = 0;
-        for(let i = 0; i < Orders.length; i++){
-            if(Orders[i].id > max ){
+        for (let i = 0; i < Orders.length; i++) {
+            if (Orders[i].id > max) {
                 max = Orders[i].id
             }
 
@@ -305,10 +305,10 @@ const OrderMenuPage = (props) => {
     };
 
     const renderCards = (arr, type) => {
-        if(type === "customer"){
+        if (type === "customer") {
             return arr.map((i) => {
                 return (
-                   
+
                     // <div className="card text-center w-25 me-1 mb-4" key={i.id} onClick={() => addToCart(i)}>
                     //     <div className="card-body">
                     //         <h6 className="card-title">
@@ -318,111 +318,97 @@ const OrderMenuPage = (props) => {
                     //         {/* <Button onClick={() => addToCart(i)}>Add to order Customer</Button> */}
                     //     </div>
                     // </div>
-                    
-                    
-                    <Card style={{ width: '18rem' }} className="card text-center w-25 me-1 mb-4" key={i.id} onClick = {() => {setOpenOrderModal(true); setSelectedItem(i); setSelectedIngredients(Ingredients.find(element => element.id === i.id));}}>
+
+
+                    <Card style={{ width: '18rem' }} className="card text-center w-25 me-1 mb-4" key={i.id} onClick={() => { setOpenOrderModal(true); setSelectedItem(i); setSelectedIngredients(Ingredients.find(element => element.id === i.id)); }}>
                         <Card.Img variant="top" src="holder.js/100px180" />
                         <Card.Body>
-                            <Card.Title style={{
-                                    fontSize: `${fontSize}px`
-                                }}>{i.name}
-                                </Card.Title>
+                            <Card.Title style={{ fontSize: `${parseInt(localStorage.getItem("fontsize"))}px` }}>{i.name}
+                            </Card.Title>
                             <Card.Text>
                                 ${i.price}
                             </Card.Text>
                             <Card.Text>
                                 Replace with item description from database also add image for product
                             </Card.Text>
-                            <div onClick={(e)=>{
+                            <div onClick={(e) => {
                                 e.stopPropagation()
                             }}>
-                                <Button style={{
-                                    fontSize: `${fontSize}px`
-                                }} onClick={() => addToCart(i)}>Add to order</Button>
+                                <Button style={{ fontSize: `${parseInt(localStorage.getItem("fontsize")) - 2}px` }} onClick={() => addToCart(i)}>Add to order</Button>
                             </div>
                         </Card.Body>
                     </Card>
-                    
+
                 )
-            });                
+            });
         }
-        else{
+        else {
             return arr.map((i) => {
                 return (
-                    <Card style={{ width: '18rem' }} className="card text-center w-25 me-1 mb-4" key={i.id} onClick = {() => { setSelectedItem(i); setSelectedIngredients(Ingredients.find(element => element.id === i.id));}}>
-                    
-                    <Card.Body>
-                      <Card.Title>{i.name}</Card.Title>
-                      
-                      
-                      <div onClick={(e)=>{
-                        e.stopPropagation()
-                      }}>
-                        <Button onClick={() => {setOpenOrderModal(true);  setSelectedItem(i); setSelectedIngredients(Ingredients.find(element => element.id === i.id));}}>Customize menu item</Button>
-                         <Button onClick={() => addToCart(i)}>Quick Add to order</Button>
-                      </div>
-                    </Card.Body>
-                  </Card>
+                    <Card style={{ width: '18rem' }} className="card text-center w-25 me-1 mb-4" key={i.id} onClick={() => { setSelectedItem(i); setSelectedIngredients(Ingredients.find(element => element.id === i.id)); }}>
+
+                        <Card.Body>
+                            <Card.Title style={{ fontSize: `${parseInt(localStorage.getItem("fontsize")) + 6}px` }}>{i.name}</Card.Title>
+
+
+                            <div onClick={(e) => {
+                                e.stopPropagation()
+                            }}>
+                                <Button style={{ fontSize: `${parseInt(localStorage.getItem("fontsize")) - 2}px` }} onClick={() => { setOpenOrderModal(true); setSelectedItem(i); setSelectedIngredients(Ingredients.find(element => element.id === i.id)); }}>Customize menu item</Button>
+                                <Button style={{ fontSize: `${parseInt(localStorage.getItem("fontsize")) - 2}px` }} onClick={() => addToCart(i)}>Quick Add to order</Button>
+                            </div>
+                        </Card.Body>
+                    </Card>
                 )
-            });   
+            });
         }
-        
+
     };
     const [fontSize, setFontSize] = useState(16);
     const renderCategories = (groups_, arr, type) => {
         // for(let i = 0; i < groups.length; i++){
-            
+
         //     let category_items = []
         //     for(let j = 0; j < arr.length; j++){
         //         if(arr[j].group === groups[i]){
         //             category_items.push(arr[j])
         //         }
         //     }
-         
+
 
         //         <div>
         //             {groups.length}
         //             {groups[i]}
         //             {renderCards(category_items, type)}
         //         </div>
-    
+
         // }
-        <div>
-            <button onClick={() => setFontSize(fontSize + 2)}>
-                Increase Font Size
-            </button>
-            <button onClick={() => setFontSize(fontSize - 2)}>
-                Decrease Font Size
-            </button>
-        </div>
         return groups_.map((i) => {
             let category_items = []
-            for(let j = 0; j < arr.length; j++){
-                if(arr[j].group == i){
+            for (let j = 0; j < arr.length; j++) {
+                if (arr[j].group == i) {
                     category_items.push(arr[j])
                 }
             }
-         
-            return(
-               
-                
+
+            return (
+
+
                 <div >
-                    
-                    <div class="font">
-                        {i}
+
+                    <div class="font" style={{ fontSize: `${parseInt(localStorage.getItem("fontsize")) + 16}px` }}>
+                        <b>{i}</b>
                     </div>
-                    <div class="d-flex flex-wrap justify-content-evenly align-contents-around" style={{
-                    fontSize: `${fontSize}px`
-                }}>
+                    <div class="d-flex flex-wrap justify-content-evenly align-contents-around" style={{ fontSize: `${parseInt(localStorage.getItem("fontsize"))}px` }}>
                         {renderCards(category_items, type)}
                     </div>
-                    
+
                 </div>
             )
-        });  
+        });
     };
 
-    
+
 
 
     return (
@@ -434,33 +420,25 @@ const OrderMenuPage = (props) => {
             {!credentials.isManager() &&
                 <Navigate to = "/"></Navigate>
             } */}
-            
+
             <div className="d-flex justify-content-center mt-4">
                 {/*<h4>Order Creation Page</h4>*/}
             </div>
             <div className="mt-5 me-5 ms-5">
-                <div className="mb-5"  style={{
-                    fontSize: `${fontSize}px`
-                }}>
+                <div className="mb-5" style={{ fontSize: `${parseInt(localStorage.getItem("fontsize"))}px` }}>
                     <Order
                         items={items}
                         addToCart={addToCart}
                         removeFromCart={removeFromCart}
-                        order_number = {OrderIDNumber()}
-                        setItems = {setItems}
+                        order_number={OrderIDNumber()}
+                        setItems={setItems}
                     ></Order>
                 </div>
                 <div>
-                <button onClick={() => setFontSize(fontSize + 2)}>
-                    Increase Font Size
-                </button>
-                <button onClick={() => setFontSize(fontSize - 2)}>
-                    Decrease Font Size
-                </button>
                     {/* {renderCards(menuOptions, props.type)} */}
-                    
+
                     {renderCategories(groups, menuOptions, props.type)}
-                    <OrderModal open = {openOrderModal} onClose = {()=>setOpenOrderModal(false)} item = {selectedItem} ingredients = {selectedIngredients} inventory = {Inventory} Addons = {Addons} Removes = {Removes} setAddons = {setAddons} setRemoves = {setRemoves} addToCart={addToCart}/>
+                    <OrderModal open={openOrderModal} onClose={() => setOpenOrderModal(false)} item={selectedItem} ingredients={selectedIngredients} inventory={Inventory} Addons={Addons} Removes={Removes} setAddons={setAddons} setRemoves={setRemoves} addToCart={addToCart} />
                 </div>
             </div>
         </div>

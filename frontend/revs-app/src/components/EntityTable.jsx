@@ -87,10 +87,10 @@ function EntityModal(props) {
             return (
                 <div className="row" key={index} >
                     <div className="col-10">
-                        <Form.Control type="text" name={props.data[0]} defaultValue={item} onChange={(e) => updateDataArray(props.data[0], index, e.target.value)} />
+                        <Form.Control style={{ fontSize: `${parseInt(localStorage.getItem("fontsize"))}px` }} type="text" name={props.data[0]} defaultValue={item} onChange={(e) => updateDataArray(props.data[0], index, e.target.value)} />
                     </div>
                     <div className='col-2'>
-                        <Button variant='secondary' onClick={() => removeDataArrayItem(props.data[0], index)}>X</Button>
+                        <Button style={{ fontSize: `${parseInt(localStorage.getItem("fontsize"))}px` }} variant='secondary' onClick={() => removeDataArrayItem(props.data[0], index)}>X</Button>
                     </div>
                     <br />
                 </div>
@@ -100,7 +100,7 @@ function EntityModal(props) {
         formField =
             <div key={props.key}>
                 {formField}
-                <Button onClick={() => addDataArrayItem(props.data[0])}>+</Button>
+                <Button style={{ fontSize: `${parseInt(localStorage.getItem("fontsize"))}px` }} onClick={() => addDataArrayItem(props.data[0])}>+</Button>
             </div>
 
         return formField
@@ -125,9 +125,9 @@ function EntityModal(props) {
                     }
 
                     return (
-                        <div className='row' key={index}>
+                        <div className='row' key={index} style={{ fontSize: `${parseInt(localStorage.getItem("fontsize"))}px` }}>
                             <Form.Group >
-                                <Form.Label>
+                                <Form.Label style={{ fontSize: `${parseInt(localStorage.getItem("fontsize"))}px` }}>
                                     {data[0]}
                                 </Form.Label>
                                 <br />
@@ -146,8 +146,8 @@ function EntityModal(props) {
                 Object.entries(props.headers).map((header, index) => {
                     if (header[0] === "id") return null;
                     return (
-                        <Form.Group key={index}>
-                            <Form.Label>
+                        <Form.Group key={index} style={{ fontSize: `${parseInt(localStorage.getItem("fontsize"))}px` }}>
+                            <Form.Label style={{ fontSize: `${parseInt(localStorage.getItem("fontsize"))}px` }}>
                                 {header[0]}
                             </Form.Label>
                             <br />
@@ -165,12 +165,12 @@ function EntityModal(props) {
             <div className='container-fluid'>
                 <div className="row">
                     <div className='col-6 justify-content-start d-flex'>
-                        <Button variant="danger me-3" onClick={deleteItem}>
+                        <Button style={{ fontSize: `${parseInt(localStorage.getItem("fontsize"))}px` }} variant="danger me-3" onClick={deleteItem}>
                             Delete
                         </Button>
                     </div>
                     <div className='col-6 justify-content-end d-flex'>
-                        <Button variant="success me-3" onClick={updateItem}>
+                        <Button style={{ fontSize: `${parseInt(localStorage.getItem("fontsize"))}px` }} variant="success me-3" onClick={updateItem}>
                             Update
                         </Button>
                     </div>
@@ -182,14 +182,14 @@ function EntityModal(props) {
 
     const addFooter =
         <Modal.Footer>
-            <Button variant="primary" onClick={addItem}>
+            <Button style={{ fontSize: `${parseInt(localStorage.getItem("fontsize"))}px` }} variant="primary" onClick={addItem}>
                 Add
             </Button>
         </Modal.Footer>
 
-    const updateTitle = <Modal.Title>Update/Delete</Modal.Title>
+    const updateTitle = <Modal.Title style={{ fontSize: `${parseInt(localStorage.getItem("fontsize"))}px` }}>Update/Delete</Modal.Title>
 
-    const addTitle = <Modal.Title>Add</Modal.Title>
+    const addTitle = <Modal.Title style={{ fontSize: `${parseInt(localStorage.getItem("fontsize"))}px` }}>Add</Modal.Title>
 
     return (
         <>
@@ -199,7 +199,7 @@ function EntityModal(props) {
                     {props.task === "add" ? addTitle : null}
                 </Modal.Header>
                 <Modal.Body>
-                    <div className='container-fluid clearfix'>
+                    <div className='container-fluid clearfix' style={{ fontSize: `${parseInt(localStorage.getItem("fontsize"))}px` }}>
                         <Form>
                             {<ModalBody />}
                         </Form>
@@ -223,12 +223,12 @@ const ArrayDropdown = (props) => {
 
     return (
         <div className="dropdown" >
-            <button type="button" onMouseEnter={toggleDrop} onMouseLeave={toggleDrop} className="btn btn-secondary" id={props.id} data-togle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <button style={{ fontSize: `${parseInt(localStorage.getItem("fontsize")) - 4}px` }} type="button" onMouseEnter={toggleDrop} onMouseLeave={toggleDrop} className="btn btn-secondary" id={props.id} data-togle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Items
             </button>
             <div className={menuClass} aria-labelledby={props.id}>
                 {props.items.map((val, index) =>
-                    <button key={index} className="dropdown-item">{val}</button>
+                    <button style={{ fontSize: `${parseInt(localStorage.getItem("fontsize"))}px` }} key={index} className="dropdown-item">{val}</button>
                 )}
             </div>
         </div>
@@ -346,9 +346,9 @@ function EntityTable(props) {
         <div>
             <EntityModal task="update" item={selectedObject} show={showUpdateModal} handleComplete={completeRequest} handleClose={closeUpdateModal} entityName={props.entityName} />
             {props.addOption ? <EntityModal task="add" headers={headers} show={showAddModal} handleComplete={completeRequest} handleClose={closeAddModal} entityName={props.entityName} /> : null}
-            {props.addOption ? <Button variant="primary" onClick={openAddModal}> Add New Item </Button> : null}
+            {props.addOption ? <Button variant="primary" onClick={openAddModal} style={{ fontSize: `${parseInt(localStorage.getItem("fontsize")) - 2}px` }}> Add New Item </Button> : null}
 
-            <table className="table table-hover table-sm table-bordered">
+            <table className="table table-hover table-sm table-bordered" style={{ fontSize: `${parseInt(localStorage.getItem("fontsize")) - 2}px` }}>
                 <thead>
                     <tr>
                         {tableHeaders}

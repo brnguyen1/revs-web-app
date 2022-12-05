@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Modal, Button } from 'react-bootstrap';
+import GoogleTranslate from "./GoogleTranslate";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./AccessibilityModal.css";
@@ -36,6 +37,9 @@ const AccessibilityModal = () => {
         localStorage.setItem("fontsize", currentFontSize - 2);
         document.getElementById("num").innerText = currentFontSize;
     }
+    const handleScreenFocusToggle = () => {
+        // Insert functionality for toggle button
+    }
 
     return (
         <div>
@@ -68,6 +72,20 @@ const AccessibilityModal = () => {
                         </div>
                     </div>
                     <hr />
+                    <div class="mt-3 mb-3">
+                        Google Translate
+                    </div>
+                    <div class="mt-3 mb-3">
+                        <center><GoogleTranslate></GoogleTranslate></center>
+                    </div>
+                    <hr />
+                    <div class="mt-3 mb-3">
+                        Keyboard Movement
+                    </div>
+                    <div class="mt-3 mb-3">
+                        {/* Insert toggle button here that send boolean value to local storage. */}
+                        <Button variant="dark" id="screenFocus" onClick={handleScreenFocusToggle}>Off</Button>
+                    </div>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button id="save" variant="primary" onClick={closeModal}>
