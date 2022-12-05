@@ -8,16 +8,26 @@ import AccessibilityModal from '../components/AccessibilityModal';
 
 // Customer page where orders will happen as well
 function Customer() {
-    const [fontSize, setFontSize] = useState(16);
     return (
         <div>
-            <CustomerHeader />
-            <div className="row">
-                <div className="col-12">
-                    <OrderMenuPage type="customer" />
+            {JSON.parse(localStorage.getItem("screenfocus")) && (<FocusLock autoFocus returnFocus>
+                <CustomerHeader />
+                <div className="row">
+                    <div className="col-12">
+                        <OrderMenuPage type="customer" />
+                    </div>
                 </div>
-            </div>
-            <AccessibilityModal />
+                <AccessibilityModal />
+            </FocusLock>)}
+            {!(JSON.parse(localStorage.getItem("screenfocus"))) && (<div>
+                <CustomerHeader />
+                <div className="row">
+                    <div className="col-12">
+                        <OrderMenuPage type="customer" />
+                    </div>
+                </div>
+                <AccessibilityModal />
+            </div>)}
         </div>
     )
 }

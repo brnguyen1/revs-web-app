@@ -5,6 +5,7 @@ import EmployeeHeader from "../components/EmployeeHeader";
 import * as credentials from '../components/credentials.js'
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import AccessibilityModal from "../components/AccessibilityModal";
+import FocusLock from 'react-focus-lock';
 
 function MenuItems() {
     return (
@@ -15,16 +16,30 @@ function MenuItems() {
             {!credentials.isManager() &&
                 <Navigate to="/"></Navigate>
             }
-            <EmployeeHeader />
-            <div style={{ fontSize: `${parseInt(localStorage.getItem("fontsize")) + 12}px` }}>View Menu Items</div>
-            <div className="container w-100">
+            {JSON.parse(localStorage.getItem("screenfocus")) && (<FocusLock autoFocus returnFocus>
+                <EmployeeHeader />
+                <div style={{ fontSize: `${parseInt(localStorage.getItem("fontsize")) + 12}px` }}>View Menu Items</div>
+                <div className="container w-100">
 
-                <div className="table-responsive text-nowrap w-100">
+                    <div className="table-responsive text-nowrap w-100">
 
-                    <EntityTable entityName="menu" addOption />
+                        <EntityTable entityName="menu" addOption />
+                    </div>
                 </div>
-            </div>
-            <AccessibilityModal />
+                <AccessibilityModal />
+            </FocusLock>)}
+            {!(JSON.parse(localStorage.getItem("screenfocus"))) && (<div>
+                <EmployeeHeader />
+                <div style={{ fontSize: `${parseInt(localStorage.getItem("fontsize")) + 12}px` }}>View Menu Items</div>
+                <div className="container w-100">
+
+                    <div className="table-responsive text-nowrap w-100">
+
+                        <EntityTable entityName="menu" addOption />
+                    </div>
+                </div>
+                <AccessibilityModal />
+            </div>)}
         </div>
     );
 }
