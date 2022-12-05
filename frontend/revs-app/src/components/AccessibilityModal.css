@@ -1,0 +1,12 @@
+.accessibility-button {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    margin-bottom: 3rem;
+    margin-right: 3rem;
+    border-radius: 50%;
+}
+
+.access-fontsize {
+    font-size: 1.75rem;
+}

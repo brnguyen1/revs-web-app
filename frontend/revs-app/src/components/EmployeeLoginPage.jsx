@@ -1,6 +1,6 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import CustomerHeader from "./CustomerHeader";
-import {useEffect,useState} from 'react';
+import { useEffect, useState } from 'react';
 import jwt_decode from 'jwt-decode';
 import React, { Component } from "react";
 import { useNavigate } from "react-router-dom";
@@ -8,13 +8,12 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import GoogleAuth from "./GoogleAuth";
 import * as credentials from './credentials.js'
-import { BrowserRouter as Router, Routes, Route, Navigate} from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux';
 import { employeeLogin } from "../redux-slices/employee-slice";
 import ManagerHeader from "./ManagerHeader";
-import EmployeeHeader  from "./EmployeeHeader";
+import EmployeeHeader from "./EmployeeHeader";
 import GoogleTranslate from "./GoogleTranslate";
-
 
 const EmployeeLoginPage = () => {
     const dispatch = useDispatch();
@@ -23,10 +22,10 @@ const EmployeeLoginPage = () => {
         <div>
 
             {!credentials.isLoggedIn() &&
-            <CustomerHeader />
+                <CustomerHeader />
             }
             {credentials.isLoggedIn() &&
-            <EmployeeHeader />
+                <EmployeeHeader />
             }
             {/* <h4 class="text-center mt-4">Employee Login Page</h4>
             <div class="d-flex justify-content-center mt-5">
@@ -56,11 +55,10 @@ const EmployeeLoginPage = () => {
                         </Button>
                     </div>
                 </Form> */}
-            <h4 className="text-center mt-4">Employee Login Page</h4>
+            <h4 className="text-center mt-4" style={{ fontSize: `${parseInt(localStorage.getItem("fontsize")) + 12}px`}}>Employee Login Page</h4>
             <center><GoogleTranslate></GoogleTranslate></center>
             <div className="d-flex justify-content-center mt-5">
-            <GoogleAuth />
-
+                <GoogleAuth />
             </div>
         </div>
 

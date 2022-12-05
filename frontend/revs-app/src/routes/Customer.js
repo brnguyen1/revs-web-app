@@ -11,18 +11,12 @@ function Customer() {
     return (
         <div>
             <CustomerHeader />
-            
-            <div className="row" style={{
-                    fontSize: `${fontSize}px`
-                }}>
-                <div className="col-12" style={{
-                    fontSize: `${fontSize}px`
-                }}>
+            <div className="row" style={{ fontSize: `${fontSize}px`}}>
+                <div className="col-12" style={{ fontSize: `${fontSize}px`}}>
                     <OrderMenuPage type="customer" />
                 </div>
                 <break></break>
-                <div className="col-12">
-
+                <div className="col-12" style={{ fontSize: `${fontSize}px`}}>
                     <Maps />
                 </div>
             </div>
