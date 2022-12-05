@@ -1,3 +1,5 @@
+import { Navigate } from "react-router-dom";
+
 const status = localStorage.getItem("status");
 
 export function isLoggedIn(){
@@ -21,7 +23,6 @@ export function logOut()
     {
         localStorage.removeItem("user");
         localStorage.setItem("status","0");
-        document.location.reload();
+        <Navigate to="/"/>
     }
-    document.location.reload();
 }

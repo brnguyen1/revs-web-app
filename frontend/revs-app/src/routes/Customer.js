@@ -4,6 +4,7 @@ import CustomerHeader from '../components/CustomerHeader'
 import Maps from '../components/Maps';
 import OrderMenuPage from '../components/OrderMenuPage';
 import FocusLock from 'react-focus-lock';
+import AccessibilityModal from '../components/AccessibilityModal';
 
 // Customer page where orders will happen as well
 function Customer() {
@@ -11,21 +12,16 @@ function Customer() {
     return (
         <div>
             <CustomerHeader />
-            
-            <div className="row" style={{
-                    fontSize: `${fontSize}px`
-                }}>
-                <div className="col-12" style={{
-                    fontSize: `${fontSize}px`
-                }}>
+            <div className="row">
+                <div className="col-12">
                     <OrderMenuPage type="customer" />
                 </div>
                 <break></break>
                 <div className="col-12">
-
                     <Maps />
                 </div>
             </div>
+            <AccessibilityModal />
         </div>
     )
 }

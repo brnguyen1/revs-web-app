@@ -3,6 +3,8 @@ import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { max } from 'moment';
 import ClipLoader from "react-spinners/ClipLoader";
+import * as credentials from './credentials.js'
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 const sendOrder = (itemData) => {
   let req = axios.post(process.env.REACT_APP_BACKEND_API + 'orders', itemData)
   Promise.resolve(req)
@@ -113,8 +115,29 @@ export default function Order(props) {
   const totalCost = itemsCost + taxCost;
   const [maxID, setmaxID] = useState([]);
   const [loading, setLoading] = useState(true);
-  const employee_id = 0 //get from login data 
+  // const [OrderNumber, setOrderNumber] = useState(0);
 
+  //const ingredients = calculateNetIngredients(calculateIngredients(items), calculateAddedIngredients(items), calculateRemovedIngredients(items)) // get ingredients plus addons minus removes 
+  //const menuitems = calculateMenuItems(items) // get from each item name 
+  const employee_id = 0 //get from login data 
+  //   async function fetch_orders() {
+  //     var endpoint = 'http://localhost:4173/orders'
+  //     const res = await axios.get(endpoint)
+  //     return res
+  // }
+
+  // const OrderIDNumber = () =>{
+  //   let max = 0;
+  //   for(let i = 0; i < Orders.length; i++){
+  //       if(Orders[i].id > max ){
+  //           max = Orders[i].id
+  //       }
+
+  //   }
+
+  //   max += 1
+  //   return max
+  // }
 
   function updateData() {
     getID().then(req => {
@@ -181,8 +204,6 @@ export default function Order(props) {
   const order =
     <div >
       <div>
-
-        {getDate()}
 
         {items.length !== 0 && <h2>{updateData()}Order Items</h2>}
 

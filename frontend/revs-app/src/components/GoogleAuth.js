@@ -69,7 +69,7 @@ const GoogleAuth = () => {
     }, []);
 
     return (
-        <div className="GoogleAuth">
+        <div className="GoogleAuth" style={{ fontSize: `${parseInt(localStorage.getItem("fontsize"))}px` }}>
             <div id="signInDiv"></div>
             {credentials.isLoggedIn() &&
                 <div>
@@ -86,10 +86,10 @@ const GoogleAuth = () => {
                         <p>{user.email}</p>
 
                         {credentials.isManager() &&
-                            <><Link role="button" to="/ordermenu" class="btn btn-outline-secondary me-3">Server Portal</Link><Link role="button" to="/manager" className="btn  btn-outline-secondary me-3">Manager Portal</Link></>
+                            <><Link role="button" to="/ordermenu" class="btn btn-outline-secondary me-3" style={{ fontSize: `${parseInt(localStorage.getItem("fontsize"))}px` }}>Server Portal</Link><Link role="button" to="/manager" className="btn  btn-outline-secondary me-3" style={{ fontSize: `${parseInt(localStorage.getItem("fontsize"))}px` }}>Manager Portal</Link></>
                         }
 
-                        <button class="btn btn-outline-secondary me-3" onClick={(e) => handleSignOut(e)}> Sign Out </button>
+                        <button style={{ fontSize: `${parseInt(localStorage.getItem("fontsize"))}px` }} class="btn btn-outline-secondary me-3" onClick={(e) => handleSignOut(e)}> Sign Out </button>
 
                     </center>
                 </div>

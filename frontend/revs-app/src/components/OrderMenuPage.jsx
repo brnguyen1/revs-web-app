@@ -323,9 +323,7 @@ const OrderMenuPage = (props) => {
                     <Card style={{ width: '18rem' }} className="card text-center w-25 me-1 mb-4" key={i.id} onClick={() => { setOpenOrderModal(true); setSelectedItem(i); setSelectedIngredients(Ingredients.find(element => element.id === i.id)); }}>
                         <Card.Img variant="top" src="holder.js/100px180" />
                         <Card.Body>
-                            <Card.Title style={{
-                                fontSize: `${fontSize}px`
-                            }}>{i.name}
+                            <Card.Title style={{ fontSize: `${parseInt(localStorage.getItem("fontsize"))}px` }}>{i.name}
                             </Card.Title>
                             <Card.Text>
                                 ${i.price}
@@ -336,9 +334,7 @@ const OrderMenuPage = (props) => {
                             <div onClick={(e) => {
                                 e.stopPropagation()
                             }}>
-                                <Button style={{
-                                    fontSize: `${fontSize}px`
-                                }} onClick={() => addToCart(i)}>Add to order</Button>
+                                <Button style={{ fontSize: `${parseInt(localStorage.getItem("fontsize")) - 2}px` }} onClick={() => addToCart(i)}>Add to order</Button>
                             </div>
                         </Card.Body>
                     </Card>
@@ -352,14 +348,14 @@ const OrderMenuPage = (props) => {
                     <Card style={{ width: '18rem' }} className="card text-center w-25 me-1 mb-4" key={i.id} onClick={() => { setSelectedItem(i); setSelectedIngredients(Ingredients.find(element => element.id === i.id)); }}>
 
                         <Card.Body>
-                            <Card.Title>{i.name}</Card.Title>
+                            <Card.Title style={{ fontSize: `${parseInt(localStorage.getItem("fontsize")) + 6}px` }}>{i.name}</Card.Title>
 
 
                             <div onClick={(e) => {
                                 e.stopPropagation()
                             }}>
-                                <Button onClick={() => { setOpenOrderModal(true); setSelectedItem(i); setSelectedIngredients(Ingredients.find(element => element.id === i.id)); }}>Customize menu item</Button>
-                                <Button onClick={() => addToCart(i)}>Quick Add to order</Button>
+                                <Button style={{ fontSize: `${parseInt(localStorage.getItem("fontsize")) - 2}px` }} onClick={() => { setOpenOrderModal(true); setSelectedItem(i); setSelectedIngredients(Ingredients.find(element => element.id === i.id)); }}>Customize menu item</Button>
+                                <Button style={{ fontSize: `${parseInt(localStorage.getItem("fontsize")) - 2}px` }} onClick={() => addToCart(i)}>Quick Add to order</Button>
                             </div>
                         </Card.Body>
                     </Card>
@@ -387,14 +383,6 @@ const OrderMenuPage = (props) => {
         //         </div>
 
         // }
-        <div>
-            <button onClick={() => setFontSize(fontSize + 2)}>
-                Increase Font Size
-            </button>
-            <button onClick={() => setFontSize(fontSize - 2)}>
-                Decrease Font Size
-            </button>
-        </div>
         return groups_.map((i) => {
             let category_items = []
             for (let j = 0; j < arr.length; j++) {
@@ -408,12 +396,10 @@ const OrderMenuPage = (props) => {
 
                 <div >
 
-                    <div class="font">
-                        {i}
+                    <div class="font" style={{ fontSize: `${parseInt(localStorage.getItem("fontsize")) + 16}px` }}>
+                        <b>{i}</b>
                     </div>
-                    <div class="d-flex flex-wrap justify-content-evenly align-contents-around" style={{
-                        fontSize: `${fontSize}px`
-                    }}>
+                    <div class="d-flex flex-wrap justify-content-evenly align-contents-around" style={{ fontSize: `${parseInt(localStorage.getItem("fontsize"))}px` }}>
                         {renderCards(category_items, type)}
                     </div>
 
@@ -439,9 +425,7 @@ const OrderMenuPage = (props) => {
                 {/*<h4>Order Creation Page</h4>*/}
             </div>
             <div className="mt-5 me-5 ms-5">
-                <div className="mb-5" style={{
-                    fontSize: `${fontSize}px`
-                }}>
+                <div className="mb-5" style={{ fontSize: `${parseInt(localStorage.getItem("fontsize"))}px` }}>
                     <Order
                         items={items}
                         addToCart={addToCart}
@@ -451,12 +435,6 @@ const OrderMenuPage = (props) => {
                     ></Order>
                 </div>
                 <div>
-                    <button onClick={() => setFontSize(fontSize + 2)}>
-                        Increase Font Size
-                    </button>
-                    <button onClick={() => setFontSize(fontSize - 2)}>
-                        Decrease Font Size
-                    </button>
                     {/* {renderCards(menuOptions, props.type)} */}
 
                     {renderCategories(groups, menuOptions, props.type)}

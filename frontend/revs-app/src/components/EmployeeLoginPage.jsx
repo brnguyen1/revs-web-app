@@ -3,9 +3,8 @@ import CustomerHeader from "./CustomerHeader";
 import React from "react";
 import GoogleAuth from "./GoogleAuth";
 import * as credentials from './credentials.js'
-import EmployeeHeader  from "./EmployeeHeader";
+import EmployeeHeader from "./EmployeeHeader";
 import GoogleTranslate from "./GoogleTranslate";
-
 
 const EmployeeLoginPage = () => {
 
@@ -13,7 +12,7 @@ const EmployeeLoginPage = () => {
         <div>
 
             {credentials.isLoggedIn() &&
-            <EmployeeHeader />
+                <EmployeeHeader />
             }
             {/* <h4 class="text-center mt-4">Employee Login Page</h4>
             <div class="d-flex justify-content-center mt-5">
@@ -43,14 +42,12 @@ const EmployeeLoginPage = () => {
                         </Button>
                     </div>
                 </Form> */}
-            <h4 className="text-center mt-4">Employee Login Page</h4>
-            <center><GoogleTranslate></GoogleTranslate></center>
+            <h4 className="text-center mt-4" style={{ fontSize: `${parseInt(localStorage.getItem("fontsize")) + 20}px` }}>Employee Login Page</h4>
+            {/* <center><GoogleTranslate></GoogleTranslate></center> */}
             <div className="d-flex justify-content-center mt-5">
-            <GoogleAuth />
-
+                <GoogleAuth />
             </div>
         </div>
-
     );
 
 }
