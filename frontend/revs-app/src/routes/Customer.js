@@ -16,10 +16,6 @@ function Customer() {
                 <div className="col-12">
                     <OrderMenuPage type="customer" />
                 </div>
-                <break></break>
-                <div className="col-12">
-                    <Maps />
-                </div>
             </div>
             <AccessibilityModal />
         </div>

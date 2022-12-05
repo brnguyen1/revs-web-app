@@ -2,11 +2,11 @@ import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Customer from './routes/Customer';
 import Orders from './routes/Orders';
-import EmployeeLogin from './routes/EmployeeLogin';
+import Login from './routes/Login';
 import OrderMenu from './routes/OrderMenu';
 import Server from './routes/Server';
 import MenuItems from './routes/MenuItems';
-import Manager from './routes/Managerlogin';
+import Manager from './routes/ManagerDashboard';
 import React from 'react'
 import Inventory from './routes/Inventory';
 
@@ -20,7 +20,7 @@ function App() {
 
         {/* Employee Routes */}
         <Route path="/ordermenu" element={<OrderMenu />} />
-        <Route path="/" element={<EmployeeLogin />} />
+        <Route path="/" element={<Login />} />
 
         {/* Manager Routes */}
         <Route path="/manager" element={<Manager />} />

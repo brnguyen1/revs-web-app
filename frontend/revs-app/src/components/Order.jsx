@@ -180,7 +180,7 @@ export default function Order(props) {
               <div className="col-3">
                 <button onClick={() => {
                   removeFromCart(item)
-                  if (items.length - 1 === 0) {
+                  if ((items.length - 1) === 0 && (items[0].qty - 1) === 0) {
                     closeModal();
                   }
                 }}>
