@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import Modal from 'react-bootstrap/Modal';
+
 const sendOrder = (itemData) => {
   let req = axios.post(process.env.REACT_APP_BACKEND_API + 'orders', itemData)
   Promise.resolve(req)

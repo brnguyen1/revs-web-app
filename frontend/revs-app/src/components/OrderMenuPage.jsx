@@ -344,11 +344,35 @@ const OrderMenuPage = (props) => {
         });
     };
 
-    return (
-        <div>
+    // Return component based on type of call
+    // customer view
+    if (props.type === "customer") {
+        return (
             <div className="container mt-2 h-100">
                 {/*<h4>Order Creation Page</h4>*/}
+                <div className="mt-2">
+                    <div className="mx-5" style={{ fontSize: `${parseInt(localStorage.getItem("fontsize"))}px` }}>
+                        <Order
+                            items={items}
+                            addToCart={addToCart}
+                            removeFromCart={removeFromCart}
+                            order_number={OrderIDNumber()}
+                            type={props.type}
+                            setItems={setItems}
+                        ></Order>
+                    </div>
+                    <div>
+                        {renderCategories(groups, menuOptions, props.type)}
+                        <OrderModal open={openOrderModal} onClose={() => setOpenOrderModal(false)} item={selectedItem} ingredients={selectedIngredients} inventory={Inventory} Addons={Addons} Removes={Removes} setAddons={setAddons} setRemoves={setRemoves} addToCart={addToCart} />
+                    </div>
+                </div>
             </div>
+        )
+    }
+
+    // Employee view
+    return (
+        <div className="container mt-2 h-100 w-100">
             <div className="mt-2">
                 <div className="mx-5" style={{ fontSize: `${parseInt(localStorage.getItem("fontsize"))}px` }}>
                     <Order
@@ -367,6 +391,8 @@ const OrderMenuPage = (props) => {
             </div>
         </div>
     )
+
+
 
 }
 
