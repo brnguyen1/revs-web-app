@@ -102,7 +102,7 @@ export default function Order(props) {
   // Order items calcuations variables
   const { items, addToCart, removeFromCart, order_number, setItems } = props;
   const itemsCost = items.reduce((x, y) => x + y.qty * y.price, 0);
-  const taxCost = itemsCost * 0.825;
+  const taxCost = itemsCost * 0.0825;
   const totalCost = itemsCost + taxCost;
   const [maxID, setmaxID] = useState([]);
   const [loading, setLoading] = useState(true);
