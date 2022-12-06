@@ -321,7 +321,6 @@ const OrderMenuPage = (props) => {
         }
 
     };
-    const [fontSize, setFontSize] = useState(16);
     const renderCategories = (groups_, arr, type) => {
         return groups_.map((i) => {
             let category_items = []
@@ -332,14 +331,11 @@ const OrderMenuPage = (props) => {
             }
 
             return (
-
-
                 <div >
-
                     <div class="font" style={{ fontSize: `${parseInt(localStorage.getItem("fontsize")) + 16}px` }}>
                         <b>{i}</b>
                     </div>
-                    <div class="d-flex flex-wrap justify-content-evenly align-contents-around" style={{ fontSize: `${parseInt(localStorage.getItem("fontsize"))}px` }}>
+                    <div class="d-flex flex-wrap justify-content-left" style={{ fontSize: `${parseInt(localStorage.getItem("fontsize"))}px` }}>
                         {renderCards(category_items, type)}
                     </div>
 
@@ -348,16 +344,13 @@ const OrderMenuPage = (props) => {
         });
     };
 
-
-
-
     return (
         <div>
-            <div className="d-flex justify-content-center mt-4">
+            <div className="container mt-2 h-100">
                 {/*<h4>Order Creation Page</h4>*/}
             </div>
-            <div className="mt-5 me-5 ms-5">
-                <div className="mb-5" style={{ fontSize: `${parseInt(localStorage.getItem("fontsize"))}px` }}>
+            <div className="mt-2">
+                <div className="mx-5" style={{ fontSize: `${parseInt(localStorage.getItem("fontsize"))}px` }}>
                     <Order
                         items={items}
                         addToCart={addToCart}
@@ -368,8 +361,6 @@ const OrderMenuPage = (props) => {
                     ></Order>
                 </div>
                 <div>
-                    {/* {renderCards(menuOptions, props.type)} */}
-
                     {renderCategories(groups, menuOptions, props.type)}
                     <OrderModal open={openOrderModal} onClose={() => setOpenOrderModal(false)} item={selectedItem} ingredients={selectedIngredients} inventory={Inventory} Addons={Addons} Removes={Removes} setAddons={setAddons} setRemoves={setRemoves} addToCart={addToCart} />
                 </div>
