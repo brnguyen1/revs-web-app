@@ -131,7 +131,7 @@ export default function Order(props) {
   const completeRequest = () => {
     setLoading(true);
     setModalState(false)
-    console.log(order_for_db)
+    setPhoneNumber(null)
     updateData()
   }
 
