@@ -233,15 +233,15 @@ export default function Order(props) {
   const footer =
     <>
       {checkoutModal}
-      <div className='d-flex fixed-bottom bg-success p-1 mx-auto justify-content-end'>
+      <div className='d-flex shadow bg-light fixed-bottom p-1 mx-auto justify-content-end'>
         <button type="button" class="btn mr-4 border" onClick={showModal}>
           <div className='d-flex'>
             <div className='p-1'>
-              <svg xmlns="http://www.w3.org/2000/svg" width="2rem" height="2rem" fill="currentColor" class="bi bi-bag" viewBox="0 0 16 16">
+              <svg xmlns="http://www.w3.org/2000/svg" width="2rem" height="2rem" fill={items.length >0 ? "green" : "currentColor"} class="bi bi-bag" viewBox="0 0 16 16">
                 <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5z"></path>
               </svg>
             </div>
-            <div className='p-2'>Checkout</div>
+              <div className='p-2' style={items.length > 0 ? {color: "green"} : null}>{items.length}</div>
           </div>
         </button>
       </div>
