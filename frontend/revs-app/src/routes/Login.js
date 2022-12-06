@@ -5,12 +5,13 @@ import { BrowserView, MobileView } from 'react-device-detect';
 import FocusLock from 'react-focus-lock';
 import Maps from "../components/Maps";
 import CustomerHeader from "../components/CustomerHeader";
-
+import ArrowKeyNav from "../components/Keyboard";
 
 const Login = () => {
     return (
         <>
             <BrowserView>
+            <ArrowKeyNav>
                 <div>
                     {JSON.parse(localStorage.getItem("screenfocus")) && (<FocusLock autoFocus returnFocus>
                         <EmployeeLoginPage />
@@ -21,6 +22,7 @@ const Login = () => {
                         <AccessibilityModal />
                     </div>)}
                 </div>
+            </ArrowKeyNav>
             </BrowserView>
             <MobileView>
                 <CustomerHeader/>

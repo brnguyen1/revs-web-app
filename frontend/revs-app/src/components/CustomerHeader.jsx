@@ -6,7 +6,7 @@ import Logo from "./logo.png";
 const CustomerHeader = () => {
     return (
         
-        <nav className="navbar bg-grey bg-secondary">
+        <nav className="navbar bg-grey shadow">
             <div className="container-fluid">
                 <b>
                 <a className="navbar-brand" href="/">
@@ -17,6 +17,7 @@ const CustomerHeader = () => {
                 </div>
 
             </div>
+            <hr></hr>
         </nav>
     )
 }

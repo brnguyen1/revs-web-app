@@ -6,10 +6,12 @@ import AccessibilityModal from "../components/AccessibilityModal";
 import FocusLock from 'react-focus-lock';
 import * as credentials from '../components/credentials.js'
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
+import ArrowKeyNav from "../components/Keyboard";
 
 function Inventory() {
     return (
         <div>
+            <ArrowKeyNav>
             {JSON.parse(localStorage.getItem("screenfocus")) && (<FocusLock autoFocus returnFocus>
                 <EmployeeHeader />
                 <div style={{ fontSize: `${parseInt(localStorage.getItem("fontsize")) + 12}px` }}>View Menu Items</div>
@@ -44,6 +46,7 @@ function Inventory() {
                 </div>
                 <AccessibilityModal />
             </div>)}
+            </ArrowKeyNav>
         </div>
     );
 }

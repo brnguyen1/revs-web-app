@@ -6,10 +6,12 @@ import * as credentials from '../components/credentials.js'
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import AccessibilityModal from "../components/AccessibilityModal";
 import FocusLock from 'react-focus-lock';
+import ArrowKeyNav from "../components/Keyboard";
 
 function MenuItems() {
     return (
         <div>
+            <ArrowKeyNav>
             {!credentials.isLoggedIn() &&
                 <Navigate to="/"></Navigate>
             }
@@ -40,6 +42,7 @@ function MenuItems() {
                 </div>
                 <AccessibilityModal />
             </div>)}
+            </ArrowKeyNav>
         </div>
     );
 }

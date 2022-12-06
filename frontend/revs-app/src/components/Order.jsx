@@ -249,7 +249,7 @@ export default function Order(props) {
 
   // Employee checkout
   const summary =
-    <div>
+    <div id="summary">
       <h2>Order Items</h2>
 
       {items.map((item) => (
