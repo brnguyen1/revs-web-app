@@ -22,7 +22,9 @@ export function logOut()
     if(isLoggedIn())
     {
         localStorage.removeItem("user");
-        localStorage.setItem("status","0");
+        localStorage.removeItem("status");
+        localStorage.removeItem("employee_id");
+        localStorage.removeItem("ismanager");
         document.location.reload();
         <Navigate to="/"/>
     }

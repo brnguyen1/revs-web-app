@@ -24,21 +24,13 @@ const GoogleAuth = () => {
                     console.log("valid")
                     localStorage.setItem("status", "1");
                     localStorage.setItem("ismanager", res.data.ismanager)
+                    console.log(res.data)
+                    localStorage.setItem("employee_id", res.data.id)
                     document.location.reload();
-
                 }
             })
         }
 
-    };
-
-    function handleSignOut(event) {
-        setUser({});
-        localStorage.removeItem("user");
-        localStorage.setItem("status", "0");
-        document.getElementById("signInDiv").hidden = false;
-        document.location.reload();
-        <Navigate to="/"></Navigate>
     };
 
     useEffect(() => {
@@ -89,7 +81,7 @@ const GoogleAuth = () => {
                             <><Link role="button" to="/ordermenu" class="btn btn-outline-secondary me-3" style={{ fontSize: `${parseInt(localStorage.getItem("fontsize"))}px` }}>Server Portal</Link><Link role="button" to="/manager" className="btn  btn-outline-secondary me-3" style={{ fontSize: `${parseInt(localStorage.getItem("fontsize"))}px` }}>Manager Portal</Link></>
                         }
 
-                        <button style={{ fontSize: `${parseInt(localStorage.getItem("fontsize"))}px` }} class="btn btn-outline-secondary me-3" onClick={(e) => handleSignOut(e)}> Sign Out </button>
+                        <button style={{ fontSize: `${parseInt(localStorage.getItem("fontsize"))}px` }} class="btn btn-outline-secondary me-3" onClick={() => credentials.logOut()}> Sign Out </button>
 
                     </center>
                 </div>

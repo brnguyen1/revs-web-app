@@ -152,7 +152,7 @@ export default function Order(props) {
 
   };
 
-  let order_for_db = { id: (maxID[0] + 1), order_items: calculateNetIngredients(calculateIngredients(items), calculateAddedIngredients(items), calculateRemovedIngredients(items)), order_menu_items: calculateMenuItems(items), cost: totalCost, order_time: getDate() }
+  let order_for_db = { id: (maxID[0] + 1), employee_id: localStorage.getItem("employee_id"), order_items: calculateNetIngredients(calculateIngredients(items), calculateAddedIngredients(items), calculateRemovedIngredients(items)), order_menu_items: calculateMenuItems(items), cost: totalCost, order_time: getDate() }
 
   // Modal function
   const showModal = () => {
@@ -224,7 +224,7 @@ export default function Order(props) {
       </Modal.Body>
 
       <Modal.Footer>
-        <button onClick={() => { sendOrder(order_for_db); setItems([]); completeRequest() }}>
+        <button type='button' className='btn' onClick={() => { sendOrder(order_for_db); setItems([]); completeRequest() }}>
           Confirm Order
         </button>
       </Modal.Footer>
@@ -291,7 +291,7 @@ export default function Order(props) {
         </div>
       </div>
       <hr />
-      <button onClick={() => { sendOrder(order_for_db); setItems([]); completeRequest() }}>
+      <button type='button' className='btn btn-success' onClick={() => { sendOrder(order_for_db); setItems([]); completeRequest() }}>
         Confirm Order
       </button>
     </div >
