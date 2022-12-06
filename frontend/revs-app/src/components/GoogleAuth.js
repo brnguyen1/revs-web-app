@@ -59,7 +59,7 @@ const GoogleAuth = () => {
         try {
             google.accounts.id.renderButton(
                 document.getElementById("signInDiv"),
-                { theme: "outline", size: "large" }
+                { theme: "outline", size: "large"}
             );
         }
         catch (e) {
