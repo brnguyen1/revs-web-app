@@ -25,6 +25,7 @@ const EmployeeHeader = () => {
                     </a>
 
                     {/* <Link role="button" to="/" className="btn btn-outline-secondary me-3">Home</Link> */}
+                    <Link role="button" to="/customerorder" class="btn bg-dark btn-outline-light me-3" style={{ fontSize: `${parseInt(localStorage.getItem("fontsize"))}px` }}>Kiosk</Link>
                     <Link role="button" to="/ordermenu" className="btn bg-dark btn-outline-light me-3" style={{ fontSize: `${parseInt(localStorage.getItem("fontsize"))}px` }}>Create Order</Link>
                     {credentials.isManager() &&
                         <Link role="button" to="/manager" className="btn  bg-dark btn-outline-light me-3" style={{ fontSize: `${parseInt(localStorage.getItem("fontsize"))}px` }}>Manager Portal</Link>
