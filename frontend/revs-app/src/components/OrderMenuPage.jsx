@@ -246,10 +246,7 @@ const OrderMenuPage = (props) => {
 
     const removeQueueItem = (itemData) => {
         axios.delete(process.env.REACT_APP_BACKEND_API + 'queue/' + String(itemData.id))
-        const index = queue.indexOf(itemData);
-
-        setQueue(queue.splice(index, 1));
-        console.log(queue)
+        setQueue(queue.filter(item => { return item.id !== itemData.id }));
     }
 
     const OrderIDNumber = () => {
