@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import React from 'react'
+import Logo from "./logo.png";
 import { useDispatch } from 'react-redux';
 import "bootstrap/dist/css/bootstrap.min.css";
 import * as credentials from './credentials.js'

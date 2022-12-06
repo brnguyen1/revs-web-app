@@ -4,17 +4,16 @@ import { useState, useEffect } from 'react';
 import Modal from 'react-bootstrap/Modal';
 
 const sendOrder = (itemData) => {
-  let req = axios.post(process.env.REACT_APP_BACKEND_API + 'orders', itemData)
-  Promise.resolve(req)
-  // props.handleComplete()
-  // props.handleClose()
+  axios.post(process.env.REACT_APP_BACKEND_API + 'orders', itemData)
+}
+
+const sendQueue = (itemData) => {
+  axios.post(process.env.REACT_APP_BACKEND_API + 'queue', itemData)
+
 }
 
 const getID = () => {
   let req = axios.get(process.env.REACT_APP_BACKEND_API + 'orders/id')
-  Promise.resolve(req)
-  // props.handleComplete()
-  // props.handleClose()
   return req
 }
 
@@ -107,6 +106,7 @@ export default function Order(props) {
   const totalCost = itemsCost + taxCost;
   const [maxID, setmaxID] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [phoneNumber, setPhoneNumber] = useState(null)
   const employee_id = 0 //get from login data 
 
   // Modal information
@@ -130,12 +130,19 @@ export default function Order(props) {
 
   const completeRequest = () => {
     setLoading(true);
+    setModalState(false)
+    console.log(order_for_db)
     updateData()
   }
 
   useEffect(() => {
     updateData();
   }, []);
+
+  // Phone number handler
+  const handlePhone = (e) => {
+    setPhoneNumber(e.target.value)
+  }
 
   const renderText = (arr, symbol) => {
     return arr.map((i) => {
@@ -152,7 +159,7 @@ export default function Order(props) {
 
   };
 
-  let order_for_db = { id: (maxID[0] + 1), employee_id: localStorage.getItem("employee_id"), order_items: calculateNetIngredients(calculateIngredients(items), calculateAddedIngredients(items), calculateRemovedIngredients(items)), order_menu_items: calculateMenuItems(items), cost: totalCost, order_time: getDate() }
+  let order_for_db = { id: (maxID[0] + 1), employee_id: localStorage.getItem("employee_id"), order_items: calculateNetIngredients(calculateIngredients(items), calculateAddedIngredients(items), calculateRemovedIngredients(items)), order_menu_items: calculateMenuItems(items), cost: totalCost, order_time: getDate(), phone: phoneNumber}
 
   // Modal function
   const showModal = () => {
@@ -196,8 +203,6 @@ export default function Order(props) {
               </div>
               {renderText(item.added, "+")}
               {renderText(item.removed, "-")}
-
-
             </div>
           ))}
 
@@ -221,10 +226,14 @@ export default function Order(props) {
           </div>
           <hr />
         </div>
+
+        <div className='container-fluid'>
+          <input type="number" class="form-control" placeholder="Phone Number" onChange={handlePhone}/>
+        </div>
       </Modal.Body>
 
       <Modal.Footer>
-        <button type='button' className='btn' onClick={() => { sendOrder(order_for_db); setItems([]); completeRequest() }}>
+        <button type='button' className='btn btn-success' onClick={() => { delete order_for_db.employee_id; delete order_for_db.id; sendQueue(order_for_db); setItems([]); completeRequest() }}>
           Confirm Order
         </button>
       </Modal.Footer>
@@ -251,7 +260,7 @@ export default function Order(props) {
   // Employee checkout
   const summary =
     <div className='container-fluid' id="summary">
-      <h2>Order Items</h2>
+      <h4>Order Items</h4>
 
       {items.map((item) => (
         <div key={item.id} className="row">

@@ -11,6 +11,8 @@ const pool = new Pool({
     ssl: { rejectUnauthorized: false }
 });
 
+const client = require('twilio')(process.env.TWILIO_SID, process.env.TWILIO_AUTH_TOKEN);
+
 async function select_all_query(entity, res) {
     const query = format("SELECT * FROM %I ORDER BY id DESC", entity)
 
@@ -49,11 +51,37 @@ async function add_one_query(entity, req, res) {
         return val
     })
 
-    const query = format("INSERT INTO %I(%I) VALUES(%L)", entity, Object.keys(req.body), values)
-    console.log(query)
+    const query = format("INSERT INTO %I(%I) VALUES(%L) RETURNING id", entity, Object.keys(req.body), values)
 
     pool.query(query, function (err, data) {
         if (err) return console.log("Query Error %s", err);
+
+        if (entity === "queue") {
+            if (req.body.phone) {
+                client.messages
+                    .create({
+                        body: 'Thank you for choosing Rev\'s American Grill! Your order has been placed. Order ID: ' + data.rows[0].id,
+                        messagingServiceSid: process.env.PHONE_SID,      
+                        to: '+1' + String(req.body.phone),
+                    })
+                    .then(message => console.log(message.sid))
+                    .done();
+            }
+        }
+        
+        if(entity === "orders") {
+            if (req.body.phone) {
+                client.messages
+                    .create({
+                        body: 'Your order has been completed!',
+                        messagingServiceSid: process.env.PHONE_SID,      
+                        to: '+1' + String(req.body.phone),
+                    })
+                    .then(message => console.log(message.sid))
+                    .done();
+            }
+        }
+
     })
 
     res.send("Nice post")
@@ -107,4 +135,4 @@ async function authenticate_user(entity, req, res) {
 }
 
 
-module.exports = { select_all_query, select_one_query, add_one_query, update_one_query, delete_one_query, max_query, authenticate_user}
+module.exports = { select_all_query, select_one_query, add_one_query, update_one_query, delete_one_query, max_query, authenticate_user }

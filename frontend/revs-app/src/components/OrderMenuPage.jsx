@@ -171,6 +171,7 @@ const OrderMenuPage = (props) => {
     const [Ingredients, setIngredients] = useState([]);
     const [Inventory, setInventory] = useState([]);
     const [Orders, setOrders] = useState([]);
+    const [queue, setQueue] = useState([])
     const [openOrderModal, setOpenOrderModal] = useState(false);
     const [Addons, setAddons] = useState([]);
     const [Removes, setRemoves] = useState([]);
@@ -192,7 +193,11 @@ const OrderMenuPage = (props) => {
             const res = await axios.get(endpoint)
             return res
         }
-
+        async function fetch_queue() {
+            var endpoint = process.env.REACT_APP_BACKEND_API + 'queue'
+            const res = await axios.get(endpoint)
+            return res
+        }
         function parse_data() {
             fetch_data().then(res => {
                 let menu_data = [];
@@ -224,12 +229,28 @@ const OrderMenuPage = (props) => {
                 setOrders(orders)
             })
 
-
-
+            fetch_queue().then(res => {
+                setQueue(res.data)
+            })
         }
-
         parse_data();
     }, [])
+
+    // Order/ cart functions
+    const completeQueue = (itemData) => {
+        removeQueueItem(itemData)
+        delete itemData.id
+        itemData.employee_id = localStorage.getItem("employee_id")
+        axios.post(process.env.REACT_APP_BACKEND_API + 'orders', itemData)
+    }
+
+    const removeQueueItem = (itemData) => {
+        axios.delete(process.env.REACT_APP_BACKEND_API + 'queue/' + String(itemData.id))
+        const index = queue.indexOf(itemData);
+
+        setQueue(queue.splice(index, 1));
+        console.log(queue)
+    }
 
     const OrderIDNumber = () => {
         let max = 0;
@@ -243,8 +264,6 @@ const OrderMenuPage = (props) => {
         max += 1
         return max
     }
-
-
 
     const addToCart = (item) => {
         const validitem = items.find((i) => i.name === item.name);
@@ -271,6 +290,8 @@ const OrderMenuPage = (props) => {
             );
         }
     };
+
+    // Queue function
 
     const renderCards = (arr, type) => {
         if (type === "customer") {
@@ -383,14 +404,49 @@ const OrderMenuPage = (props) => {
                     <OrderModal open={openOrderModal} onClose={() => setOpenOrderModal(false)} item={selectedItem} ingredients={selectedIngredients} inventory={Inventory} Addons={Addons} Removes={Removes} setAddons={setAddons} setRemoves={setRemoves} addToCart={addToCart} />
                 </div>
                 <div className="col-5" style={{ fontSize: `${parseInt(localStorage.getItem("fontsize"))}px` }}>
-                    <Order
-                        items={items}
-                        addToCart={addToCart}
-                        removeFromCart={removeFromCart}
-                        order_number={OrderIDNumber()}
-                        type={props.type}
-                        setItems={setItems}
-                    ></Order>
+                    <div className="row">
+                        <Order
+                            items={items}
+                            addToCart={addToCart}
+                            removeFromCart={removeFromCart}
+                            order_number={OrderIDNumber()}
+                            type={props.type}
+                            setItems={setItems}
+                        ></Order>
+                    </div>
+                    <div className="row">
+                        <div className="container-fluid">
+                            <h4>Queue</h4>
+                            <table className="table">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            Queue ID
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {queue.map(item => {
+                                        return (
+                                            <tr>
+                                                <td>
+                                                    {item.id}
+                                                </td>
+                                                <td>
+                                                    <button type="button" className="btn btn-primary btn-sm" onClick={() => completeQueue(item)}> Complete</button>
+                                                </td>
+
+                                                <td>
+                                                    <button type="button" className="btn btn-danger btn-sm" onClick={() => removeQueueItem(item)}> Remove </button>
+                                                </td>
+                                            </tr>
+                                        )
+                                    })}
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

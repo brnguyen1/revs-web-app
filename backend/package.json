@@ -18,6 +18,7 @@
     "pg-format": "^1.0.4",
     "pg-hstore": "^2.3.4",
     "pg-promise": "^10.12.1",
-    "sequelize": "^6.25.3"
+    "sequelize": "^6.25.3",
+    "twilio": "^3.83.4"
   }
 }
