@@ -199,7 +199,7 @@ const OrderMenuPage = (props) => {
                 let ingredients = [];
 
                 Object.values(res.data).forEach(field => {
-                    menu_data.push({ id: field.id, name: field.description, price: field.cost, group: field.group, added: [], removed: [], ingredients: Array(field.ingredients) })
+                    menu_data.push({ id: field.id, name: field.description, price: field.cost, group: field.group, added: [], removed: [], ingredients: Array(field.ingredients), information: field.information })
                     ingredients.push({ id: field.id, arr: field.ingredients, addons: field.addon_ingredients, sides: field.side_options, sauces: field.sauces })
 
                 })
@@ -286,7 +286,7 @@ const OrderMenuPage = (props) => {
                                 ${i.price}
                             </Card.Text>
                             <Card.Text>
-                                Replace with item description from database also add image for product
+                                {i.information}
                             </Card.Text>
                             <div onClick={(e) => {
                                 e.stopPropagation()
