@@ -1,10 +1,8 @@
 import { Link } from "react-router-dom";
 import React from 'react'
 import { useDispatch } from 'react-redux';
-import { employeeLogout } from "../redux-slices/employee-slice";
 import "bootstrap/dist/css/bootstrap.min.css";
 import * as credentials from './credentials.js'
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 
 const ManagerHeader = () => {
     const dispatch = useDispatch();
@@ -13,8 +11,8 @@ const ManagerHeader = () => {
         <nav class="navbar bg-grey bg-secondary">
             <div class="container-fluid">
                 <b>
-                    <a class="navbar-brand" href="/" style={{ fontSize: `${parseInt(localStorage.getItem("fontsize")) + 8}px` }}>
-                        Rev's American Grill - Manager Options
+                    <a className="navbar-brand" href="/">
+                        <img src={Logo} height="55px" width="115px" />
                     </a>
                 </b>
                 <div class="d-flex justify-content-between">
