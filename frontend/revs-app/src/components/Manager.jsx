@@ -4,10 +4,11 @@ import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import * as credentials from './credentials.js'
 import { BrowserRouter as Router, Routes, Route, Navigate} from 'react-router-dom'
+import ArrowKeyNav from "./Keyboard";
 
 const Manager = () => {
     return (
-        <div>
+        <div>         
             {!credentials.isLoggedIn() &&
                 
                <Navigate to = "/"></Navigate>
@@ -16,7 +17,8 @@ const Manager = () => {
                 <Navigate to = "/"></Navigate>
             }
             <ManagerHeader />
-            <div class="d-flex flex-wrap justify-content-evenly align-contents-around mt-5">
+            <ArrowKeyNav>
+            <div class="d-flex flex-wrap justify-content-evenly align-contents-around mt-5">                
                 <div class="card text-center w-25 me-1 mb-4">
                     <div class="card-body">
                         <h5 class="card-title">
@@ -47,7 +49,8 @@ const Manager = () => {
                 </div>
 
             </div>
-        </div>
+            </ArrowKeyNav>
+        </div>        
     )
 }
 
