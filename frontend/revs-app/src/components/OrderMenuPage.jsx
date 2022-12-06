@@ -287,7 +287,10 @@ const OrderMenuPage = (props) => {
             );
         }
     };
-
+    function ButtonPress(i){
+        addToCart(i);
+        alert("Added Item To Cart");
+    }
     // Queue function
 
     const renderCards = (arr, type) => {
@@ -309,7 +312,7 @@ const OrderMenuPage = (props) => {
                             <div onClick={(e) => {
                                 e.stopPropagation()
                             }}>
-                                <Button style={{ fontSize: `${parseInt(localStorage.getItem("fontsize")) - 2}px` }} onClick={() => addToCart(i)}>Add to order</Button>
+                                <Button style={{ fontSize: `${parseInt(localStorage.getItem("fontsize")) - 2}px` }} onClick={() => ButtonPress(i)}>Add to order</Button>
                             </div>
                         </Card.Body>
                     </Card>
