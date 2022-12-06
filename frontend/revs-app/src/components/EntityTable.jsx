@@ -235,8 +235,15 @@ const ArrayDropdown = (props) => {
 
 // Data table component
 function EntityTable(props) {
-    // Table data 
-    const [TData, setTData] = useState({});
+    // Raw data
+    const [rawData, setRawData] = useState({})
+
+    // Filtered table data 
+    const [query, setQuery] = useState("")
+    const TData = Object.values(rawData).filter(item => {
+        return Object.values(item).some(val => String(val).toLowerCase().includes(query))
+    }
+    )
     const [headers, setHeaders] = useState({});
     const [isLoading, setLoading] = useState(true);
     // update modal vaues
@@ -274,7 +281,7 @@ function EntityTable(props) {
                 })
 
                 setHeaders(tmp_headers)
-                setTData(res.data)
+                setRawData(res.data)
                 setLoading(false)
             })
         }
@@ -299,6 +306,11 @@ function EntityTable(props) {
     // Rerender on add, update, or delete
     const completeRequest = () => {
         setSelectedObject({});
+    }
+
+    // filter function
+    const search = (e) => {
+        setQuery(e.target.value.toLowerCase())
     }
 
     //------------------------- Component Content -------------------------//
@@ -344,8 +356,15 @@ function EntityTable(props) {
     const dataTable =
         <div>
             <EntityModal task="update" item={selectedObject} show={showUpdateModal} handleComplete={completeRequest} handleClose={closeUpdateModal} entityName={props.entityName} />
-            {props.addOption ? <EntityModal task="add" headers={headers} show={showAddModal} handleComplete={completeRequest} handleClose={closeAddModal} entityName={props.entityName} /> : null}
-            {props.addOption ? <Button variant="primary" onClick={openAddModal} style={{ fontSize: `${parseInt(localStorage.getItem("fontsize")) - 2}px` }}> Add New Item </Button> : null}
+            <div className='row py-2'>
+                <div className="col-6">
+                    {props.addOption ? <EntityModal task="add" headers={headers} show={showAddModal} handleComplete={completeRequest} handleClose={closeAddModal} entityName={props.entityName} /> : null}
+                    {props.addOption ? <Button variant="primary" onClick={openAddModal} style={{ fontSize: `${parseInt(localStorage.getItem("fontsize")) - 2}px` }}> Add New Item </Button> : null}
+                </div>
+                <div className='col-6 px-5'>
+                    <input type="text" class="form-control" placeholder="Search table..." onChange={search} />
+                </div>
+            </div>
 
             <table className="table table-hover table-sm table-bordered" style={{ fontSize: `${parseInt(localStorage.getItem("fontsize")) - 2}px` }}>
                 <thead>
