@@ -23,6 +23,8 @@ export function logOut()
     {
         localStorage.removeItem("user");
         localStorage.setItem("status","0");
+        document.location.reload();
         <Navigate to="/"/>
     }
 }
+

@@ -31,7 +31,7 @@ const EmployeeHeader = () => {
                         <Link role="button" to="/manager" className="btn  bg-dark btn-outline-light me-3" style={{ fontSize: `${parseInt(localStorage.getItem("fontsize"))}px` }}>Manager Portal</Link>
                     }
                     <Link onClick={() => { credentials.logOut() }} role="button" to="/" className="btn bg-dark btn-outline-light me-3" style={{ fontSize: `${parseInt(localStorage.getItem("fontsize"))}px` }}>Logout</Link>
-
+                    
 
                 </div>
             </div>
