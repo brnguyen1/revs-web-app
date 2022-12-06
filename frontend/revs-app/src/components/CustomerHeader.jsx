@@ -16,7 +16,6 @@ const CustomerHeader = () => {
                 <div className="d-flex justify-content-between">
                 </div>
 
-
             </div>
             <hr></hr>
         </nav>

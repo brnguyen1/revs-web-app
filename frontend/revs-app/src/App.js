@@ -9,6 +9,7 @@ import MenuItems from './routes/MenuItems';
 import Manager from './routes/ManagerDashboard';
 import React from 'react'
 import Inventory from './routes/Inventory';
+import Location from './routes/Location';
 
 // Act as router for project
 function App() {
@@ -17,6 +18,7 @@ function App() {
       <Routes>
         {/* Customer Routes */}
         <Route exact path="/customerorder" element={<Customer />} />
+        <Route exact path="/location" element={<Location />} />
 
         {/* Employee Routes */}
         <Route path="/ordermenu" element={<OrderMenu />} />
