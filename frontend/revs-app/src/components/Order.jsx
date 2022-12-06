@@ -238,11 +238,11 @@ export default function Order(props) {
         <button type="button" class="btn mr-4 border" onClick={showModal}>
           <div className='d-flex'>
             <div className='p-1'>
-              <svg xmlns="http://www.w3.org/2000/svg" width="2rem" height="2rem" fill={items.length >0 ? "green" : "currentColor"} class="bi bi-bag" viewBox="0 0 16 16">
+              <svg xmlns="http://www.w3.org/2000/svg" width="2rem" height="2rem" fill={items.length > 0 ? "green" : "currentColor"} class="bi bi-bag" viewBox="0 0 16 16">
                 <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5z"></path>
               </svg>
             </div>
-              <div className='p-2' style={items.length > 0 ? {color: "green"} : null}>{items.length}</div>
+            <div className='p-2' style={items.length > 0 ? { color: "green" } : null}>{items.length}</div>
           </div>
         </button>
       </div>
@@ -250,14 +250,14 @@ export default function Order(props) {
 
   // Employee checkout
   const summary =
-    <div id="summary">
+    <div className='container-fluid' id="summary">
       <h2>Order Items</h2>
 
       {items.map((item) => (
         <div key={item.id} className="row">
-          <div className="col-2">{item.name}</div>
+          <div className="col-4">{item.name}</div>
 
-          <div className="col-2">
+          <div className="col-5">
             <button onClick={() => removeFromCart(item)}>
               -
             </button>{' '}
@@ -265,7 +265,7 @@ export default function Order(props) {
               +
             </button>
           </div>
-          <div className="col-2 text-right">
+          <div className="col-3 text-right">
             {item.qty} x ${Number(item.price).toFixed(2)}
           </div>
           {renderText(item.added, "+")}
@@ -274,19 +274,19 @@ export default function Order(props) {
       ))}
       <hr></hr>
       <div className="row">
-        <div className="col-4">Items Price</div>
-        <div className="col-4 text-right">${itemsCost.toFixed(2)}</div>
+        <div className="col-9">Items Price</div>
+        <div className="col-3 text-right">${itemsCost.toFixed(2)}</div>
       </div>
       <div className="row">
-        <div className="col-4">Tax Price</div>
-        <div className="col-1 text-right">${taxCost.toFixed(2)}</div>
+        <div className="col-9">Tax Price</div>
+        <div className="col-3 text-right">${taxCost.toFixed(2)}</div>
       </div>
 
-      <div className="row">
-        <div className="col-4">
+      <div className="row justify-content-end">
+        <div className="col-9">
           <strong>Total Price</strong>
         </div>
-        <div className="col-1 text-right">
+        <div className="col-3 text-right">
           <strong>${totalCost.toFixed(2)}</strong>
         </div>
       </div>
@@ -294,7 +294,7 @@ export default function Order(props) {
       <button onClick={() => { sendOrder(order_for_db); setItems([]); completeRequest() }}>
         Confirm Order
       </button>
-    </div>
+    </div >
 
 
   return (

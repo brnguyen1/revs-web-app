@@ -372,9 +372,13 @@ const OrderMenuPage = (props) => {
 
     // Employee view
     return (
-        <div className="container mt-2 h-100 w-100">
-            <div className="mt-2">
-                <div className="mx-5" style={{ fontSize: `${parseInt(localStorage.getItem("fontsize"))}px` }}>
+        <div id="employee-container" className="container-fluid mt-2 w-100">
+            <div className="row">
+                <div className="col-7">
+                    {renderCategories(groups, menuOptions, props.type)}
+                    <OrderModal open={openOrderModal} onClose={() => setOpenOrderModal(false)} item={selectedItem} ingredients={selectedIngredients} inventory={Inventory} Addons={Addons} Removes={Removes} setAddons={setAddons} setRemoves={setRemoves} addToCart={addToCart} />
+                </div>
+                <div className="col-5" style={{ fontSize: `${parseInt(localStorage.getItem("fontsize"))}px` }}>
                     <Order
                         items={items}
                         addToCart={addToCart}
@@ -383,10 +387,6 @@ const OrderMenuPage = (props) => {
                         type={props.type}
                         setItems={setItems}
                     ></Order>
-                </div>
-                <div>
-                    {renderCategories(groups, menuOptions, props.type)}
-                    <OrderModal open={openOrderModal} onClose={() => setOpenOrderModal(false)} item={selectedItem} ingredients={selectedIngredients} inventory={Inventory} Addons={Addons} Removes={Removes} setAddons={setAddons} setRemoves={setRemoves} addToCart={addToCart} />
                 </div>
             </div>
         </div>

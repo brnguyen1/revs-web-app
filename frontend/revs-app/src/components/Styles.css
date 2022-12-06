@@ -26,3 +26,7 @@
     cursor: pointer;
 }
 
+/* Employee view */
+#employee-container{
+    max-height: 100vh;
+}
