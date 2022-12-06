@@ -12,7 +12,7 @@ const pool = new Pool({
 });
 
 async function select_all_query(entity, res) {
-    const query = format("SELECT * FROM %I", entity)
+    const query = format("SELECT * FROM %I ORDER BY id DESC", entity)
 
     pool.query(query, function (err, data) {
         if (err) return console.log("Query Error");

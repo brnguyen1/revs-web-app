@@ -236,16 +236,23 @@ const ArrayDropdown = (props) => {
 // Data table component
 function EntityTable(props) {
     // Raw data
-    const [rawData, setRawData] = useState({})
+    const [rawData, setRawData] = useState([])
 
     // Filtered table data 
     const [query, setQuery] = useState("")
-    const TData = Object.values(rawData).filter(item => {
-        return Object.values(item).some(val => String(val).toLowerCase().includes(query))
-    }
-    )
+    const [offset, setOffset] = useState(0)
     const [headers, setHeaders] = useState({});
     const [isLoading, setLoading] = useState(true);
+    let TData = []
+    if (query === "") {
+        TData = rawData.slice(offset, offset + 51)
+    }
+    else {
+        TData = rawData.filter(item => {
+            return Object.values(item).some(val => String(val).toLowerCase().includes(query))
+        })
+    }
+
     // update modal vaues
     const [showUpdateModal, setShowUpdateModal] = useState(false);
     const [selectedObject, setSelectedObject] = useState({});
@@ -313,6 +320,18 @@ function EntityTable(props) {
         setQuery(e.target.value.toLowerCase())
     }
 
+    const decrementOffset = () => {
+        if(offset !== 0){
+            setOffset(offset - 50)
+        }
+    }
+
+    const incrementOffset = () => {
+        if(offset + 50 < rawData.length){
+            setOffset(offset + 50)
+        }
+    }
+
     //------------------------- Component Content -------------------------//
 
     const tableHeaders = Object.keys(headers).map((header) => {
@@ -376,6 +395,21 @@ function EntityTable(props) {
                     {tableItems}
                 </tbody>
             </table>
+            <div className='d-flex justify-content-center'>
+                <button type='button' className='btn float-left' onClick={decrementOffset}>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="2rem" height="2rem" fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z" />
+                    </svg>
+                </button>
+                <button type='button' className='btn' style={{fontSize: "2rem"}}>
+                    {offset / 50}
+                </button>
+                <button type='button' className='btn float-right' onClick={incrementOffset}>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="2rem" height="2rem" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z" />
+                    </svg>
+                </button>
+            </div>
         </div>
     return (
         <>
