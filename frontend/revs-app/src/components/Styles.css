@@ -27,6 +27,11 @@
 }
 
 /* Employee view */
-#employee-container{
-    max-height: 100vh;
+#employee-container {
+    position: fixed;
+    height: 100vh;
+}
+#employee-cards{
+    height: 100%;
+    overflow-y: scroll;
 }

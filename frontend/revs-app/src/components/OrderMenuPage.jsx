@@ -306,13 +306,17 @@ const OrderMenuPage = (props) => {
 
                         <Card.Body>
                             <Card.Title style={{ fontSize: `${parseInt(localStorage.getItem("fontsize")) + 6}px` }}>{i.name}</Card.Title>
-
-
                             <div onClick={(e) => {
                                 e.stopPropagation()
                             }}>
-                                <Button style={{ fontSize: `${parseInt(localStorage.getItem("fontsize")) - 2}px` }} onClick={() => { setOpenOrderModal(true); setSelectedItem(i); setSelectedIngredients(Ingredients.find(element => element.id === i.id)); }}>Customize menu item</Button>
-                                <Button style={{ fontSize: `${parseInt(localStorage.getItem("fontsize")) - 2}px` }} onClick={() => addToCart(i)}>Quick Add to order</Button>
+                                <div className="row">
+                                    <div className="col-6">
+                                        <Button style={{ fontSize: `${parseInt(localStorage.getItem("fontsize")) - 2}px` }} onClick={() => { setOpenOrderModal(true); setSelectedItem(i); setSelectedIngredients(Ingredients.find(element => element.id === i.id)); }}>Customize</Button>
+                                    </div>
+                                    <div className="col-6">
+                                        <Button style={{ fontSize: `${parseInt(localStorage.getItem("fontsize")) - 2}px` }} onClick={() => addToCart(i)}>Quick Add</Button>
+                                    </div>
+                                </div>
                             </div>
                         </Card.Body>
                     </Card>
@@ -331,15 +335,15 @@ const OrderMenuPage = (props) => {
             }
 
             return (
-                <div >
+                <>
                     <div class="font" style={{ fontSize: `${parseInt(localStorage.getItem("fontsize")) + 16}px` }}>
                         <b>{i}</b>
                     </div>
-                    <div class="d-flex flex-wrap justify-content-left" style={{ fontSize: `${parseInt(localStorage.getItem("fontsize"))}px` }}>
+                    <div class="d-flex flex-wrap justify-content-left pb-3" style={{ fontSize: `${parseInt(localStorage.getItem("fontsize"))}px` }}>
                         {renderCards(category_items, type)}
                     </div>
 
-                </div>
+                </>
             )
         });
     };
@@ -373,8 +377,8 @@ const OrderMenuPage = (props) => {
     // Employee view
     return (
         <div id="employee-container" className="container-fluid mt-2 w-100">
-            <div className="row">
-                <div className="col-7">
+            <div className="row h-100">
+                <div id="employee-cards" className="col-7 pb-5">
                     {renderCategories(groups, menuOptions, props.type)}
                     <OrderModal open={openOrderModal} onClose={() => setOpenOrderModal(false)} item={selectedItem} ingredients={selectedIngredients} inventory={Inventory} Addons={Addons} Removes={Removes} setAddons={setAddons} setRemoves={setRemoves} addToCart={addToCart} />
                 </div>
