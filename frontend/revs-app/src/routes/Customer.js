@@ -1,7 +1,5 @@
 import React from 'react'
-import { useState } from "react";
 import CustomerHeader from '../components/CustomerHeader'
-import Maps from '../components/Maps';
 import OrderMenuPage from '../components/OrderMenuPage';
 import FocusLock from 'react-focus-lock';
 import AccessibilityModal from '../components/AccessibilityModal';
