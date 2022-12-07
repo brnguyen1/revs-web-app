@@ -11,7 +11,7 @@ import ArrowKeyNav from '../components/Keyboard';
 /**
  * this function will show the customer side of the web app and all information for the customer to see
  *
- * @return  {[type]}  returns a customer view of the webpage 
+ * @return  returns a customer view of the webpage 
  */
 function Customer() {
     return (

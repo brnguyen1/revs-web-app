@@ -10,7 +10,7 @@ import ArrowKeyNav from "../components/Keyboard";
 /**
  * checks if users are logged in and allows them to view all previous orders
  *
- * @return  {[type]}  returns a view to see all past orders
+ * @return  returns a view to see all past orders
  */
 function Orders() {
     return (

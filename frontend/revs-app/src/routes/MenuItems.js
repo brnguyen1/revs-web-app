@@ -10,7 +10,7 @@ import ArrowKeyNav from "../components/Keyboard";
 /**
  * this will create a page for the emplyees to see all menu items 
  *
- * @return  {[type]}  returns a page to see menu items
+ * @return  returns a page to see menu items
  */
 function MenuItems() {
     return (
