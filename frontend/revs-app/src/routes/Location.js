@@ -1,12 +1,10 @@
 import React from 'react'
-import { useState } from "react";
-import CustomerHeader from '../components/CustomerHeader'
 import Maps from '../components/Maps';
-import OrderMenuPage from '../components/OrderMenuPage';
 import FocusLock from 'react-focus-lock';
 import AccessibilityModal from '../components/AccessibilityModal';
-import { GoogleMap } from '@react-google-maps/api';
 import EmployeeHeader from '../components/EmployeeHeader';
+import * as credentials from '../components/credentials.js' 
+import { Navigate } from 'react-router-dom';
 
 // Customer page where orders will happen as well
 function Location() {
