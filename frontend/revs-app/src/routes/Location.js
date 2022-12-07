@@ -16,6 +16,7 @@ function Location() {
                 <EmployeeHeader />
                 <div >
                     <center>
+                        <break></break>
                         <h3>275 Joe Routt Blvd</h3>
                         <h6>College Station, TX 77840</h6>
                         <br></br>
@@ -30,6 +31,7 @@ function Location() {
                 <EmployeeHeader />
                 <div>
                     <center>
+                        <break></break>
                         <h3>275 Joe Routt Blvd</h3>
                         <h6>College Station, TX 77840</h6>
                         <br></br>

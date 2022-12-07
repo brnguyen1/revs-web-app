@@ -66,22 +66,22 @@ const GoogleAuth = () => {
             {credentials.isLoggedIn() &&
                 <div>
                     <center>
+                        
                         <img src={user.picture}></img>
+                        <h3>{"Logged In: " + user.name}</h3>
                         {credentials.isManager() &&
-                            <h3>{"Logged In: Manager"}</h3>
+                            <h5>{"(Manager)"}</h5>
                         }
                         {!credentials.isManager() &&
-                            <h3>{"Logged In: Server"}</h3>
+                            <h5>{"(Server)"}</h5>
                         }
-
-                        <p>{user.name}</p>
                         <p>{user.email}</p>
 
                         {credentials.isManager() &&
-                            <><Link role="button" to="/ordermenu" class="btn btn-outline-secondary me-3" style={{ fontSize: `${parseInt(localStorage.getItem("fontsize"))}px` }}>Server Portal</Link><Link role="button" to="/manager" className="btn  btn-outline-secondary me-3" style={{ fontSize: `${parseInt(localStorage.getItem("fontsize"))}px` }}>Manager Portal</Link></>
+                            <><Link role="button" to="/ordermenu" class="btn btn-outline-dark me-3" style={{ fontSize: `${parseInt(localStorage.getItem("fontsize"))}px` }}>Server Portal</Link><Link role="button" to="/manager" className="btn btn-outline-dark me-3" style={{ fontSize: `${parseInt(localStorage.getItem("fontsize"))}px` }}>Manager Portal</Link></>
                         }
 
-                        <button style={{ fontSize: `${parseInt(localStorage.getItem("fontsize"))}px` }} class="btn btn-outline-secondary me-3" onClick={() => credentials.logOut()}> Sign Out </button>
+                        <button style={{ fontSize: `${parseInt(localStorage.getItem("fontsize"))}px` }} class="btn btn-outline-dark me-3" onClick={() => credentials.logOut()}> Sign Out </button>
 
                     </center>
                 </div>
