@@ -9,11 +9,10 @@ import 'bootstrap/dist/js/bootstrap.js';
 
 import { configureStore } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
-import employeeReducer from './redux-slices/employee-slice';
 
 const store = configureStore({
   reducer: {
-    employee: employeeReducer,
+    // Insert new reducers here
   }
 });
 

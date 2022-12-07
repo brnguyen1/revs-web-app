@@ -14,7 +14,12 @@ export function isLoggedIn(){
 }
 
 export function isManager(){
-    return localStorage.getItem("ismanager");
+    const managerStat = localStorage.getItem("ismanager");
+    if(managerStat.toLowerCase() === "false")
+    {
+        return false;
+    }
+    return true;
 }
 
 export function logOut()

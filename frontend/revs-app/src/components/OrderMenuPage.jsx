@@ -204,7 +204,7 @@ const OrderMenuPage = (props) => {
                 let ingredients = [];
 
                 Object.values(res.data).forEach(field => {
-                    menu_data.push({ id: field.id, name: field.description, price: field.cost, group: field.group, added: [], removed: [], ingredients: Array(field.ingredients), information: field.information })
+                    menu_data.push({ id: field.id, name: field.description, price: field.cost, group: field.group, added: [], removed: [], ingredients: Array(field.ingredients), information: field.information, image_name: field.image_name })
                     ingredients.push({ id: field.id, arr: field.ingredients, addons: field.addon_ingredients, sides: field.side_options, sauces: field.sauces })
 
                 })
@@ -287,34 +287,62 @@ const OrderMenuPage = (props) => {
             );
         }
     };
-
+    function ButtonPress(i){
+        addToCart(i);
+        alert("Added Item To Cart");
+    }
     // Queue function
 
     const renderCards = (arr, type) => {
         if (type === "customer") {
+            //console.log(category)
             return arr.map((i) => {
-                return (
+                if(i.group !== "Sides"){
+                    return (
 
-                    <Card style={{ width: '18rem' }} className="card text-center w-25 me-1 mb-4" key={i.id} onClick={() => { setOpenOrderModal(true); setSelectedItem(i); setSelectedIngredients(Ingredients.find(element => element.id === i.id)); }}>
-                        <Card.Img variant="top" src="holder.js/100px180" />
-                        <Card.Body>
-                            <Card.Title style={{ fontSize: `${parseInt(localStorage.getItem("fontsize"))}px` }}>{i.name}
-                            </Card.Title>
-                            <Card.Text>
-                                ${i.price}
-                            </Card.Text>
-                            <Card.Text>
-                                {i.information}
-                            </Card.Text>
-                            <div onClick={(e) => {
-                                e.stopPropagation()
-                            }}>
-                                <Button style={{ fontSize: `${parseInt(localStorage.getItem("fontsize")) - 2}px` }} onClick={() => addToCart(i)}>Add to order</Button>
-                            </div>
-                        </Card.Body>
-                    </Card>
-
-                )
+                        <Card style={{ width: '18rem' }} className="card text-center w-25 me-1 mb-4" key={i.id} onClick={() => { setOpenOrderModal(true); setSelectedItem(i); setSelectedIngredients(Ingredients.find(element => element.id === i.id)); }}>
+                            <Card.Img variant="top" src={`./Menu_Photos/${i.image_name}.jpg`} />
+                            <Card.Body>
+                                <Card.Title style={{ fontSize: `${parseInt(localStorage.getItem("fontsize"))}px` }}>{i.name}
+                                </Card.Title>
+                                <Card.Text>
+                                    ${i.price}
+                                </Card.Text>
+                                <Card.Text>
+                                    {i.information}
+                                </Card.Text>
+                                <div onClick={(e) => {
+                                    e.stopPropagation()
+                                }}>
+                                    <Button style={{ fontSize: `${parseInt(localStorage.getItem("fontsize")) - 2}px` }} onClick={() => ButtonPress(i)}>Add to order</Button>
+                                </div>
+                            </Card.Body>
+                        </Card>
+    
+                    )
+                }
+                else{
+                    return (
+                        <Card style={{ width: '18rem' }} className="card text-center w-25 me-1 mb-4" key={i.id} onClick={() => {  setSelectedItem(i); setSelectedIngredients(Ingredients.find(element => element.id === i.id)); }}>
+                            <Card.Img variant="top" src={`./Menu_Photos/${i.image_name}.jpg`} />
+                            <Card.Body>
+                                <Card.Title style={{ fontSize: `${parseInt(localStorage.getItem("fontsize"))}px` }}>{i.name}
+                                </Card.Title>
+                                <Card.Text>
+                                    ${i.price}
+                                </Card.Text>
+                                <Card.Text>
+                                    {i.information}
+                                </Card.Text>
+                                <div onClick={(e) => {
+                                    e.stopPropagation()
+                                }}>
+                                    <Button style={{ fontSize: `${parseInt(localStorage.getItem("fontsize")) - 2}px` }} onClick={() => ButtonPress(i)}>Add to order</Button>
+                                </div>
+                            </Card.Body>
+                        </Card>
+                    )
+                }
             });
         }
         else {
