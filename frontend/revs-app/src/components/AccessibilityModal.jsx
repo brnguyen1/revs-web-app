@@ -78,6 +78,7 @@ const AccessibilityModal = () => {
             setToggleButtonStyle("light");
             setToggleButtonText("On");
         }
+        closeModal();
     }
 
     return (
