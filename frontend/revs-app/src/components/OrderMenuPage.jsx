@@ -262,7 +262,7 @@ const OrderMenuPage = (props) => {
     }
 
     const addToCart = (item) => {
-        const validitem = items.find((i) => i.name === item.name);
+        const validitem = items.find((i) => i.id === item.id);
         if (validitem) {
             setItems(
                 items.map((i) =>
@@ -275,7 +275,7 @@ const OrderMenuPage = (props) => {
     };
 
     const removeFromCart = (item) => {
-        const validitem = items.find((i) => i.name === item.name);
+        const validitem = items.find((i) => i.id === item.id);
         if (validitem.qty === 1) {
             setItems(items.filter((i) => i.id !== item.id));
         } else {
