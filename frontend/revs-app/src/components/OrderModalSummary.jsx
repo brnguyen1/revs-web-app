@@ -10,11 +10,6 @@ import { useState, useEffect } from 'react';
  */
 
 
-
-
-
-
-
 import { v4 as uuid } from 'uuid';
 const renderText = (arr, symbol, inventory_, quantity) => {
   function addZeroes(num) {
