@@ -297,7 +297,7 @@ export default function Order(props) {
   const footer =
     <>
       {checkoutModal}
-      <div className='d-flex shadow bg-light fixed-bottom p-1 mx-auto justify-content-end'>
+      <div id="customer-footer" className='d-flex shadow bg-light fixed-bottom p-1 mx-auto justify-content-end'>
         <button type="button" class="btn mr-4 border" onClick={showModal}>
           <div className='d-flex'>
             <div className='p-1'>

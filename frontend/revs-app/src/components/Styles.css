@@ -44,6 +44,10 @@
     overflow-y: scroll;
 }
 
+#row-footer {
+    overflow-x: hidden;
+}
+
 .parent{
     display: inline-flex;
     width: 30%;

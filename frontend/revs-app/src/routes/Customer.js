@@ -28,11 +28,7 @@ function Customer() {
             </FocusLock>)}
             {!(JSON.parse(localStorage.getItem("screenfocus"))) && (<div>
                 <CustomerHeader />
-                <div className="row">
-                    <div className="col-12">
                         <OrderMenuPage type="customer" />
-                    </div>
-                </div>
                 <AccessibilityModal />
             </div>)}
         </div>
