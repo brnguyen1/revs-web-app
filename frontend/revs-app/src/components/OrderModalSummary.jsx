@@ -8,7 +8,9 @@ import { useState, useEffect } from 'react';
  * @param {*} quantity number of items in the inventory
  * @returns 
  */
-// import { v4 as uuid } from 'uuid';
+
+
+import { v4 as uuid } from 'uuid';
 const renderText = (arr, symbol, inventory_, quantity) => {
   function addZeroes(num) {
     // Convert input string to a number and store as a variable.
@@ -110,6 +112,7 @@ const calculateTotalPrice = (arr, initial,  inventory_, quantity) => {
 export default function OrderModalSummary(props){
     const {item, addons, removes, inventory_, addToCart, clearAddons, clearRemoves, onClose} = props;
     const [quantity, setQuantity] = useState(1);
+    const unique_id = uuid();
     // const [price, setPrice] = useState(0);
     // const [price, setPrice] = useState(item.price)
 
@@ -142,7 +145,7 @@ export default function OrderModalSummary(props){
     // let price = item.price
     let price = Number(calculateTotalPrice(addons, item.price, inventory_, quantity)).toFixed(2)
     console.log(price)
-    let item_for_cart = {id: item.id, name: (item.name + "-Customized"), price: price, group: item.group, added: addons, removed: removes, ingredients: item.ingredients}
+    let item_for_cart = {id: (unique_id), name: (item.name), price: price, group: item.group, added: addons, removed: removes, ingredients: item.ingredients}
     // function sendItem(){
     //   for(let i = 0; i < quantity; i++){
         
