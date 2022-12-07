@@ -22,6 +22,7 @@ const AccessibilityModal = () => {
     const [currentFontSize, setCurrentFontSize] = useState(16);
     const [toggleButtonStyle, setToggleButtonStyle] = useState(initialToggleButtonStyle);
     const [toggleButtonText, setToggleButtonText] = useState(initialToggleButtonText);
+    const [fontSizeChanged, setFontSizeChanged] = useState("false");
 
     // localStorage.setItem("fontsize", 16);
     // localStorage.setItem("screenfocus", false);
@@ -47,7 +48,12 @@ const AccessibilityModal = () => {
         setDisplayModal(false);
         //window.location.reload(true);
     }
-
+    const saveButtonHandler = () => {
+        hideModal();
+        if (fontSizeChanged === "true") {
+            window.location.reload(true);
+        }
+    }
     /**
      * Function will increase font size
      */
@@ -55,6 +61,7 @@ const AccessibilityModal = () => {
         setCurrentFontSize(currentFontSize + 2);
         localStorage.setItem("fontsize", currentFontSize + 2);
         document.getElementById("num").innerText = currentFontSize;
+        setFontSizeChanged("true");
     }
     /**
      * Function will decrease font size
@@ -63,6 +70,7 @@ const AccessibilityModal = () => {
         setCurrentFontSize(currentFontSize - 2);
         localStorage.setItem("fontsize", currentFontSize - 2);
         document.getElementById("num").innerText = currentFontSize;
+        setFontSizeChanged("true");
     }
     /**
      * Function will toggle the screen focus
@@ -127,7 +135,7 @@ const AccessibilityModal = () => {
                     </div>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button id="save" variant="primary" onClick={hideModal}>
+                    <Button id="save" variant="primary" onClick={saveButtonHandler}>
                         Save
                     </Button>
                 </Modal.Footer>
