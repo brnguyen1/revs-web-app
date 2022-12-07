@@ -4,7 +4,11 @@ import EmployeeHeader from "../components/EmployeeHeader";
 import AccessibilityModal from "../components/AccessibilityModal";
 import FocusLock from 'react-focus-lock';
 import ArrowKeyNav from "../components/Keyboard";
-
+/**
+ * this function will create a page for emplyees to create orders for customers 
+ *
+ * @return returns a page for emplyees to view
+ */
 const OrderMenu = () => {
     return (
         <div>

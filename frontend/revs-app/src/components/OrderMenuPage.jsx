@@ -10,25 +10,62 @@ import axios from 'axios'
 import Modal from 'react-bootstrap/Modal';
 
 //Order Card Modal
+/**
+ * this will display a modal that can be accessed by clicking on a menu item
+ * this modal will show how you can add and delete items
+ * @param  open to indicate if the modal is open
+ * @param onClose indicate when to close
+ * @param item indicate which type of menu item to group 
+ * @param ingredient ingredients for item
+ * @param inventory ivnetory items
+ * @param Addons add on items
+ * @param Removes items to be removed
+ * @param setAddons parameter to set list of addons 
+ * @param setRemoves parameter to set list of removes
+ * @param addToCart parameter to add items to card
+ * @returns 
+ */
 const OrderModal = ({ open, onClose, item, ingredients, inventory, Addons, Removes, setAddons, setRemoves, addToCart }) => {
-
+    /**
+     * this will add ingredients to the order
+     * @param {*} ingredient list of ingredients
+     */
     const addIngredientAddons = (ingredient) => {
         setAddons(current => [...current, ingredient])
     };
+    /**
+     * this will remove ingredients to the order
+     * @param {*} ingredient list of ingredients
+     */
     const removeIngredientAddons = (ingredient) => {
         setAddons(Addons.filter((i) => i !== ingredient))
     };
+    /**
+     * this will add ingredients to the order
+     * @param {*} ingredient list of ingredients
+     */
     const addIngredientRemoves = (ingredient) => {
         setRemoves(current => [...current, ingredient])
     };
+    /**
+     * this will remove ingredients to the order
+     * @param {*} ingredient list of ingredients
+     */
     const removeIngredientRemoves = (ingredient) => {
         setRemoves(Removes.filter((i) => i !== ingredient))
     };
 
-
+    /**
+     * this will get rid of all add ons
+     * @param {*} ingredient list of ingredients
+     */
     const clearAddons = (ingredient) => {
         setAddons([])
     };
+    /**
+     * this will clear the removes
+     * @param {*} ingredient list of ingredients
+     */
     const clearRemoves = (ingredient) => {
         setRemoves([])
     };
@@ -45,7 +82,13 @@ const OrderModal = ({ open, onClose, item, ingredients, inventory, Addons, Remov
         // Return updated or original number.
         return value;
     }
-
+    /**
+     * this function will render the buttons so the user can click on them
+     * @param {*} arr parameter
+     * @param {*} type type of menu item
+     * @param {*} inventory_ list of inventory items
+     * @returns returns buttons that the user can interact with
+     */
     const renderButtons = (arr, type, inventory_) => {
 
 
@@ -133,7 +176,7 @@ const OrderModal = ({ open, onClose, item, ingredients, inventory, Addons, Remov
 
                 </Modal.Header>
                 <Modal.Body>
-                    <OrderModalSummary item={item} addons={Addons} removes={Removes} inventory_={inventory} addToCart={addToCart} />
+                    <OrderModalSummary item={item} addons={Addons} removes={Removes} inventory_={inventory} addToCart={addToCart} clearAddons = {clearAddons} clearRemoves = {clearRemoves} onClose = {onClose} />
 
 
                     <div>Ingredients</div>
@@ -149,7 +192,6 @@ const OrderModal = ({ open, onClose, item, ingredients, inventory, Addons, Remov
                     <Button variant="secondary" onClick={() => { onClose(); clearAddons(); clearRemoves() }}>
                         Close
                     </Button>
-                    <Button variant="primary">Understood</Button>
                 </Modal.Footer>
 
 
@@ -163,6 +205,12 @@ const OrderModal = ({ open, onClose, item, ingredients, inventory, Addons, Remov
 
 
 // Get menu items from backend then create cards from menu items
+/**
+ * this function will display the order page for users to interact with
+ * this will show all the informaiton for the user to see, this includes images, prices, descriptions, order modal, and more
+ * @param {*} props parameter
+ * @returns returns a screen that can be accessed by customers and employees to create orders
+ */
 const OrderMenuPage = (props) => {
     const [selectedItem, setSelectedItem] = useState([]);
     const [selectedIngredients, setSelectedIngredients] = useState([]);
@@ -198,6 +246,9 @@ const OrderMenuPage = (props) => {
             const res = await axios.get(endpoint)
             return res
         }
+        /**
+         * this function will go through the data base and assign variables for each column in the database
+         */
         function parse_data() {
             fetch_data().then(res => {
                 let menu_data = [];
@@ -237,18 +288,28 @@ const OrderMenuPage = (props) => {
     }, [])
 
     // Order/ cart functions
+    /**
+     * this function will complete all items in the queue
+     * @param {*} itemData parameter
+     */
     const completeQueue = (itemData) => {
         removeQueueItem(itemData)
         delete itemData.id
         itemData.employee_id = localStorage.getItem("employee_id")
         axios.post(process.env.REACT_APP_BACKEND_API + 'orders', itemData)
     }
-
+    /**
+     * this function will remove all items from the queue
+     * @param {*} itemData parameter
+     */
     const removeQueueItem = (itemData) => {
         axios.delete(process.env.REACT_APP_BACKEND_API + 'queue/' + String(itemData.id))
         setQueue(queue.filter(item => { return item.id !== itemData.id }));
     }
-
+    /**
+     * this function will create an id number for each order
+     * @returns returns a eunique id number
+     */
     const OrderIDNumber = () => {
         let max = 0;
         for (let i = 0; i < Orders.length; i++) {
@@ -261,7 +322,10 @@ const OrderMenuPage = (props) => {
         max += 1
         return max
     }
-
+    /**
+     * this function will add desired item to the cart
+     * @param {*} item item to be added
+     */
     const addToCart = (item) => {
         const validitem = items.find((i) => i.name === item.name);
         if (validitem) {
@@ -274,7 +338,10 @@ const OrderMenuPage = (props) => {
             setItems([...items, { ...item, qty: 1 }]);
         }
     };
-
+    /**
+     * this function will remove desired item to the cart
+     * @param {*} item item to be added
+     */
     const removeFromCart = (item) => {
         const validitem = items.find((i) => i.name === item.name);
         if (validitem.qty === 1) {
@@ -287,12 +354,21 @@ const OrderMenuPage = (props) => {
             );
         }
     };
+    /**
+     * this function will be called when you press the button to add to order
+     * @param {*} i item to be added
+     */
     function ButtonPress(i){
         addToCart(i);
         alert("Added Item To Cart");
     }
     // Queue function
-
+    /**
+     * this function will render the cards for the user to see
+     * @param {*} arr parameter
+     * @param {*} type type of user
+     * @returns 
+     */
     const renderCards = (arr, type) => {
         if (type === "customer") {
             //console.log(category)
@@ -371,6 +447,13 @@ const OrderMenuPage = (props) => {
         }
 
     };
+    /**
+     * this function will render all the cards into their respective categories
+     * @param {*} groups_ all groups of items
+     * @param {*} arr parameter
+     * @param {*} type type of item
+     * @returns 
+     */
     const renderCategories = (groups_, arr, type) => {
         return groups_.map((i) => {
             let category_items = []

@@ -2,21 +2,35 @@ import React from 'react';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import Modal from 'react-bootstrap/Modal';
-
+/**
+ * this will send the order to the queue
+ * @param itemData the data about the customers order
+ */
 const sendOrder = (itemData) => {
   axios.post(process.env.REACT_APP_BACKEND_API + 'orders', itemData)
 }
-
+/**
+ * this will send the order to the queue
+ * @param itemData the data about the customers order
+ */
 const sendQueue = (itemData) => {
   axios.post(process.env.REACT_APP_BACKEND_API + 'queue', itemData)
 }
-
+/**
+ * this function will get the id for the order
+ * @returns returns the id for the order
+ */
 const getID = () => {
   let req = axios.get(process.env.REACT_APP_BACKEND_API + 'orders/id')
   return req
 }
 
 //fix mapping keys accross all order menu components 
+/**
+ * this function will create an array of menu items
+ * @param arr menu items 
+ * @returns an array of menu items
+ */
 const calculateMenuItems = (arr) => {
   let menu_items = []
   arr.map((i) => {
@@ -30,6 +44,11 @@ const calculateMenuItems = (arr) => {
 
   return menu_items;
 };
+/**
+ * this function will create an array of ingreditents
+ * @param arr menu items
+ * @returns returns an array of igredients
+ */
 const calculateIngredients = (arr) => {
   let ingredients = []
   arr.map((i) => {
@@ -47,6 +66,11 @@ const calculateIngredients = (arr) => {
 
   return ingredients;
 };
+/**
+ * this function will create an array for all the added ingredients
+ * @param arr menu items 
+ * @returns returns an array of added ingredients
+ */
 const calculateAddedIngredients = (arr) => {
   let ingredients = []
   arr.map((i) => {
@@ -62,6 +86,11 @@ const calculateAddedIngredients = (arr) => {
 
   return ingredients;
 };
+/**
+ * this function will create an array for all the removed ingredients
+ * @param arr menu items 
+ * @returns returns an array of removed ingredients
+ */
 const calculateRemovedIngredients = (arr) => {
   let ingredients = []
   arr.map((i) => {
@@ -77,14 +106,21 @@ const calculateRemovedIngredients = (arr) => {
 
   return ingredients;
 };
-
+/**
+ * this function will create an array for all the total ingredients
+ * @param arr menu items 
+ * @returns returns an array of total ingredients
+ */
 const calculateNetIngredients = (arr1, arr2, arr3) => {
   let result = arr1.filter((element) => !arr3.includes(element));
   result = result.concat(arr2)
 
   return result
 }
-
+/**
+ * this function will figure out the date and return it
+ * @returns returns the real time date
+ */
 const getDate = () => {
   var today = new Date();
   var dd = String(today.getDate()).padStart(2, '0');
@@ -96,6 +132,11 @@ const getDate = () => {
 }
 
 // Order summary component
+/**
+ * this funciton will be used to create orders and show all associated information for the user
+ * @param props parameter
+ * @returns returns a working checkout view for the user to interact with
+ */
 export default function Order(props) {
 
   // Order items calcuations variables
@@ -112,6 +153,9 @@ export default function Order(props) {
   const [modalState, setModalState] = useState(false);
 
   // Order calculations
+  /**
+   * this function will update the data for the user
+   */
   function updateData() {
     getID().then(req => {
 
@@ -126,7 +170,9 @@ export default function Order(props) {
       setLoading(false)
     })
   };
-
+  /**
+   * this function will fullfill the request and update data
+   */
   const completeRequest = () => {
     setLoading(true);
     setModalState(false)
@@ -139,10 +185,19 @@ export default function Order(props) {
   }, []);
 
   // Phone number handler
+  /**
+   * this funciton will handle the phone number of the user
+   * @param e event listener
+   */
   const handlePhone = (e) => {
     setPhoneNumber(e.target.value)
   }
-
+  /**
+   * this function will render the text on the screen
+   * @param  arr parameter
+   * @param  symbol  parameter
+   * @returns 
+   */
   const renderText = (arr, symbol) => {
     return arr.map((i) => {
       <li key={i.name}>

@@ -7,7 +7,11 @@ import FocusLock from 'react-focus-lock';
 import * as credentials from '../components/credentials.js'
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import ArrowKeyNav from "../components/Keyboard";
-
+/**
+ * checks if the person logged in is an employee and shows all current employees
+ *
+ * @return  {[type]}  [return description]
+ */
 function Server() {
     return (
         <div>

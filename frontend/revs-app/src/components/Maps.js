@@ -1,7 +1,11 @@
 import React from 'react'
 import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
 
-
+/**
+ * this is the google api for the google maps, it will show the location of revs and give directions
+ *
+ * @return will return a google maps showing revs american grill and its address
+ */
 function Maps() {
   return (
     <div>

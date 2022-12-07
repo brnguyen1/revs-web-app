@@ -8,6 +8,11 @@ import AccessibilityModal from '../components/AccessibilityModal';
 import ArrowKeyNav from '../components/Keyboard';
 
 // Customer page where orders will happen as well
+/**
+ * this function will show the customer side of the web app and all information for the customer to see
+ *
+ * @return  {[type]}  returns a customer view of the webpage 
+ */
 function Customer() {
     return (
         <ArrowKeyNav>

@@ -5,6 +5,10 @@ import GoogleTranslate from "./GoogleTranslate";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./AccessibilityModal.css";
 
+/**
+ * This function will create a modal to house the accesssibility functions such as increase font size and googel translate 
+ * @returns returns a modal with accessibility functions 
+ */
 const AccessibilityModal = () => {
     let currentScreenFocusStatus = localStorage.getItem("screenfocus");
     let initialToggleButtonStyle = "dark";
@@ -21,7 +25,9 @@ const AccessibilityModal = () => {
 
     // localStorage.setItem("fontsize", 16);
     // localStorage.setItem("screenfocus", false);
-
+    /**
+     * Function will open the modal
+     */
     const openModal = () => {
         setDisplayModal(true);
         if (!localStorage.getItem("fontsize")) {
@@ -30,6 +36,9 @@ const AccessibilityModal = () => {
         }
         setCurrentFontSize(parseInt(localStorage.getItem("fontsize")));
     }
+    /**
+     * Function will close the modal
+     */
     const closeModal = () => {
         setDisplayModal(false);
         window.location.reload(true);
@@ -39,16 +48,25 @@ const AccessibilityModal = () => {
         //window.location.reload(true);
     }
 
+    /**
+     * Function will increase font size
+     */
     const increaseFontSize = () => {
         setCurrentFontSize(currentFontSize + 2);
         localStorage.setItem("fontsize", currentFontSize + 2);
         document.getElementById("num").innerText = currentFontSize;
     }
+    /**
+     * Function will decrease font size
+     */
     const decreaseFontSize = () => {
         setCurrentFontSize(currentFontSize - 2);
         localStorage.setItem("fontsize", currentFontSize - 2);
         document.getElementById("num").innerText = currentFontSize;
     }
+    /**
+     * Function will toggle the screen focus
+     */
     const handleScreenFocusToggle = () => {
         const prevVal = localStorage.getItem("screenfocus");
         if (prevVal == "true") {

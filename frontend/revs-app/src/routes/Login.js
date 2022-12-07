@@ -6,7 +6,11 @@ import FocusLock from 'react-focus-lock';
 import Maps from "../components/Maps";
 import CustomerHeader from "../components/CustomerHeader";
 import ArrowKeyNav from "../components/Keyboard";
-
+/**
+ * this function will create a login page for emplyees to log in
+ *
+ * @return  {[type]}  [return description]
+ */
 const Login = () => {
     return (
         <>
