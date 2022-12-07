@@ -34,6 +34,7 @@ const EmployeeLoginPage = () => {
             <div className="d-flex justify-content-center mt-5">
                 <GoogleAuth />
             </div>
+            
         </div>
     );
 
