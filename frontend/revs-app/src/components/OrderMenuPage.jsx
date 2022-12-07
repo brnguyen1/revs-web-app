@@ -204,7 +204,7 @@ const OrderMenuPage = (props) => {
                 let ingredients = [];
 
                 Object.values(res.data).forEach(field => {
-                    menu_data.push({ id: field.id, name: field.description, price: field.cost, group: field.group, added: [], removed: [], ingredients: Array(field.ingredients), information: field.information })
+                    menu_data.push({ id: field.id, name: field.description, price: field.cost, group: field.group, added: [], removed: [], ingredients: Array(field.ingredients), information: field.information, image_name: field.image_name })
                     ingredients.push({ id: field.id, arr: field.ingredients, addons: field.addon_ingredients, sides: field.side_options, sauces: field.sauces })
 
                 })
@@ -299,7 +299,7 @@ const OrderMenuPage = (props) => {
                 return (
 
                     <Card style={{ width: '18rem' }} className="card text-center w-25 me-1 mb-4" key={i.id} onClick={() => { setOpenOrderModal(true); setSelectedItem(i); setSelectedIngredients(Ingredients.find(element => element.id === i.id)); }}>
-                        <Card.Img variant="top" src="holder.js/100px180" />
+                        <Card.Img variant="top" src={`./Menu_Photos/${i.image_name}.jpg`} />
                         <Card.Body>
                             <Card.Title style={{ fontSize: `${parseInt(localStorage.getItem("fontsize"))}px` }}>{i.name}
                             </Card.Title>
