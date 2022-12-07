@@ -6,7 +6,10 @@ import * as credentials from './credentials.js'
 import Logo from "./logo.png";
 import EmployeeHeader from "./EmployeeHeader";
 import GoogleTranslate from "./GoogleTranslate";
-
+/**
+ * This will create a login page for employees to use, will use google auth to authenticate user
+ * @returns returns the employee login page with google auth enabled 
+ */
 const EmployeeLoginPage = () => {
 
     return (

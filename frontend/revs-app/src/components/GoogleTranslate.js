@@ -2,7 +2,11 @@ import React from 'react'
 import { useEffect, useState } from 'react';
 
 const google = window.google;
-
+/**
+ * this function will implement the google translate api 
+ *
+ * @return  {[type]}  returns a way for users to translate whats on the page
+ */
 const GoogleTranslate = () => {
 
     const [lang, setLang] = useState("en")

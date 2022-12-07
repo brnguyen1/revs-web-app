@@ -7,7 +7,11 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import AccessibilityModal from "../components/AccessibilityModal";
 import FocusLock from 'react-focus-lock';
 import ArrowKeyNav from "../components/Keyboard";
-
+/**
+ * this will create a page for the emplyees to see all menu items 
+ *
+ * @return  {[type]}  returns a page to see menu items
+ */
 function MenuItems() {
     return (
         <div>

@@ -7,7 +7,11 @@ import FocusLock from 'react-focus-lock';
 import * as credentials from '../components/credentials.js'
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import ArrowKeyNav from "../components/Keyboard";
-
+/**
+ * this function will show the current inventory from the database
+ *
+ * @return  {[type]}  returns a web page for the user to see the inventory
+ */
 function Inventory() {
     return (
         <div>

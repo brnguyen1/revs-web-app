@@ -5,7 +5,10 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import * as credentials from './credentials.js'
 import { BrowserRouter as Router, Routes, Route, Navigate} from 'react-router-dom'
 import ArrowKeyNav from "./Keyboard";
-
+/**
+ * this will create the manager page and will check if the person loged in is a manager or not
+ * @returns returns the manager web page wtih manager header and body
+ */
 const Manager = () => {
     return (
         <div>         

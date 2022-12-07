@@ -7,7 +7,11 @@ import FocusLock from 'react-focus-lock';
 import * as credentials from '../components/credentials.js'
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import ArrowKeyNav from "../components/Keyboard";
-
+/**
+ * checks if users are logged in and allows them to view all previous orders
+ *
+ * @return  {[type]}  returns a view to see all past orders
+ */
 function Orders() {
     return (
         <div>
