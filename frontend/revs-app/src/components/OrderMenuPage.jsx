@@ -31,7 +31,13 @@ const OrderModal = ({ open, onClose, item, ingredients, inventory, Addons, Remov
      * @param {*} ingredient list of ingredients
      */
     const addIngredientAddons = (ingredient) => {
-        setAddons(current => [...current, ingredient])
+        if(Addons.length === 0){
+            setAddons(current => [...current, ingredient])
+        }
+        else if(!Addons.includes(ingredient)){
+            setAddons(current => [...current, ingredient])
+        }
+        
     };
     /**
      * this will remove ingredients to the order
@@ -45,7 +51,12 @@ const OrderModal = ({ open, onClose, item, ingredients, inventory, Addons, Remov
      * @param {*} ingredient list of ingredients
      */
     const addIngredientRemoves = (ingredient) => {
-        setRemoves(current => [...current, ingredient])
+        if(Removes.length === 0){
+            setRemoves(current => [...current, ingredient])
+        }
+        else if(!Removes.includes(ingredient)){
+            setRemoves(current => [...current, ingredient])
+        }
     };
     /**
      * this will remove ingredients to the order
