@@ -34,6 +34,11 @@ const AccessibilityModal = () => {
         setDisplayModal(false);
         window.location.reload(true);
     }
+    const hideModal = () => {
+        setDisplayModal(false);
+        //window.location.reload(true);
+    }
+
     const increaseFontSize = () => {
         setCurrentFontSize(currentFontSize + 2);
         localStorage.setItem("fontsize", currentFontSize + 2);
@@ -103,7 +108,7 @@ const AccessibilityModal = () => {
                     </div>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button id="save" variant="primary" onClick={closeModal}>
+                    <Button id="save" variant="primary" onClick={hideModal}>
                         Save
                     </Button>
                 </Modal.Footer>
