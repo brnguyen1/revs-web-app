@@ -1,3 +1,11 @@
+@import "bootstrap";
+
+/* make primary button bold */
+.btn-maroon{
+    background-color:#5b0825;
+    font-weight: bold;
+}
+
 .card:hover {
 
     cursor: pointer;

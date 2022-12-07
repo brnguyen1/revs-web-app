@@ -20,9 +20,9 @@ const ManagerHeader = () => {
                     </a>
                 </b>
                 <div class="d-flex justify-content-between">
-                    <Link role="button" to="/customerorder" class="btn bg-dark btn-outline-light me-3" style={{ fontSize: `${parseInt(localStorage.getItem("fontsize"))}px` }}>Kiosk</Link>
-                    <Link role="button" to="/ordermenu" class="btn bg-dark btn-outline-light me-3" style={{ fontSize: `${parseInt(localStorage.getItem("fontsize"))}px` }}>Server Portal</Link>
-                    <Link onClick={() => { credentials.logOut() }} role="button" to="/" className="btn bg-dark btn-outline-light me-3" style={{ fontSize: `${parseInt(localStorage.getItem("fontsize"))}px` }}>Logout</Link>
+                    <Link role="button" to="/customerorder" class="btn btn-maroon btn-outline-light me-3" style={{ fontSize: `${parseInt(localStorage.getItem("fontsize"))}px` }}>Kiosk</Link>
+                    <Link role="button" to="/ordermenu" class="btn btn-maroon btn-outline-light me-3" style={{ fontSize: `${parseInt(localStorage.getItem("fontsize"))}px` }}>Server Portal</Link>
+                    <Link onClick={() => { credentials.logOut() }} role="button" to="/" className="btn btn-maroon btn-outline-light me-3" style={{ fontSize: `${parseInt(localStorage.getItem("fontsize"))}px` }}>Logout</Link>
                 </div>
             </div>
         </nav>

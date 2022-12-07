@@ -8,6 +8,7 @@ import { useState, useEffect } from 'react';
  * @param {*} quantity number of items in the inventory
  * @returns 
  */
+// import { v4 as uuid } from 'uuid';
 const renderText = (arr, symbol, inventory_, quantity) => {
   function addZeroes(num) {
     // Convert input string to a number and store as a variable.
@@ -107,7 +108,7 @@ const calculateTotalPrice = (arr, initial,  inventory_, quantity) => {
  * @returns 
  */
 export default function OrderModalSummary(props){
-    const {item, addons, removes, inventory_, addToCart} = props;
+    const {item, addons, removes, inventory_, addToCart, clearAddons, clearRemoves, onClose} = props;
     const [quantity, setQuantity] = useState(1);
     // const [price, setPrice] = useState(0);
     // const [price, setPrice] = useState(item.price)
@@ -201,7 +202,7 @@ export default function OrderModalSummary(props){
               </div>
               <hr />
               <div className="row">
-                <button onClick={() => addToCart(item_for_cart)}>
+                <button onClick={() => {addToCart(item_for_cart);  onClose(); clearAddons(); clearRemoves()}}>
                     {/* {need to add logic that interacts with backend for placing order} */}
                   Add to cart
                 </button>

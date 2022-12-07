@@ -41,9 +41,8 @@ export function logOut()
         localStorage.removeItem("user");
         localStorage.removeItem("status");
         localStorage.removeItem("employee_id");
-        localStorage.removeItem("ismanager");
-        document.location.reload();
         <Navigate to="/"/>
+        document.location.reload();
     }
 }
 

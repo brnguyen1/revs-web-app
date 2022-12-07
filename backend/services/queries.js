@@ -61,20 +61,20 @@ async function add_one_query(entity, req, res) {
                 client.messages
                     .create({
                         body: 'Thank you for choosing Rev\'s American Grill! Your order has been placed. Order ID: ' + data.rows[0].id,
-                        messagingServiceSid: process.env.PHONE_SID,      
+                        messagingServiceSid: process.env.PHONE_SID,
                         to: '+1' + String(req.body.phone),
                     })
                     .then(message => console.log(message.sid))
                     .done();
             }
         }
-        
-        if(entity === "orders") {
+
+        if (entity === "orders") {
             if (req.body.phone) {
                 client.messages
                     .create({
                         body: 'Your order has been completed!',
-                        messagingServiceSid: process.env.PHONE_SID,      
+                        messagingServiceSid: process.env.PHONE_SID,
                         to: '+1' + String(req.body.phone),
                     })
                     .then(message => console.log(message.sid))
@@ -99,8 +99,6 @@ async function update_one_query(entity, req, res) {
         }
         return val
     })
-
-
 
     for (let i = 0; i < values.length; i++) {
 
@@ -134,5 +132,14 @@ async function authenticate_user(entity, req, res) {
     })
 }
 
+async function inventory_update(req) {
+    req.body.order_items.forEach(ingredient => {
+        const query = format("UPDATE inventory SET quantity = quantity - 1 WHERE description = %L", ingredient)
+        pool.query(query, function (err, data) {
+            if (err) return console.log("Query Error %s", err);
+        })
+    })
+}
 
-module.exports = { select_all_query, select_one_query, add_one_query, update_one_query, delete_one_query, max_query, authenticate_user }
+
+module.exports = { select_all_query, select_one_query, add_one_query, update_one_query, delete_one_query, max_query, authenticate_user, inventory_update }
