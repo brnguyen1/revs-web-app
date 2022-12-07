@@ -9,6 +9,11 @@ import { GoogleMap } from '@react-google-maps/api';
 import EmployeeHeader from '../components/EmployeeHeader';
 
 // Customer page where orders will happen as well
+/**
+ * this will creae a page for the user to see the locaton of revs and check how far away they are
+ *
+ * @return  {[type]}  [return description]
+ */
 function Location() {
     return (
         <div>

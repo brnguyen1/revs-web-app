@@ -3,6 +3,10 @@ import React from 'react'
 import "bootstrap/dist/css/bootstrap.min.css";
 import Logo from "./logo.png";
 
+/**
+ * This will create a header with buttons and links for the customer
+ * @returns returns a header to be used for the customer side of the webpage
+ */
 const CustomerHeader = () => {
     return (
         

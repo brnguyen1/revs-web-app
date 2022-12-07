@@ -4,7 +4,10 @@ import { useDispatch } from 'react-redux';
 import Logo from "./logo.png";
 import * as credentials from './credentials.js'
 import "bootstrap/dist/css/bootstrap.min.css";
-
+/**
+ * This will create a header with buttons and links for the employee
+ * @returns returns a header to be used for the employee side of the webpage 
+ */
 const EmployeeHeader = () => {
     const dispatch = useDispatch();
 

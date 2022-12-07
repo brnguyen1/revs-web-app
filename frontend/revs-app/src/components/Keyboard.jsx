@@ -3,17 +3,30 @@ import React from 'react'
 const { useRef, useEffect } = React;
 window.onerror = console.log;
 
+/**
+ * this function will press enter on an element if it is on one.
+ * @param isFocusPresent if the webpage is already focused on an item
+ * @param activeElement the element that is currently being focused on 
+ * @returns presses enter on the active element
+ */
 function handleEnter({ isFocusPresent, activeElement }) {
   if (!isFocusPresent) return;
 
   if (
     activeElement.nodeName === "INPUT" &&
-    ["radio", "checkbox", "button"].includes(activeElement.type)
+    [ "button"].includes(activeElement.type)
   ) {
     activeElement.click();
   }
 }
-
+/**
+ * 
+ * @param key the button that is currently being pressed 
+ * @param isFocusPresent if the webpage is already focused on an item
+ * @param activeElement the element that is currently being focused on 
+ * @param availableElement the key that is being pressed
+ * @param availableElements the keys that can be pressed with an associated function
+ */
 function handleArrowKey({
   key,
   isFocusPresent,
@@ -39,7 +52,13 @@ function handleArrowKey({
     availableElements[currentIndex - 1]?.focus();
   }
 }
-
+/**
+ * if desired key isnt selected put a message to the console
+ * @param e action listener variable
+ * @param parentNode reference to current place on the screen
+ * @param selectors buttons to choose from
+ *  
+ */
 function handleEvents({ e, parentNode, selectors }) {
   const key = e.key;
   if (!["ArrowLeft", "ArrowRight", "Enter"].includes(key)) {
@@ -60,7 +79,11 @@ function handleEvents({ e, parentNode, selectors }) {
   handleArrowKey({ key, isFocusPresent, activeElement, availableElements });
 }
 
-
+/**
+ * uses event listener to wait for the desired buttons to be pressed
+ * @param selectors buttons to choose from
+ * @returns returns the parent node
+ */
 function useArrowKeyNavigation({selectors}){
   const parentNode = useRef();
 
@@ -72,7 +95,12 @@ function useArrowKeyNavigation({selectors}){
   
   return parentNode;
 }
-
+/**
+ * 
+ * @param selectors what types of buttons to choose from
+ * @param children child node
+ * @returns 
+ */
 function ArrowKeyNav({ selectors = "a,button,input", children }) {
   const parentNode = useArrowKeyNavigation({selectors})
 

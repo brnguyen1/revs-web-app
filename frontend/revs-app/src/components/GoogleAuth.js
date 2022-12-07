@@ -8,11 +8,21 @@ import { BrowserRouter as Navigate } from 'react-router-dom'
 import axios from "axios";
 
 const google = window.google;
-
+/**
+ * this function will implement google auth for users to use to log in
+ *
+ * @return  {[type]}  returns information about logged in user
+ */
 const GoogleAuth = () => {
 
     const [user, setUser] = useState({});
-
+    /**
+     * checks if the user is a manager or an employee
+     *
+     * @param   {[type]}  response  response to be checked
+     *
+     * 
+     */
     function handleCallbackResponse(response) {
         if (!credentials.isLoggedIn()) {
             console.log("Encoded JWT ID token: " + response.credential);

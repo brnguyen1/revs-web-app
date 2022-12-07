@@ -4,7 +4,10 @@ import Logo from "./logo.png";
 import { useDispatch } from 'react-redux';
 import "bootstrap/dist/css/bootstrap.min.css";
 import * as credentials from './credentials.js'
-
+/**
+ * This will create a header with buttons and links for the manager
+ * @returns returns a header to be used for the manager side of the webpage 
+ */
 const ManagerHeader = () => {
     const dispatch = useDispatch();
 
