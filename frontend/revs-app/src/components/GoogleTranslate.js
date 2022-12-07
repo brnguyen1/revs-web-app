@@ -9,12 +9,12 @@ const google = window.google;
  */
 const GoogleTranslate = () => {
 
-    const [lang, setLang] = useState("en")
+   // const [lang, setLang] = useState("en")
 
     useEffect(() => {
         try {
             google.translate.TranslateElement(
-                { pageLanguage: "en" }, "translate_Box"
+                { pageLanguage: "en"}, "translate_Box"
             );
         }
         catch (e) {
@@ -24,6 +24,7 @@ const GoogleTranslate = () => {
 
     return (
         <div className="GoogleTranslate">
+
             <div>
                 <div id="translate_Box"></div>
             </div>
