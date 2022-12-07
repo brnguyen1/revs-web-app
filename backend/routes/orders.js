@@ -9,13 +9,13 @@ router.get('/', function (req, res) {
 });
 
 router.post('/', function (req, res) {
+    queries.inventory_update(req)
     queries.add_one_query(entity, req, res)
 });
 
 router.get('/id', function (req, res) {
      queries.max_query(entity, req, res)
 })
-
 
 router.put('/:id', function (req, res) {  //changed to put 
     queries.update_one_query(entity, req, res)

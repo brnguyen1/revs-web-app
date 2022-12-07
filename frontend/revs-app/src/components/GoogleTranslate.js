@@ -5,6 +5,7 @@ const google = window.google;
 
 const GoogleTranslate = () => {
 
+    const [lang, setLang] = useState("en")
 
     useEffect(() => {
         try {

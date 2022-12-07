@@ -9,7 +9,6 @@ const sendOrder = (itemData) => {
 
 const sendQueue = (itemData) => {
   axios.post(process.env.REACT_APP_BACKEND_API + 'queue', itemData)
-
 }
 
 const getID = () => {
@@ -159,7 +158,7 @@ export default function Order(props) {
 
   };
 
-  let order_for_db = { id: (maxID[0] + 1), employee_id: localStorage.getItem("employee_id"), order_items: calculateNetIngredients(calculateIngredients(items), calculateAddedIngredients(items), calculateRemovedIngredients(items)), order_menu_items: calculateMenuItems(items), cost: totalCost, order_time: getDate(), phone: phoneNumber}
+  let order_for_db = {employee_id: localStorage.getItem("employee_id"), order_items: calculateNetIngredients(calculateIngredients(items), calculateAddedIngredients(items), calculateRemovedIngredients(items)), order_menu_items: calculateMenuItems(items), cost: totalCost, order_time: getDate(), phone: phoneNumber}
 
   // Modal function
   const showModal = () => {
