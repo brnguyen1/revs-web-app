@@ -14,22 +14,18 @@ import ArrowKeyNav from '../components/Keyboard';
 function Customer() {
     return (
         <ArrowKeyNav>
-        <div>
-            {JSON.parse(localStorage.getItem("screenfocus")) && (<FocusLock autoFocus returnFocus>
-                <CustomerHeader />
-                <div className="row">
-                    <div className="col-12">
-                        <OrderMenuPage type="customer" />
-                    </div>
-                </div>
-                <AccessibilityModal />
-            </FocusLock>)}
-            {!(JSON.parse(localStorage.getItem("screenfocus"))) && (<div>
-                <CustomerHeader />
-                        <OrderMenuPage type="customer" />
-                <AccessibilityModal />
-            </div>)}
-        </div>
+            <div>
+                {JSON.parse(localStorage.getItem("screenfocus")) && (<FocusLock autoFocus returnFocus>
+                    <CustomerHeader />
+                    <OrderMenuPage type="customer" />
+                    <AccessibilityModal />
+                </FocusLock>)}
+                {!(JSON.parse(localStorage.getItem("screenfocus"))) && (<div>
+                    <CustomerHeader />
+                    <OrderMenuPage type="customer" />
+                    <AccessibilityModal />
+                </div>)}
+            </div>
         </ArrowKeyNav>
     )
 }
