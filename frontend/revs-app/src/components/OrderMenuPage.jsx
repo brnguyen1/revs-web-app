@@ -133,7 +133,7 @@ const OrderModal = ({ open, onClose, item, ingredients, inventory, Addons, Remov
 
                 </Modal.Header>
                 <Modal.Body>
-                    <OrderModalSummary item={item} addons={Addons} removes={Removes} inventory_={inventory} addToCart={addToCart} />
+                    <OrderModalSummary item={item} addons={Addons} removes={Removes} inventory_={inventory} addToCart={addToCart} clearAddons = {clearAddons} clearRemoves = {clearRemoves} onClose = {onClose} />
 
 
                     <div>Ingredients</div>
@@ -149,7 +149,6 @@ const OrderModal = ({ open, onClose, item, ingredients, inventory, Addons, Remov
                     <Button variant="secondary" onClick={() => { onClose(); clearAddons(); clearRemoves() }}>
                         Close
                     </Button>
-                    <Button variant="primary">Understood</Button>
                 </Modal.Footer>
 
 
