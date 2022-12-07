@@ -9,7 +9,7 @@ import ArrowKeyNav from "../components/Keyboard";
 /**
  * this function will create a login page for emplyees to log in
  *
- * @return  {[type]}  [return description]
+ * @return [return description]
  */
 const Login = () => {
     return (

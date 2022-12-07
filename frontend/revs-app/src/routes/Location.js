@@ -10,7 +10,7 @@ import { Navigate } from 'react-router-dom';
 /**
  * this will creae a page for the user to see the locaton of revs and check how far away they are
  *
- * @return  {[type]}  [return description]
+ * @return  [return description]
  */
 function Location() {
     return (

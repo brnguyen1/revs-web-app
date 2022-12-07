@@ -10,7 +10,7 @@ import ArrowKeyNav from "../components/Keyboard";
 /**
  * this function will show the current inventory from the database
  *
- * @return  {[type]}  returns a web page for the user to see the inventory
+ * @return   returns a web page for the user to see the inventory
  */
 function Inventory() {
     return (

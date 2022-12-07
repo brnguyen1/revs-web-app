@@ -11,7 +11,7 @@ const google = window.google;
 /**
  * this function will implement google auth for users to use to log in
  *
- * @return  {[type]}  returns information about logged in user
+ * @return  returns information about logged in user
  */
 const GoogleAuth = () => {
 
@@ -19,7 +19,7 @@ const GoogleAuth = () => {
     /**
      * checks if the user is a manager or an employee
      *
-     * @param   {[type]}  response  response to be checked
+     * @param   response  response to be checked
      *
      * 
      */

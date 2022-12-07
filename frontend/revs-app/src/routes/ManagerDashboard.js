@@ -5,7 +5,7 @@ import FocusLock from 'react-focus-lock';
 /**
  * this will create a page for only managers to see
  *
- * @return  {[type]}  returns a view for managers will manager only funcitonality
+ * @return returns a view for managers will manager only funcitonality
  */
 const Manager = () => {
     return (

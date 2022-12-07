@@ -10,7 +10,7 @@ import ArrowKeyNav from "../components/Keyboard";
 /**
  * checks if the person logged in is an employee and shows all current employees
  *
- * @return  {[type]}  [return description]
+ * @return [return description]
  */
 function Server() {
     return (

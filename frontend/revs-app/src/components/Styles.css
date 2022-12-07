@@ -43,3 +43,16 @@
     height: 100%;
     overflow-y: scroll;
 }
+
+.parent{
+    display: inline-flex;
+    width: 30%;
+    margin: 10px;
+    margin-left: 2%;
+}
+
+.child {
+    flex: 1;
+  border: 2px solid rgb(98, 0, 0);
+  margin: 10px;
+  }

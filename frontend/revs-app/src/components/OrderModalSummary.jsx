@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
+import Button from "react-bootstrap/Button";
 /**
  * this function will render the price and other information
  * @param {*} arr parameter 
@@ -144,7 +145,7 @@ export default function OrderModalSummary(props){
     // setPrice(price + item.price)
     // let price = item.price
     let price = Number(calculateTotalPrice(addons, item.price, inventory_, quantity)).toFixed(2)
-    console.log(price)
+    // console.log(price)
     let item_for_cart = {id: (unique_id), name: (item.name), price: price, group: item.group, added: addons, removed: removes, ingredients: item.ingredients}
     // function sendItem(){
     //   for(let i = 0; i < quantity; i++){
@@ -205,10 +206,10 @@ export default function OrderModalSummary(props){
               </div>
               <hr />
               <div className="row">
-                <button onClick={() => {addToCart(item_for_cart);  onClose(); clearAddons(); clearRemoves()}}>
+                <Button onClick={() => {addToCart(item_for_cart);  onClose(); clearAddons(); clearRemoves()}}>
                     {/* {need to add logic that interacts with backend for placing order} */}
                   Add to cart
-                </button>
+                </Button>
               </div>
           
         </div>

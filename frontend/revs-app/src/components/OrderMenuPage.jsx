@@ -31,7 +31,13 @@ const OrderModal = ({ open, onClose, item, ingredients, inventory, Addons, Remov
      * @param {*} ingredient list of ingredients
      */
     const addIngredientAddons = (ingredient) => {
-        setAddons(current => [...current, ingredient])
+        if(Addons.length === 0){
+            setAddons(current => [...current, ingredient])
+        }
+        else if(!Addons.includes(ingredient)){
+            setAddons(current => [...current, ingredient])
+        }
+        
     };
     /**
      * this will remove ingredients to the order
@@ -45,7 +51,12 @@ const OrderModal = ({ open, onClose, item, ingredients, inventory, Addons, Remov
      * @param {*} ingredient list of ingredients
      */
     const addIngredientRemoves = (ingredient) => {
-        setRemoves(current => [...current, ingredient])
+        if(Removes.length === 0){
+            setRemoves(current => [...current, ingredient])
+        }
+        else if(!Removes.includes(ingredient)){
+            setRemoves(current => [...current, ingredient])
+        }
     };
     /**
      * this will remove ingredients to the order
@@ -95,16 +106,17 @@ const OrderModal = ({ open, onClose, item, ingredients, inventory, Addons, Remov
         if (type === "primary") {
             return arr.map((i) => {
                 return (
+                    <div class = 'parent'><div class='child'>
+                    {/* {i + "  "} //temporary removal for testing 
+                    <input type="checkbox" class="btn-check" id={i} autocomplete="off"></input>
+                    <label class="btn btn-primary" for={i}>X</label> */}
 
-                    <div>
-                        {/* {i + "  "} //temporary removal for testing 
-                        <input type="checkbox" class="btn-check" id={i} autocomplete="off"></input>
-                        <label class="btn btn-primary" for={i}>X</label> */}
-
-                        <Button >{i}</Button>
-                        <Button onClick={() => removeIngredientRemoves(i)}>Undo</Button>
-                        <Button onClick={() => addIngredientRemoves(i)}>Remove Ingedient</Button>
-                    </div>
+                    {" "}{"  " +  i}{"         "}
+                    <Button onClick={() => removeIngredientRemoves(i)}>+</Button>
+                    {"         "}
+                    <Button onClick={() => addIngredientRemoves(i)}>-</Button>
+                </div></div>
+                    
 
                 )
             });
@@ -128,12 +140,15 @@ const OrderModal = ({ open, onClose, item, ingredients, inventory, Addons, Remov
                     }
                 }
                 return (
-
-                    <div>
-                        <Button>{i + " "}{price}</Button>
-                        <Button onClick={() => removeIngredientAddons(i)}>X</Button>
+    
+                    <div class = 'parent'>
+                    <div  class='child'>
+                        {"  " + i + " "}{price}{"    "}
                         <Button onClick={() => addIngredientAddons(i)}>+</Button>
-                    </div>
+                        {"    "}
+                        <Button onClick={() => removeIngredientAddons(i)}>-</Button>
+                        
+                        </div></div>
 
                 )
             });
@@ -176,17 +191,18 @@ const OrderModal = ({ open, onClose, item, ingredients, inventory, Addons, Remov
 
                 </Modal.Header>
                 <Modal.Body>
-                    <OrderModalSummary item={item} addons={Addons} removes={Removes} inventory_={inventory} addToCart={addToCart} clearAddons = {clearAddons} clearRemoves = {clearRemoves} onClose = {onClose} />
+                   
 
 
-                    <div>Ingredients</div>
+                    <div><strong><center>Ingredients</center></strong></div>
                     {renderButtons(ingredients.arr, "primary", inventory)}
-                    <div>Add to your {type_of_food}</div>
+                    <div><strong><center>Add to your {type_of_food}</center></strong></div>
                     {renderButtons(ingredients.addons, "s", inventory)}
-                    <div>Sides</div>
+                    <div><strong><center>Sides</center></strong></div>
                     {renderButtons(ingredients.sides, "s", inventory)}
-                    <div>Dipping Sauce/Dressing</div>
+                    <div><strong><center>Dipping Sauce/Dressing</center></strong></div>
                     {renderButtons(ingredients.sauces, "s", inventory)}
+                    <OrderModalSummary item={item} addons={Addons} removes={Removes} inventory_={inventory} addToCart={addToCart} clearAddons = {clearAddons} clearRemoves = {clearRemoves} onClose = {onClose} />
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={() => { onClose(); clearAddons(); clearRemoves() }}>
@@ -360,7 +376,7 @@ const OrderMenuPage = (props) => {
      */
     function ButtonPress(i){
         addToCart(i);
-        alert("Added Item To Cart");
+        // alert("Added Item To Cart");
     }
     // Queue function
     /**
