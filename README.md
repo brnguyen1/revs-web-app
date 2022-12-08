@@ -41,6 +41,9 @@ PSQL_USER = <database user>
 PSQL_DATABASE = <database name>
 PSQL_PASSWORD = <database password>
 PSQL_PORT = 5432
+TWILIO_SID = <Twilio Secret ID>
+TWILIO_AUTH_TOKEN = <Twilio Authentication Token>
+PHONE_SID = <Provided Twilio Phone SID>
 ```
 
 ### Frontend
