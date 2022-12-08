@@ -44,6 +44,7 @@ function EntityModal(props) {
         Promise.resolve(req)
         props.handleComplete()
         props.handleClose()
+        document.location.reload();
     }
 
     const deleteItem = () => {
@@ -51,6 +52,7 @@ function EntityModal(props) {
         Promise.resolve(req)
         props.handleComplete()
         props.handleClose()
+        document.location.reload();
     }
 
     const updateItem = () => {
