@@ -1,8 +1,6 @@
 import React from 'react'
 import "bootstrap/dist/css/bootstrap.min.css";
-import Logo from "./logo.png";
 import * as credentials from './credentials.js'
-import { BrowserView, MobileView } from 'react-device-detect';
 
 
 /**
@@ -15,7 +13,7 @@ const CustomerHeader = () => {
             <div className="container-fluid">
                 <b>
                     <a className="navbar-brand" href="/">
-                        <img src={Logo} height="55px" width="115px" />
+                        <img src={'./logo.png'} height="55px" width="115px" />
                     </a>
                     <a className="location" href="/location">
                         <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#f6bd43" class="bi bi-pin-map" viewBox="-1 0 20 20">

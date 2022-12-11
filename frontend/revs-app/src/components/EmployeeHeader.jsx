@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import React from 'react'
-import Logo from "./logo.png";
 import * as credentials from './credentials.js'
 import "bootstrap/dist/css/bootstrap.min.css";
 /**
@@ -14,7 +13,7 @@ const EmployeeHeader = () => {
             <div className="container-fluid" style={{ fontSize: `${parseInt(localStorage.getItem("fontsize"))}px` }}>
                 <b>
                     <a className="navbar-brand" href="/">
-                        <img src={Logo} height="55px" width="115px" />
+                        <img src={'./logo.png'} height="55px" width="115px" />
                     </a>
                 </b>
                 <div className="d-flex justify-content-between">

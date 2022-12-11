@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import React from 'react'
-import Logo from "./logo.png";
 import "bootstrap/dist/css/bootstrap.min.css";
 import * as credentials from './credentials.js'
 /**
@@ -14,7 +13,7 @@ const ManagerHeader = () => {
             <div class="container-fluid">
                 <b>
                     <a className="navbar-brand" href="/">
-                        <img src={Logo} height="55px" width="115px" />
+                        <img src={'./logo.png'} height="55px" width="115px" />
                     </a>
                 </b>
                 <div class="d-flex justify-content-between">

@@ -1,8 +1,8 @@
 @import "bootstrap";
 
 /* make primary button bold */
-.btn-maroon{
-    background-color:#5b0825;
+.btn-maroon {
+    background-color: #5b0825;
     font-weight: bold;
 }
 
@@ -14,41 +14,38 @@
 }
 
 
-.modal{
+.modal {
     margin-top: 5vh;
-    }
+}
 
-    .modal-dialog {
-        height: 90%; 
-      }
-      .modal-content {
-        height: 100%; 
-      }
+.modal-dialog {
+    height: 90%;
+}
+
+.modal-content {
+    height: 100%;
+}
 
 .goog-logo-link {
-    display:none !important;
-} 
-    
-.goog-te-gadget{
+    display: none !important;
+}
+
+.goog-te-gadget {
     color: transparent !important;
     cursor: pointer;
 }
 
-/* Employee view */
-#employee-container {
-    position: fixed;
-    height: 100vh;
-}
-#employee-cards{
-    height: 100%;
-    overflow-y: scroll;
+/* Customer view */
+.card-img-top {
+    height: 60%;
+    object-fit: cover;
 }
 
 #row-footer {
     overflow-x: hidden;
 }
 
-.parent{
+.parent {
     display: inline-flex;
     width: 30%;
     margin: 10px;
@@ -57,6 +54,17 @@
 
 .child {
     flex: 1;
-  border: 2px solid rgb(98, 0, 0);
-  margin: 10px;
-  }
+    border: 2px solid rgb(98, 0, 0);
+    margin: 10px;
+}
+
+/* Employee view */
+#employee-container {
+    position: fixed;
+    height: 100vh;
+}
+
+#employee-cards {
+    height: 100%;
+    overflow-y: scroll;
+}
