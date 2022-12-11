@@ -1,12 +1,12 @@
 import EntityTable from "../components/EntityTable"
 import React from 'react'
 import "bootstrap/dist/css/bootstrap.min.css";
-import EmployeeHeader from "../components/EmployeeHeader";
 import AccessibilityModal from "../components/AccessibilityModal";
 import FocusLock from 'react-focus-lock';
 import * as credentials from '../components/credentials.js'
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
+import { BrowserRouter as Navigate } from 'react-router-dom'
 import ArrowKeyNav from "../components/Keyboard";
+import ManagerHeader from "../components/ManagerHeader";
 /**
  * this function will show the current inventory from the database
  *
@@ -17,7 +17,7 @@ function Inventory() {
         <div>
             <ArrowKeyNav>
             {JSON.parse(localStorage.getItem("screenfocus")) && (<FocusLock autoFocus returnFocus>
-                <EmployeeHeader />
+                <ManagerHeader />
                 <div style={{ fontSize: `${parseInt(localStorage.getItem("fontsize")) + 12}px` }}>View Menu Items</div>
                 <div className="container w-100">
                     {!credentials.isLoggedIn() &&
@@ -34,7 +34,7 @@ function Inventory() {
                 <AccessibilityModal />
             </FocusLock>)}
             {!(JSON.parse(localStorage.getItem("screenfocus"))) && (<div>
-                <EmployeeHeader />
+                <ManagerHeader />
                 <div style={{ fontSize: `${parseInt(localStorage.getItem("fontsize")) + 12}px` }}>View Menu Items</div>
                 <div className="container w-100">
                     {!credentials.isLoggedIn() &&

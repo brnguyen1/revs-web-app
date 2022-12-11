@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import React from 'react'
-import { useDispatch } from 'react-redux';
 import Logo from "./logo.png";
 import * as credentials from './credentials.js'
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -9,7 +8,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
  * @returns returns a header to be used for the employee side of the webpage 
  */
 const EmployeeHeader = () => {
-    const dispatch = useDispatch();
 
     return (
         <nav className="navbar bg-grey bg-secondary">
@@ -30,6 +28,7 @@ const EmployeeHeader = () => {
                     {/* <Link role="button" to="/" className="btn btn-outline-secondary me-3">Home</Link> */}
                     <Link role="button" to="/customerorder" class="btn btn-maroon btn-outline-light me-3" style={{ fontSize: `${parseInt(localStorage.getItem("fontsize"))}px` }}>Kiosk</Link>
                     <Link role="button" to="/ordermenu" className="btn btn-maroon btn-outline-light me-3" style={{ fontSize: `${parseInt(localStorage.getItem("fontsize"))}px` }}>Create Order</Link>
+                    <Link role="button" to="/queue" class="btn btn-maroon btn-outline-light me-3" style={{ fontSize: `${parseInt(localStorage.getItem("fontsize"))}px` }}>Current Queue</Link>
                     {credentials.isManager() &&
                         <Link role="button" to="/manager" className="btn  btn-maroon btn-outline-light me-3" style={{ fontSize: `${parseInt(localStorage.getItem("fontsize"))}px` }}>Manager Portal</Link>
                     }

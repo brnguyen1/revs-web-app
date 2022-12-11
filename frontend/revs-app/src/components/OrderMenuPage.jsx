@@ -5,7 +5,7 @@ import React from 'react'
 import Button from "react-bootstrap/Button";
 import { useState, useEffect } from 'react';
 import Card from 'react-bootstrap/Card';
-import './Styles.css';
+import '../static/css/Styles.css';
 import axios from 'axios'
 import Modal from 'react-bootstrap/Modal';
 
@@ -31,13 +31,13 @@ const OrderModal = ({ open, onClose, item, ingredients, inventory, Addons, Remov
      * @param {*} ingredient list of ingredients
      */
     const addIngredientAddons = (ingredient) => {
-        if(Addons.length === 0){
+        if (Addons.length === 0) {
             setAddons(current => [...current, ingredient])
         }
-        else if(!Addons.includes(ingredient)){
+        else if (!Addons.includes(ingredient)) {
             setAddons(current => [...current, ingredient])
         }
-        
+
     };
     /**
      * this will remove ingredients to the order
@@ -51,10 +51,10 @@ const OrderModal = ({ open, onClose, item, ingredients, inventory, Addons, Remov
      * @param {*} ingredient list of ingredients
      */
     const addIngredientRemoves = (ingredient) => {
-        if(Removes.length === 0){
+        if (Removes.length === 0) {
             setRemoves(current => [...current, ingredient])
         }
-        else if(!Removes.includes(ingredient)){
+        else if (!Removes.includes(ingredient)) {
             setRemoves(current => [...current, ingredient])
         }
     };
@@ -86,7 +86,7 @@ const OrderModal = ({ open, onClose, item, ingredients, inventory, Addons, Remov
         // Split the input string into two arrays containing integers/decimals
         var res = num.split(".");
         // If there is no decimal point or only one decimal place found.
-        if (res.length == 1 || res[1].length < 3) {
+        if (res.length === 1 || res[1].length < 3) {
             // Set the number to two decimal places
             value = value.toFixed(2);
         }
@@ -106,17 +106,17 @@ const OrderModal = ({ open, onClose, item, ingredients, inventory, Addons, Remov
         if (type === "primary") {
             return arr.map((i) => {
                 return (
-                    <div class = 'parent'><div class='child'>
-                    {/* {i + "  "} //temporary removal for testing 
+                    <div class='parent'><div class='child'>
+                        {/* {i + "  "} //temporary removal for testing 
                     <input type="checkbox" class="btn-check" id={i} autocomplete="off"></input>
                     <label class="btn btn-primary" for={i}>X</label> */}
 
-                    {" "}{"  " +  i}{"         "}
-                    <Button onClick={() => removeIngredientRemoves(i)}>+</Button>
-                    {"         "}
-                    <Button onClick={() => addIngredientRemoves(i)}>-</Button>
-                </div></div>
-                    
+                        {" "}{"  " + i}{"         "}
+                        <Button onClick={() => removeIngredientRemoves(i)}>+</Button>
+                        {"         "}
+                        <Button onClick={() => addIngredientRemoves(i)}>-</Button>
+                    </div></div>
+
 
                 )
             });
@@ -140,14 +140,14 @@ const OrderModal = ({ open, onClose, item, ingredients, inventory, Addons, Remov
                     }
                 }
                 return (
-    
-                    <div class = 'parent'>
-                    <div  class='child'>
-                        {"  " + i + " "}{price}{"    "}
-                        <Button onClick={() => addIngredientAddons(i)}>+</Button>
-                        {"    "}
-                        <Button onClick={() => removeIngredientAddons(i)}>-</Button>
-                        
+
+                    <div class='parent'>
+                        <div class='child'>
+                            {"  " + i + " "}{price}{"    "}
+                            <Button onClick={() => addIngredientAddons(i)}>+</Button>
+                            {"    "}
+                            <Button onClick={() => removeIngredientAddons(i)}>-</Button>
+
                         </div></div>
 
                 )
@@ -191,7 +191,7 @@ const OrderModal = ({ open, onClose, item, ingredients, inventory, Addons, Remov
 
                 </Modal.Header>
                 <Modal.Body>
-                   
+
 
 
                     <div><strong><center>Ingredients</center></strong></div>
@@ -202,7 +202,7 @@ const OrderModal = ({ open, onClose, item, ingredients, inventory, Addons, Remov
                     {renderButtons(ingredients.sides, "s", inventory)}
                     <div><strong><center>Dipping Sauce/Dressing</center></strong></div>
                     {renderButtons(ingredients.sauces, "s", inventory)}
-                    <OrderModalSummary item={item} addons={Addons} removes={Removes} inventory_={inventory} addToCart={addToCart} clearAddons = {clearAddons} clearRemoves = {clearRemoves} onClose = {onClose} />
+                    <OrderModalSummary item={item} addons={Addons} removes={Removes} inventory_={inventory} addToCart={addToCart} clearAddons={clearAddons} clearRemoves={clearRemoves} onClose={onClose} />
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={() => { onClose(); clearAddons(); clearRemoves() }}>
@@ -242,6 +242,7 @@ const OrderMenuPage = (props) => {
 
     const groups = ["Burgers", "Sandwiches", "Fried Chicken", "Salads", "Sides"];
     useEffect(() => {
+        // fetch data functions
         async function fetch_data() {
             var endpoint = process.env.REACT_APP_BACKEND_API + 'menu'
             const res = await axios.get(endpoint)
@@ -295,12 +296,17 @@ const OrderMenuPage = (props) => {
                 })
                 setOrders(orders)
             })
+        }
+        parse_data();
 
+        // Update queue items every 2 seconds
+        const updateQueue = () => {
             fetch_queue().then(res => {
                 setQueue(res.data)
             })
         }
-        parse_data();
+        const queueInterval = setInterval(updateQueue, 2000)
+        return () => clearInterval(queueInterval)
     }, [])
 
     // Order/ cart functions
@@ -374,7 +380,7 @@ const OrderMenuPage = (props) => {
      * this function will be called when you press the button to add to order
      * @param {*} i item to be added
      */
-    function ButtonPress(i){
+    function ButtonPress(i) {
         addToCart(i);
         // alert("Added Item To Cart");
     }
@@ -389,7 +395,7 @@ const OrderMenuPage = (props) => {
         if (type === "customer") {
             //console.log(category)
             return arr.map((i) => {
-                if(i.group !== "Sides"){
+                if (i.group !== "Sides") {
                     return (
 
                         <Card style={{ width: '18rem' }} className="card text-center w-25 me-1 mb-4" key={i.id} onClick={() => { setOpenOrderModal(true); setSelectedItem(i); setSelectedIngredients(Ingredients.find(element => element.id === i.id)); }}>
@@ -410,12 +416,12 @@ const OrderMenuPage = (props) => {
                                 </div>
                             </Card.Body>
                         </Card>
-    
+
                     )
                 }
-                else{
+                else {
                     return (
-                        <Card style={{ width: '18rem' }} className="card text-center w-25 me-1 mb-4" key={i.id} onClick={() => {  setSelectedItem(i); setSelectedIngredients(Ingredients.find(element => element.id === i.id)); }}>
+                        <Card style={{ width: '18rem' }} className="card text-center w-25 me-1 mb-4" key={i.id} onClick={() => { setSelectedItem(i); setSelectedIngredients(Ingredients.find(element => element.id === i.id)); }}>
                             <Card.Img variant="top" src={`./Menu_Photos/${i.image_name}.jpg`} />
                             <Card.Body>
                                 <Card.Title style={{ fontSize: `${parseInt(localStorage.getItem("fontsize"))}px` }}>{i.name}
@@ -474,7 +480,7 @@ const OrderMenuPage = (props) => {
         return groups_.map((i) => {
             let category_items = []
             for (let j = 0; j < arr.length; j++) {
-                if (arr[j].group == i) {
+                if (arr[j].group === i) {
                     category_items.push(arr[j])
                 }
             }

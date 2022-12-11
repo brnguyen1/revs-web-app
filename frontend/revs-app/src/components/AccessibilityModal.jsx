@@ -3,7 +3,7 @@ import { Modal, Button } from 'react-bootstrap';
 import GoogleTranslate from "./GoogleTranslate";
 
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./AccessibilityModal.css";
+import "../static/css/AccessibilityModal.css";
 
 /**
  * This function will create a modal to house the accesssibility functions such as increase font size and googel translate 
@@ -13,7 +13,7 @@ const AccessibilityModal = () => {
     let currentScreenFocusStatus = localStorage.getItem("screenfocus");
     let initialToggleButtonStyle = "dark";
     let initialToggleButtonText = "Off"
-    if (currentScreenFocusStatus == "true") {
+    if (currentScreenFocusStatus === "true") {
         initialToggleButtonStyle = "light";
         initialToggleButtonText = "On";
     }
@@ -77,11 +77,11 @@ const AccessibilityModal = () => {
      */
     const handleScreenFocusToggle = () => {
         const prevVal = localStorage.getItem("screenfocus");
-        if (prevVal == "true") {
+        if (prevVal === "true") {
             localStorage.setItem("screenfocus", false);
             setToggleButtonStyle("dark");
             setToggleButtonText("Off");
-        } else if (prevVal == "false") {
+        } else if (prevVal === "false") {
             localStorage.setItem("screenfocus", true);
             setToggleButtonStyle("light");
             setToggleButtonText("On");

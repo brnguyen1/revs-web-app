@@ -1,12 +1,12 @@
 import EntityTable from "../components/EntityTable"
 import React from 'react'
 import "bootstrap/dist/css/bootstrap.min.css";
-import EmployeeHeader from "../components/EmployeeHeader";
 import AccessibilityModal from "../components/AccessibilityModal";
 import FocusLock from 'react-focus-lock';
 import * as credentials from '../components/credentials.js'
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
+import { BrowserRouter as Navigate } from 'react-router-dom'
 import ArrowKeyNav from "../components/Keyboard";
+import ManagerHeader from "../components/ManagerHeader";
 /**
  * checks if the person logged in is an employee and shows all current employees
  *
@@ -23,7 +23,7 @@ function Server() {
                 <Navigate to="/"></Navigate>
             }
             {JSON.parse(localStorage.getItem("screenfocus")) && (<FocusLock autoFocus returnFocus>
-                <EmployeeHeader />
+                <ManagerHeader />
                 <div className="container w-100">
                     <div className="table-responsive text-nowrap w-100">
                         <EntityTable entityName="server" addOption />
@@ -32,7 +32,7 @@ function Server() {
                 <AccessibilityModal />
             </FocusLock>)}
             {!(JSON.parse(localStorage.getItem("screenfocus"))) && (<div>
-                <EmployeeHeader />
+                <ManagerHeader />
                 <div className="container w-100">
                     <div className="table-responsive text-nowrap w-100">
                         <EntityTable entityName="server" addOption />

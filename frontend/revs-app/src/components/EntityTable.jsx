@@ -9,7 +9,6 @@ import Modal from 'react-bootstrap/Modal';
 
 import moment from 'moment'
 
-import "bootstrap/dist/css/bootstrap.min.css";
 import "../static/css/EntityTable.css"
 
 // Add, update, delete popup
@@ -42,7 +41,6 @@ function EntityModal(props) {
     const addItem = () => {
         let req = axios.post(process.env.REACT_APP_BACKEND_API + props.entityName, itemData)
         Promise.resolve(req)
-        props.handleComplete()
         props.handleClose()
         document.location.reload();
     }
@@ -50,7 +48,6 @@ function EntityModal(props) {
     const deleteItem = () => {
         let req = axios.delete(process.env.REACT_APP_BACKEND_API + props.entityName + '/' + itemData["id"])
         Promise.resolve(req)
-        props.handleComplete()
         props.handleClose()
         document.location.reload();
     }
@@ -296,7 +293,7 @@ function EntityTable(props) {
         }
 
         parse_data();
-    }, [selectedObject]);
+    }, [selectedObject, props.entityName]);
 
     //------------------------- Component Functions -------------------------//
 
@@ -311,11 +308,6 @@ function EntityTable(props) {
     // Add modal function
     const openAddModal = () => setShowAddModal(true)
     const closeAddModal = () => setShowAddModal(false)
-
-    // Rerender on add, update, or delete
-    const completeRequest = () => {
-        setSelectedObject({});
-    }
 
     // filter function
     const search = (e) => {
@@ -376,10 +368,10 @@ function EntityTable(props) {
 
     const dataTable =
         <div>
-            <EntityModal task="update" item={selectedObject} show={showUpdateModal} handleComplete={completeRequest} handleClose={closeUpdateModal} entityName={props.entityName} />
+            <EntityModal task="update" item={selectedObject} show={showUpdateModal} handleClose={closeUpdateModal} entityName={props.entityName} />
             <div className='row py-2'>
                 <div className="col-6">
-                    {props.addOption ? <EntityModal task="add" headers={headers} show={showAddModal} handleComplete={completeRequest} handleClose={closeAddModal} entityName={props.entityName} /> : null}
+                    {props.addOption ? <EntityModal task="add" headers={headers} show={showAddModal} handleClose={closeAddModal} entityName={props.entityName} /> : null}
                     {props.addOption ? <Button variant="primary" onClick={openAddModal} style={{ fontSize: `${parseInt(localStorage.getItem("fontsize")) - 2}px` }}> Add New Item </Button> : null}
                 </div>
                 <div className='col-6 px-5'>

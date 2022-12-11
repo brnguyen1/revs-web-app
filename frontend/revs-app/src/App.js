@@ -1,4 +1,3 @@
-import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Customer from './routes/Customer';
 import Orders from './routes/Orders';
@@ -7,9 +6,10 @@ import OrderMenu from './routes/OrderMenu';
 import Server from './routes/Server';
 import MenuItems from './routes/MenuItems';
 import Manager from './routes/ManagerDashboard';
-import React from 'react'
 import Inventory from './routes/Inventory';
 import Location from './routes/Location';
+import Queue from './routes/Queue';
+import React from 'react'
 
 // Act as router for project
 function App() {
@@ -22,6 +22,7 @@ function App() {
 
         {/* Employee Routes */}
         <Route path="/ordermenu" element={<OrderMenu />} />
+        <Route path="/queue" element={<Queue/>} />
         <Route path="/" element={<Login />} />
 
         {/* Manager Routes */}

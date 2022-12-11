@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import React from 'react'
 import Logo from "./logo.png";
-import { useDispatch } from 'react-redux';
 import "bootstrap/dist/css/bootstrap.min.css";
 import * as credentials from './credentials.js'
 /**
@@ -9,7 +8,6 @@ import * as credentials from './credentials.js'
  * @returns returns a header to be used for the manager side of the webpage 
  */
 const ManagerHeader = () => {
-    const dispatch = useDispatch();
 
     return (
         <nav class="navbar bg-grey bg-secondary">
@@ -21,6 +19,7 @@ const ManagerHeader = () => {
                 </b>
                 <div class="d-flex justify-content-between">
                     <Link role="button" to="/customerorder" class="btn btn-maroon btn-outline-light me-3" style={{ fontSize: `${parseInt(localStorage.getItem("fontsize"))}px` }}>Kiosk</Link>
+                    <Link role="button" to="/manager" class="btn btn-maroon btn-outline-light me-3" style={{ fontSize: `${parseInt(localStorage.getItem("fontsize"))}px` }}>Logs</Link>
                     <Link role="button" to="/ordermenu" class="btn btn-maroon btn-outline-light me-3" style={{ fontSize: `${parseInt(localStorage.getItem("fontsize"))}px` }}>Server Portal</Link>
                     <Link onClick={() => { credentials.logOut() }} role="button" to="/" className="btn btn-maroon btn-outline-light me-3" style={{ fontSize: `${parseInt(localStorage.getItem("fontsize"))}px` }}>Logout</Link>
                 </div>
