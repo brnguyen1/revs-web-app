@@ -31,9 +31,12 @@ const AccessibilityModal = () => {
      */
     const openModal = () => {
         setDisplayModal(true);
+        
         if (!localStorage.getItem("fontsize")) {
-            console.log("not set")
             localStorage.setItem("fontsize", 16);
+        }
+        if (!localStorage.getItem("screenfocus")) {
+            localStorage.setItem("screenfocus", false);
         }
         setCurrentFontSize(parseInt(localStorage.getItem("fontsize")));
     }
