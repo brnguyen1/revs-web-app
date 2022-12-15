@@ -2,7 +2,7 @@
 ![team44](https://media.github.tamu.edu/user/15548/files/81364fea-08b0-491e-980f-e2a0ffcd02bb)
 
 ## Entity Relationship Diagram
-![Database ER diagram (crow's foot)](https://user-images.githubusercontent.com/57299505/207764566-afd7293c-fd3f-43be-817d-a1f60e2e6498.png)
+![Database ER diagram (crow's foot)](https://user-images.githubusercontent.com/57299505/207764668-1077d9d4-25a5-4f6e-aeb0-2529db64d0ee.png)
 
 ## What to Download
 If you want to work/run the project, you need to install node.js and npm on your device.  Head to https://nodejs.org/en/ to download all the appropriate files for your system.
