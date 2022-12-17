@@ -42,20 +42,17 @@ function EntityModal(props) {
         let req = axios.post(process.env.REACT_APP_BACKEND_API + props.entityName, itemData)
         Promise.resolve(req)
         props.handleClose()
-        document.location.reload();
     }
 
     const deleteItem = () => {
         let req = axios.delete(process.env.REACT_APP_BACKEND_API + props.entityName + '/' + itemData["id"])
         Promise.resolve(req)
         props.handleClose()
-        document.location.reload();
     }
 
     const updateItem = () => {
         let req = axios.put(process.env.REACT_APP_BACKEND_API + props.entityName + '/' + itemData["id"], itemData)
         Promise.resolve(req)
-        props.handleComplete()
         props.handleClose()
     }
 
@@ -303,11 +300,17 @@ function EntityTable(props) {
         setShowUpdateModal(true)
     }
 
-    const closeUpdateModal = () => setShowUpdateModal(false)
+    const closeUpdateModal = () => {
+        setShowUpdateModal(false)
+        document.location.reload();
+    }
 
     // Add modal function
     const openAddModal = () => setShowAddModal(true)
-    const closeAddModal = () => setShowAddModal(false)
+    const closeAddModal = () => {
+        setShowAddModal(false)
+        document.location.reload();
+    }
 
     // filter function
     const search = (e) => {
@@ -315,13 +318,13 @@ function EntityTable(props) {
     }
 
     const decrementOffset = () => {
-        if(offset !== 0){
+        if (offset !== 0) {
             setOffset(offset - 50)
         }
     }
 
     const incrementOffset = () => {
-        if(offset + 50 < rawData.length){
+        if (offset + 50 < rawData.length) {
             setOffset(offset + 50)
         }
     }
@@ -395,7 +398,7 @@ function EntityTable(props) {
                         <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z" />
                     </svg>
                 </button>
-                <button type='button' className='btn' style={{fontSize: "2rem"}}>
+                <button type='button' className='btn' style={{ fontSize: "2rem" }}>
                     {offset / 50}
                 </button>
                 <button type='button' className='btn float-right' onClick={incrementOffset}>
