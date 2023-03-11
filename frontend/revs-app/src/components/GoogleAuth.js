@@ -44,30 +44,33 @@ const GoogleAuth = () => {
     };
 
     useEffect(() => {
-        if (credentials.isLoggedIn()) {
-            setUser(JSON.parse(localStorage.getItem("user")));
-            document.getElementById("signInDiv").hidden = true;
-        }
-        try {
-            google.accounts.id.initialize({
-                client_id: "471568519931-j5j28lf530at8p85mm854mbal1s10f8e.apps.googleusercontent.com",
-                callback: handleCallbackResponse
-            });
-        }
-        catch (e) {
-            console.log("catch statement encountered attempting initialize")
-        }
+        // if (credentials.isLoggedIn()) {
+        //     setUser(JSON.parse(localStorage.getItem("user")));
+        //     document.getElementById("signInDiv").hidden = true;
+        // }
+        // try {
+        //     google.accounts.id.initialize({
+        //         client_id: "471568519931-j5j28lf530at8p85mm854mbal1s10f8e.apps.googleusercontent.com",
+        //         callback: handleCallbackResponse
+        //     });
+        // }
+        // catch (e) {
+        //     console.log("catch statement encountered attempting initialize")
+        // }
 
-        try {
-            google.accounts.id.renderButton(
-                document.getElementById("signInDiv"),
-                { theme: "outline", size: "large"}
-            );
-        }
-        catch (e) {
-            console.log("catch statement encountered attempting render")
-        }
-
+        // try {
+        //     google.accounts.id.renderButton(
+        //         document.getElementById("signInDiv"),
+        //         { theme: "outline", size: "large"}
+        //     );
+        // }
+        // catch (e) {
+        //     console.log("catch statement encountered attempting render")
+        // }
+        localStorage.setItem("status", "1");
+        localStorage.setItem("ismanager", true);
+        localStorage.setItem("employee_id", 1);
+        
     }, []);
 
     return (
@@ -77,7 +80,7 @@ const GoogleAuth = () => {
                 <div>
                     <center>
                         
-                        <img src={user.picture}></img>
+                        {/* <img src={user.picture}></img>
                         <h3>{"Logged In: " + user.name}</h3>
                         {credentials.isManager() &&
                             <h5>{"(Manager)"}</h5>
@@ -91,7 +94,7 @@ const GoogleAuth = () => {
                             <><Link role="button" to="/ordermenu" class="btn btn-outline-dark me-3" style={{ fontSize: `${parseInt(localStorage.getItem("fontsize"))}px` }}>Server Portal</Link><Link role="button" to="/manager" className="btn btn-outline-dark me-3" style={{ fontSize: `${parseInt(localStorage.getItem("fontsize"))}px` }}>Manager Portal</Link></>
                         }
 
-                        <button style={{ fontSize: `${parseInt(localStorage.getItem("fontsize"))}px` }} class="btn btn-outline-dark me-3" onClick={() => credentials.logOut()}> Sign Out </button>
+                        <button style={{ fontSize: `${parseInt(localStorage.getItem("fontsize"))}px` }} class="btn btn-outline-dark me-3" onClick={() => credentials.logOut()}> Sign Out </button> */}
 
                     </center>
                 </div>

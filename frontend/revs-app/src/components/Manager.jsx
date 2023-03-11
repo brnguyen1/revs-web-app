@@ -13,8 +13,10 @@ const Manager = () => {
     return (
         <div>         
             {!credentials.isLoggedIn() &&
-                
+                <>
+                {console.log("not in")}
                <Navigate to = "/"></Navigate>
+                </>
             }
             {!credentials.isManager() &&
                 <Navigate to = "/"></Navigate>

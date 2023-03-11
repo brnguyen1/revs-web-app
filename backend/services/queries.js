@@ -8,7 +8,7 @@ const pool = new Pool({
     database: process.env.PSQL_DATABASE,
     password: process.env.PSQL_PASSWORD,
     port: process.env.PSQL_PORT,
-    ssl: { rejectUnauthorized: false }
+    // ssl: { rejectUnauthorized: false }
 });
 
 const client = require('twilio')(process.env.TWILIO_SID, process.env.TWILIO_AUTH_TOKEN);
@@ -17,7 +17,7 @@ async function select_all_query(entity, res) {
     const query = format("SELECT * FROM %I ORDER BY id DESC", entity)
 
     pool.query(query, function (err, data) {
-        if (err) return console.log("Query Error");
+        if (err) return console.log(err);
 
         res.json(data.rows)
     })
@@ -52,10 +52,9 @@ async function add_one_query(entity, req, res) {
     })
 
     const query = format("INSERT INTO %I(%I) VALUES(%L) RETURNING id", entity, Object.keys(req.body), values)
-
     pool.query(query, function (err, data) {
-        if (err) return console.log("Query Error %s", err);
-
+        if (err) return console.log("Query Error %s %s", err, query);
+        
         if (entity === "queue") {
             if (req.body.phone) {
                 client.messages

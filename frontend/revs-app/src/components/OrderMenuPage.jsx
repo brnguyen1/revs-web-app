@@ -272,6 +272,7 @@ const OrderMenuPage = (props) => {
                 let ingredients = [];
 
                 Object.values(res.data).forEach(field => {
+                    
                     menu_data.push({ id: field.id, name: field.description, price: field.cost, group: field.group, added: [], removed: [], ingredients: Array(field.ingredients), information: field.information, image_name: field.image_name })
                     ingredients.push({ id: field.id, arr: field.ingredients, addons: field.addon_ingredients, sides: field.side_options, sauces: field.sauces })
 

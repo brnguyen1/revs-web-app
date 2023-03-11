@@ -9,6 +9,7 @@ const status = localStorage.getItem("status");
 export function isLoggedIn(){
     if(status === "1")
     {
+        // console.log(status)
         return true;
     }
     else

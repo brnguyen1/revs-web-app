@@ -12,20 +12,20 @@ const EmployeeLoginPage = () => {
     return (
         <div>
 
-            {credentials.isLoggedIn() &&
+            {/* {credentials.isLoggedIn() && */}
+            <>
                 <EmployeeHeader />
-            }
-            {credentials.isLoggedIn() &&
                 <h3 className="text-center mt-4" style={{ fontSize: `${parseInt(localStorage.getItem("fontsize")) + 20}px` }}>Employee Home Page</h3>
-            }
-            {!credentials.isLoggedIn() &&
+            </>
+            {/* // } */}
+            {/* {!credentials.isLoggedIn() &&
                 <center>
                 <br></br>
                  <img src={'./logo.png'} height = "240px" width = "500px"/> 
                  <h3 className="text-center mt-4" style={{ fontSize: `${parseInt(localStorage.getItem("fontsize")) + 20}px` }}>Employee Login Page</h3>  
                 </center>
                 
-            }
+            } */}
 
             {}
             <div className="d-flex justify-content-center mt-5">
