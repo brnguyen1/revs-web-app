@@ -1,6 +1,9 @@
 # Rev's Web Application
 ![team44](https://media.github.tamu.edu/user/15548/files/81364fea-08b0-491e-980f-e2a0ffcd02bb)
 
+## Entity Relationship Diagram
+![Database ER diagram (crow's foot) (2)](https://user-images.githubusercontent.com/57299505/207764837-20b76a2d-e343-4b90-bf63-529508fbc9ee.png)
+
 ## What to Download
 If you want to work/run the project, you need to install node.js and npm on your device.  Head to https://nodejs.org/en/ to download all the appropriate files for your system.
 
@@ -56,6 +59,3 @@ REACT_APP_BACKEND_API = <backend link>
 ```
 
 The backend api link should be ```http://localhost:4173/``` for development. 
-
-## Production Link
-https://orca-app-j43t2.ondigitalocean.app/
